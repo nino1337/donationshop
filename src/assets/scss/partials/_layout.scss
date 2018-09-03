@@ -1,0 +1,93 @@
+@charset "utf-8";
+
+/**
+ * Capitan layout.scss v2.0.0
+ *
+ * Copyright brandung GmbH & Co.KG
+ * http://www.brandung.de/
+ *
+ * Date: 2016-09-05
+ * MIT License (MIT)
+ */
+
+/* ==========================================================================
+   Global Layout
+   ========================================================================== */
+
+* {
+  @include prefix(box-sizing, border-box);
+}
+
+body {
+  @include font();
+  background: color("white");
+  color: color("black");
+  font-size: $body-font-size;
+  line-height: 1.4;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: getBreakpointList();
+  display: none;
+}
+
+/* stylelint-disable */
+main {
+  @extend .container; // extend container class from bootstrap _grid.scss partial
+  @include clearfix();
+}
+/* stylelint-enable */
+
+/* ==========================================================================
+   Grid overrides
+   ========================================================================== */
+
+// Container widths
+.container {
+  margin: 0 auto;
+  min-width: ($container-min-widths / $body-font-size-px) + em;
+  max-width: ($container-max-widths / $body-font-size-px) + em;
+
+  @include respondMin(point("min-sm")) {
+    padding: 0 ($softgrid-gutter-width * 4);
+  }
+
+  @include respondMin(point("min-md")) {
+    padding: 0 ($softgrid-gutter-width * 6);
+  }
+
+  &--text {
+    @include clearfix();
+    margin: 0 auto;
+    max-width: (750 / $body-font-size-px) + em;
+  }
+}
+
+// Row
+.row {
+  margin-bottom: ($grid-gutter-width / 2);
+}
+
+/* ==========================================================================
+  Content Elements
+  ========================================================================== */
+
+img {
+  height: auto;
+  outline: 0;
+  max-width: 100%;
+}
+
+hr {
+  @include clearfix();
+  margin: 20px 0;
+}
+
+/* =====================
+   Styling Bra Widget
+   ====================== */
+
+.sg__wgt-container li:before {
+  display: none;
+}
