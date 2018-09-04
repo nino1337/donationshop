@@ -1,6 +1,7 @@
 # fe_stc-donationshop-18
 
 **Project lead:** Nino Dornemann
+
 **2nd:** Sebastian Steiner
 
 Lorem ipsum Projektbeschreibung
