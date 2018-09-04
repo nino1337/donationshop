@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: 'Steps',
+  name: 'Step',
   props: ['step']
 };
 </script>
@@ -16,11 +16,12 @@ export default {
 @import './../assets/scss/main.scss';
 
 .donate-shop__step {
-  border-bottom: 4px solid color('ci');
+  border-bottom: 2px solid color('ci');
   color: color('ci');
   counter-increment: step;
-  font-size: 24px;
-  padding-left: 32px;
+  font-size: 16px;
+  margin: 0 24px;
+  padding-left: 12px;
   position: relative;
   text-transform: uppercase;
 
@@ -29,6 +30,13 @@ export default {
     position: absolute;
     top: 0;
     left: 0;
+  }
+
+  @include respondMin(point('min-md')) {
+    border-bottom: 4px solid color('ci');
+    font-size: 24px;
+    margin: 0;
+    padding-left: 32px;
   }
 }
 

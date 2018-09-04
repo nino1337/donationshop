@@ -8,21 +8,7 @@
           Geburtspacket
           <span v-if="special" class="card__special">beliebt</span>
         </div>
-        <div class="card__amount">
-          <div class="card__amount-dropdown-wrapper">
-            <select class="card__amount-dropdown">
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
-            </select>
-          </div>
-          <div class="card__amount-text">
-            im Wert von
-          </div>
-          <div class="card__amount-value">30€</div>
-        </div>
+        <Input :value="30"/>
         <div class="card__basket">
           in den Warenkorb
         </div>
@@ -39,8 +25,12 @@
 </template>
 
 <script>
+import Input from './Input';
 export default {
   name: 'Card',
+  components: {
+    Input,
+  },
   props: {
     special: {
       type: Boolean,
@@ -61,7 +51,7 @@ export default {
 
 .card {
   border-radius: 7px;
-  margin: 0 16px;
+  margin: 0 16px 24px;
   max-width: 300px;
 }
 
@@ -93,43 +83,6 @@ export default {
   height: 21px;
   margin-left: auto;
   padding: 0 5px;
-}
-
-.card__amount {
-  display: flex;
-  margin-bottom: 24px;
-}
-
-.card__amount-dropdown-wrapper {
-  margin-right: 16px;
-  position: relative;
-
-  &::before {
-    content: url('/icons/quantity.svg');
-    background-size: 100%;
-    position: absolute;
-    right: 16px;
-    z-index: 1;
-  }
-}
-
-.card__amount-dropdown {
-  appearance: none;
-  background-color: color('white');
-  border-radius: 0;
-  font-size: 16px;
-  padding: 8px 32px 8px 16px;
-}
-
-.card__amount-text {
-  font-size: 16px;
-  line-height: 36px;
-}
-
-.card__amount-value {
-  margin-left: 16px;
-  font-size: 24px;
-  font-weight: bold;
 }
 
 .card__basket {
