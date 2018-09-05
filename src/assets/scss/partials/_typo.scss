@@ -1,0 +1,173 @@
+@charset "utf-8";
+
+/**
+ * Capitan typo.scss v1.0.0
+ *
+ * Copyright brandung GmbH & Co.KG
+ * http://www.brandung.de/
+ *
+ * Date: 2014-03-14
+ * MIT License (MIT)
+ */
+
+/* ==========================================================================
+   Webfonts
+   ========================================================================== */
+
+@font-face {
+  font-family: "TradeGothic";
+  src: url("/fonts/tradegothic/344BF3_0_0.eot?o54bqx");
+  src: url("/fonts/tradegothic/344BF3_0_0.eot?o54bqx#iefix")
+      format("embedded-opentype"),
+    url("/fonts/tradegothic/344BF3_0_0.woff2?o54bqx") format("woff2"),
+    url("/fonts/tradegothic/344BF3_0_0.ttf?o54bqx") format("truetype"),
+    url("/fonts/tradegothic/344BF3_0_0.woff?o54bqx") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "GillSans";
+  src: url("/fonts/gillsans/344D4E_0_0.eot?o54bqx");
+  src: url("/fonts/gillsans/344D4E_0_0.eot?o54bqx#iefix")
+      format("embedded-opentype"),
+    url("/fonts/gillsans/344D4E_0_0.woff2?o54bqx") format("woff2"),
+    url("/fonts/gillsans/344D4E_0_0.ttf?o54bqx") format("truetype"),
+    url("/fonts/gillsans/344D4E_0_0.woff?o54bqx") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+h1,
+.h1 {
+  @include fontSizeREM(40);
+  color: color("grey-dark");
+  font-family: $ff-deco;
+  font-weight: normal;
+  margin: ($softgrid-gutter-width * 6) 0;
+  text-transform: uppercase;
+
+  @include respondMin(point("min-sm")) {
+    word-break: break-word;
+  }
+
+  @include respondMin(point("min-md")) {
+    @include fontSizeREM(72);
+  }
+}
+
+h2,
+.h2 {
+  @include fontSizeREM(50);
+  color: color("black");
+  font-family: $ff-deco;
+  font-weight: normal;
+  line-height: 1.25;
+  margin: ($softgrid-gutter-width * 5) 0 ($softgrid-gutter-width * 3);
+  text-transform: uppercase;
+
+  @include respondMin(point("min-sm")) {
+    word-break: break-word;
+  }
+}
+
+h3,
+.h3 {
+  @include fontSizeREM(24);
+  color: color("grey-dark");
+  font-family: $ff-deco;
+  font-weight: normal;
+  margin: ($softgrid-gutter-width * 4) 0;
+  text-transform: uppercase;
+
+  @include respondMin(point("min-sm")) {
+    word-break: break-word;
+  }
+
+  @include respondMin(point("min-md")) {
+    @include fontSizeREM(30);
+  }
+}
+
+h4,
+.h4 {
+  @include fontSizeREM(18);
+  color: color("grey");
+  font-family: $ff-deco;
+  margin: ($softgrid-gutter-width * 3) 0;
+  text-transform: uppercase;
+
+  @include respondMin(point("min-sm")) {
+    word-break: break-word;
+  }
+
+  @include respondMin(point("min-md")) {
+    @include fontSizeREM(22);
+  }
+}
+
+.font-small {
+  @include fontSizeREM(16);
+  color: color("grey");
+
+  @include respondMin(point("min-sm")) {
+    word-break: break-word;
+  }
+
+  @include respondMin(point("min-md")) {
+    @include fontSizeREM(20);
+  }
+}
+
+/*
+* styling in paragraphs 
+*/
+
+a {
+  color: color("black");
+
+  &:hover {
+    color: color("ci");
+  }
+}
+
+ul {
+  li {
+    list-style: none;
+
+    &:before {
+      content: "";
+      display: inline-block;
+      height: 6px;
+      width: 6px;
+      background-color: color("ci");
+      vertical-align: middle;
+      margin-top: -5px;
+      margin-left: -25px;
+      margin-right: 20px;
+      border-radius: 6px;
+    }
+  }
+}
+
+p {
+  margin: 1em 0;
+}
+
+p,
+figcaption,
+ul {
+  @include fontSizeREM(18);
+
+  @include respondMin(point("min-md")) {
+    font-size: inherit;
+  }
+}
+
+.text-intro {
+  @include fontSizeREM(22);
+
+  @include respondMin(point("min-md")) {
+    @include fontSizeREM(26);
+  }
+}

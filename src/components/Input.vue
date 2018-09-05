@@ -1,12 +1,17 @@
 <template>
   <div class="input">
     <div class="input__dropdown-wrapper">
-      <select class="input__dropdown">
-        <option>1</option>
-        <option>2</option>
-        <option>3</option>
-        <option>4</option>
-        <option>5</option>
+      <select class="input__dropdown" @change="$emit('amountChanged', $event.target.value)">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
       </select>
     </div>
     <div class="input__text">
@@ -25,7 +30,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
-@import './../assets/scss/main.scss';
+@import "../assets/scss/partials/functions";
+@import "../assets/scss/partials/variables";
+@import "../assets/scss/partials/mixins";
 
 .input {
   display: flex;
@@ -39,6 +46,7 @@ export default {
   &::before {
     content: url('/icons/quantity.svg');
     position: absolute;
+    pointer-events: none;
     right: 16px;
     z-index: 1;
   }
@@ -60,7 +68,7 @@ export default {
 .input__value {
   margin-left: 16px;
   font-size: 24px;
-  font-weight: bold;
+  font-family: 'TradeGothic';
 }
 
 .basket__package {

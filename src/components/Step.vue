@@ -1,5 +1,5 @@
 <template>
-    <div class="donate-shop__step">
+    <div class="donate-shop__step" :class="{ 'is-active': active }">
       {{step}}
     </div>
 </template>
@@ -7,7 +7,7 @@
 <script>
 export default {
   name: 'Step',
-  props: ['step']
+  props: ['step', 'active']
 };
 </script>
 
@@ -16,14 +16,19 @@ export default {
 @import './../assets/scss/main.scss';
 
 .donate-shop__step {
-  border-bottom: 2px solid color('ci');
-  color: color('ci');
+  border-bottom: 2px solid color('grey');
+  color: color('grey');
   counter-increment: step;
   font-size: 16px;
   margin: 0 24px;
   padding-left: 12px;
   position: relative;
   text-transform: uppercase;
+
+  &.is-active {
+    border-color: color('ci');
+    color: color('ci');
+  }
 
   &::before {
     content: counter(step)'.';
@@ -33,7 +38,7 @@ export default {
   }
 
   @include respondMin(point('min-md')) {
-    border-bottom: 4px solid color('ci');
+    border-width: 4px;
     font-size: 24px;
     margin: 0;
     padding-left: 32px;

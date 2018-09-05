@@ -1,15 +1,15 @@
 <template>
     <div class="card">
       <div class="card__head">
-        <img src="https://picsum.photos/320/200/?random" />
+        <img :src="image" />
       </div>
       <div class="card__body">
         <div class="card__headline">
-          Geburtspacket
-          <span v-if="special" class="card__special">beliebt</span>
+          {{title}}
+          <span v-if="isSpecial" class="card__special">beliebt</span>
         </div>
-        <Input :value="30"/>
-        <div class="card__basket">
+        <Input :value="value" @amountChanged="setAmount"/>
+        <div class="card__basket" @click="addToBasket">
           in den Warenkorb
         </div>
         <div class="card__more-info-btn" @click="showMore = !showMore">
@@ -18,7 +18,7 @@
           <span v-else><img src="/icons/plus.svg" /> </span>
         </div>
         <div v-if="showMore" class="card__more-info">
-          12 Kindern  kann  ein  guter  Start  ins  Leben  ermöglicht  werden, indem z.B. bei ihrer Geburt ein steriles Entbindungs-Set genutzt wird. Dieses beinhalten unter anderem eine saubere Unterlage und Seife, damit sich die Neugeborenen nicht mit Keimen infizieren.
+          {{moreInfo}}
         </div>
       </div>
     </div>
@@ -26,22 +26,73 @@
 
 <script>
 import Input from './Input';
+import { basket } from '../basket';
+
 export default {
   name: 'Card',
   components: {
     Input,
   },
   props: {
-    special: {
-      type: Boolean,
-      default: false
-    }
+    id: Number,
+    image: String,
+    title: String,
+    isSpecial: Boolean,
+    value: Number,
+    moreInfo: String
   },
   data() {
     return {
       showMore: false,
+      basket: basket,
     }
   },
+  computed: {
+    basketCards() {
+      return this.basket;
+    }
+  },
+  methods: {
+    addToBasket() {
+      // if already is in basket set new amount and return
+      if (this.isInBasket()) {
+        setAmount()
+        return
+      }
+
+      // push cards to basket.cards array
+      this.basket.cards.push({
+        id: this.id,
+        title: this.title,
+        value: this.value,
+        amount: this.amount,
+    }) 
+    // calculate new accumulated value
+    this.accumulateValue();
+    },
+    isInBasket() {
+      let isInBasket = false;
+
+      this.basket.cards.forEach(item => {
+        if(item.id === this.id) {
+          isInBasket = true;
+        }
+      })
+
+      return isInBasket;
+    },
+    accumulateValue() {
+      let value = 0;
+      this.basket.cards.forEach(item => {
+        value += (item.value * item.amount);
+      })
+
+      this.basket.accumulatedValue = value;
+    },
+    setAmount(value) {
+      this.amount = value;
+    }
+  }
 };
 </script>
 
@@ -67,6 +118,7 @@ export default {
 
 .card__headline {
   display: flex;
+  font-family: 'TradeGothic';
   font-size: 24px;
   margin-bottom: 24px;
   text-transform: uppercase;
