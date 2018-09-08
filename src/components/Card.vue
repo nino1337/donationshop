@@ -8,7 +8,7 @@
           {{title}}
           <span v-if="isSpecial" class="card__special">beliebt</span>
         </div>
-        <Input :value="value" @amountChanged="setAmount"/>
+        <Input :value="value" :amount="1" @amountChanged="setAmount"/>
         <div class="card__basket" @click="addToBasket">
           in den Warenkorb
         </div>
@@ -26,7 +26,7 @@
 
 <script>
 import Input from './Input';
-import { basket } from '../basket';
+import basket from '../basket';
 
 export default {
   name: 'Card',
@@ -45,18 +45,14 @@ export default {
     return {
       showMore: false,
       basket: basket,
-    }
-  },
-  computed: {
-    basketCards() {
-      return this.basket;
+      amount: 1,
     }
   },
   methods: {
     addToBasket() {
       // if already is in basket set new amount and return
       if (this.isInBasket()) {
-        setAmount()
+        this.changeAmount();
         return
       }
 
@@ -82,15 +78,27 @@ export default {
       return isInBasket;
     },
     accumulateValue() {
-      let value = 0;
+      let value = 0,
+      itemCount = 0;
       this.basket.cards.forEach(item => {
         value += (item.value * item.amount);
+        itemCount += item.amount;
       })
 
+      this.basket.itemCount = itemCount;
       this.basket.accumulatedValue = value;
     },
-    setAmount(value) {
-      this.amount = value;
+    setAmount(input) {
+      this.amount = parseInt(input.value);
+    },
+    changeAmount() {
+      this.basket.cards.forEach((item, index) => {
+        if(item.id === this.id) {
+          this.basket.cards[index].amount = this.amount;
+        }
+      })
+
+      this.accumulateValue();
     }
   }
 };

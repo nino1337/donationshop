@@ -1,7 +1,7 @@
 <template>
   <div class="input">
     <div class="input__dropdown-wrapper">
-      <select class="input__dropdown" @change="$emit('amountChanged', $event.target.value)">
+      <select class="input__dropdown" @change="$emit('amountChanged', $event.target)" v-model="selected">
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
@@ -24,7 +24,20 @@
 <script>
 export default {
   name: 'Input',
-  props: ['classes','value']
+  props: ['value','amount'],
+  data() {
+    return {
+      selected: ''
+    }
+  },
+  created() {
+    this.selected = this.amount;
+  },
+  watch: {
+    amount() {
+      this.selected = this.amount;
+    }
+  }
 };
 </script>
 
