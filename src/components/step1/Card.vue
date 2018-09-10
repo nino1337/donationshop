@@ -8,7 +8,7 @@
           {{title}}
           <span v-if="isSpecial" class="card__special">beliebt</span>
         </div>
-        <Input :value="value" :amount="1" @amountChanged="setAmount"/>
+        <Input :value="value" :amount="1" @amountChanged="setAmount" />
         <div class="card__basket" @click="addToBasket">
           in den Warenkorb
         </div>
@@ -25,8 +25,8 @@
 </template>
 
 <script>
-import Input from './Input';
-import basket from '../basket';
+import Input from '../elements/Input';
+import basket from '../../basket';
 
 export default {
   name: 'Card',
@@ -50,20 +50,18 @@ export default {
   },
   methods: {
     addToBasket() {
-      // if already is in basket set new amount and return
       if (this.isInBasket()) {
         this.changeAmount();
         return
       }
 
-      // push cards to basket.cards array
       this.basket.cards.push({
         id: this.id,
         title: this.title,
         value: this.value,
         amount: this.amount,
     }) 
-    // calculate new accumulated value
+
     this.accumulateValue();
     },
     isInBasket() {
@@ -106,7 +104,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-@import './../assets/scss/main.scss';
+@import "../../assets/scss/partials/functions";
+@import "../../assets/scss/partials/variables";
+@import "../../assets/scss/partials/mixins";
 
 .card {
   border-radius: 7px;

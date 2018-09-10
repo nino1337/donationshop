@@ -5,11 +5,11 @@
         <span>Warenkorb ausblenden</span> <span class="basket__icon" :data-count="itemCount"><img src="/icons/shopping-cart.svg" /></span><span class="basket__chevron"><img src="/icons/chevron.svg" /></span>
       </div>
       <div class="basket__content">
-        <div ref="basketPackage" class="basket__package" v-for="(item, index) in cards" :key="index" :data-index="index" >
+        <div ref="basketPackage" class="basket__package" v-for="(item, index) in cards" :key="index">
           <div class="basket__package-title">
             {{item.title}}<span class="basket__remove" @click="removeItem(index)"><img src="/icons/close.svg" /></span>
           </div>
-          <Input :value="item.value" @amountChanged="setAmount" :amount="item.amount"/>
+          <Input :value="item.value" @amountChanged="setAmount(item.id, ...arguments)" :amount="item.amount"/>
         </div>
         <div class="basket__download" v-if="Object.keys(occasion).length">
           <span>inkl. Weihnachtskarten als PDF zum Ausdrucken</span>
@@ -36,22 +36,21 @@
 </template>
 
 <script>
-import Input from './Input';
-import Button from './Button';
+import Input from './elements/Input';
+import Button from './elements/Button';
 import basket from '../basket';
 
 export default {
   name: 'Basket',
   components: {
     Input,
-    Button,
+    Button, 
   },
   data() {
     return {
       basketVisible: false,
       basket: basket,
       amount: 0,
-      packageIndex: 0,
     }
   },
   computed: {
@@ -69,18 +68,15 @@ export default {
     }
   },
   methods: {
-    changeAmount() {
-      const basketPackage = this.$refs.basketPackage;
-      const basketPackageIndex = parseInt(basketPackage.dataset.index); // TODO fix
-
-      this.basket.cards[basketPackageIndex].amount = this.amount;
+    changeAmount(id) {
+      this.basket.cards[id].amount = this.amount;
 
       this.accumulateValue();
     },
-    setAmount(input) {
+    setAmount(id, input) {
       this.amount = parseInt(input.value);
 
-      this.changeAmount();
+      this.changeAmount(id);
     },
     accumulateValue() {
       let value = 0,
@@ -99,15 +95,7 @@ export default {
       basketItems.splice(index, 1);
 
       this.basket.cards = basketItems;
-      this.setCount()
-    },
-    setCount() {
-      let itemCount = 0;
-      this.basket.cards.forEach(item => {
-        itemCount += item.amount;
-      })
-
-      this.basket.itemCount = itemCount;      
+      this.accumulateValue()
     },
   }
 };

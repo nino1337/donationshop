@@ -43,9 +43,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
-@import "../assets/scss/partials/functions";
-@import "../assets/scss/partials/variables";
-@import "../assets/scss/partials/mixins";
+@import "../../assets/scss/partials/functions";
+@import "../../assets/scss/partials/variables";
+@import "../../assets/scss/partials/mixins";
 
 .input {
   display: flex;

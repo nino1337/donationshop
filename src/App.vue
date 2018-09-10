@@ -5,19 +5,28 @@
       <Step :step="'Grusskarte'" :active="currentStep === 2" />
     </div>
     <Basket @basket-btn-clicked="stepHandler"/>
-    <div class="donate-shop__cards" v-show="currentStep === 1">
-      <Card v-for="card in donateShopData.cards"
-        :key="card.id"
-        :id="card.id"
-        :image="card.image"
-        :title="card.title"
-        :isSpecial="card.isSpecial"
-        :value="card.value"
-        :moreInfo="card.moreInfo" />
+    <section v-show="currentStep === 1">
+      <div class="donate-shop__cards">
+        <Card v-for="card in donateShopData.cards"
+          :key="card.id"
+          :id="card.id"
+          :image="card.image"
+          :title="card.title"
+          :isSpecial="card.isSpecial"
+          :value="card.value"
+          :moreInfo="card.moreInfo" />
     </div>
-    <div class="donate-shop__occasion" v-show="currentStep === 2">
-
+    </section>
+    <section v-show="currentStep === 2">
+      <h2>Wählen sie einen Anlass</h2>
+      <p>Für Jeden Geschenkanlass, haben wir liebevolle Grußkarten für Sie zur Auswahl. Sie können die Krußkarten dann herunterladen und für Ihre Liebsten ausdrucken und verschenken.</p>
+      <div class="donate-shop__occasions">
+      <Occasion v-for="occasion in donateShopData.occasions"
+        :key="occasion.id"
+        :image="occasion.image"
+        :title="occasion.title"/>
     </div>
+    </section>
     <div class="donate-shop__content">
       <h2>Und so funktionierts</h2>
     </div>
@@ -26,7 +35,8 @@
 
 <script>
 import Step from './components/Step.vue';
-import Card from './components/Card.vue';
+import Card from './components/step1/Card.vue';
+import Occasion from './components/step2/Occasion.vue';
 import Basket from './components/Basket.vue';
 
 export default {
@@ -35,6 +45,7 @@ export default {
     Step,
     Card,
     Basket,
+    Occasion,
   },
   data() {
     return {
@@ -93,7 +104,8 @@ export default {
   }
 }
 
-.donate-shop__cards {
+.donate-shop__cards,
+.donate-shop__occasions {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;

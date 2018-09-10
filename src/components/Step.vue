@@ -13,7 +13,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-@import './../assets/scss/main.scss';
+@import "../assets/scss/partials/functions";
+@import "../assets/scss/partials/variables";
+@import "../assets/scss/partials/mixins";
 
 .donate-shop__step {
   border-bottom: 2px solid color('grey');
