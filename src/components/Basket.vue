@@ -1,5 +1,5 @@
 <template>
-  <div class="basket util-bg-bisquit" :class="{ 'is-open': basketVisible}" v-if="cards.length > 0 || Object.keys(occasion).length">
+  <div class="basket util-bg-bisquit" :class="{ 'is-open': basketVisible}" v-if="cards.length > 0 || isOccasionInBasket()">
     <div class="donate-shop__content">
       <div class="basket__show-more" @click="basketVisible = !basketVisible">
         <span v-if="basketVisible">Warenkorb ausblenden</span> 
@@ -12,15 +12,15 @@
         </span>
       </div>
       <div class="basket__content">
-        <transition-group name="packages" tag="div">
-          <div ref="basketPackage" class="basket__package" v-for="(item, index) in cards" :key="index">
+        <transition-group name="packages" tag="div" class="basket__package-wrapper">
+          <div class="basket__package" v-for="(item, index) in cards" :key="index">
             <div class="basket__package-title">
               {{item.title}}<span class="basket__remove" @click="removeItem(index)"><img src="/icons/close.svg" /></span>
             </div>
             <Input :value="item.value" @amountChanged="setAmount(item.id, ...arguments)" :amount="item.amount"/>
           </div>
         </transition-group>
-        <div class="basket__download" v-if="Object.keys(occasion).length">
+        <div class="basket__download" v-if="isOccasionInBasket()" ref="basketOccasion">
           <span>inkl. {{occasion.title}} als PDF zum Ausdrucken</span><img class="basket__remove" @click="removeOccasion()" src="/icons/close.svg" />
         </div>
       </div>
@@ -50,6 +50,7 @@ export default {
       basketVisible: false,
       basket: basket,
       amount: 0,
+      packageHeight: 0
     }
   },
   computed: {
@@ -68,11 +69,10 @@ export default {
   },
   methods: {
     changeAmount(id) {
-      this.basket.cards.forEach((item, index) => {
-        if(item.id === id) {
-          this.basket.cards[index].amount = this.amount;
-        }
-      })
+      const cards = this.basket.cards;
+      let currentPackage = cards.find(item => item.id === id);
+
+      currentPackage.amount = this.amount;
 
       this.accumulateValue();
     },
@@ -103,6 +103,9 @@ export default {
     removeOccasion() {
       this.basket.occasion = {};
     },
+    isOccasionInBasket() {
+      return Object.keys(this.basket.occasion).length;
+    },
   }
 };
 </script>
@@ -114,10 +117,14 @@ export default {
 @import "../assets/scss/partials/mixins";
 
 .basket {
-  max-height: 73px;
+  max-height: 54px;
   overflow: hidden;
   padding: 15px 0 1px;
   transition: max-height 0.5s;
+
+  @include respondMin(point('min-md')) {
+    max-height: 73px;
+  }
 
   &.is-open {
     max-height: 800px;
@@ -142,7 +149,10 @@ export default {
 .basket__content {
   border-bottom: 1px solid color('grey');
   margin-bottom: 45px;
-  transition: max-height 0.5s;
+}
+
+.basket__package-wrapper {
+  position: relative;
 }
 
 .basket__show-more {
@@ -160,7 +170,7 @@ export default {
 
 .basket__package {
   margin-bottom: 22px;
-  transition: transform 0.5s;
+  transition: transform .2s, opacity .2s;
 
   &:first-of-type {
     border-top: 1px solid color('grey');
@@ -252,32 +262,14 @@ export default {
 // ANIMATIONS
 //
 //
-
-
-// open basket animation
-.open-leave-active {
-  transition: max-height .3s ease-out;
-}
-
-.open-enter-active {
-  transition: max-height .3s ease-out;
-}
-
-.open-enter, .open-leave-to {
-  max-height: 1000px;
-}
-
-// packages in basket
-.packages-leave-active {
-  position: absolute;
-}
-
 .packages-enter {
+  opacity: 1;
   transform: translateY(30px);
 }
 
 .packages-leave-to {
-  transform: translateX(-5500px);
+  opacity: 0;
+  transform: translateY(30px);
 }
 
 </style>

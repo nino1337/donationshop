@@ -148,7 +148,7 @@ body {
     max-width: 768px;
   }
 
-  @include respondMin(point('min-xxl')) {
+  @include respondMin(point('min-xl')) {
     max-width: none;
   }
 }

@@ -97,14 +97,13 @@ export default {
       this.amount = parseInt(input.value, 10);
     },
     changeAmount() {
-      this.basket.cards.forEach((item, index) => {
-        if(item.id === this.id) {
-          this.basket.cards[index].amount = this.amount;
-        }
-      })
+      const cards = this.basket.cards;
+      let currentPackage = cards.find(item => item.id === this.id);
+
+      currentPackage.amount = this.amount;
 
       this.accumulateValue();
-    }
+    },
   }
 };
 </script>
@@ -119,7 +118,12 @@ export default {
   border-radius: 7px;
   display: block;
   margin: 0 16px 16px;
-  max-width: 300px;
+  width: 45%;
+
+  @include respondMin(point('min-xl')) {
+    max-width: 270px;
+  }
+  
 }
 
 .card__head {
@@ -128,7 +132,7 @@ export default {
 }
 
 .card__body {
-  box-shadow: 0 2px 15px -9px rgba(color('black'), 0.5);
+  box-shadow: 0 2px 15px -5px rgba(color('black'), 0.5);
   padding: 16px;
 }
 
@@ -163,6 +167,7 @@ export default {
   color: color('ci');
   display: inline-block;
   font-size: 18px;
+  font-family: $ff-deco;
   margin-bottom: 24px;
   text-transform: uppercase;
 }

@@ -74,6 +74,7 @@ export default {
   border-radius: 7px;
   margin: 24px 16px 0;
   max-width: 350px;
+  box-shadow: 0 2px 15px -5px rgba(color('black'), 0.5);
 }
 
 .occasion__head {
