@@ -10,27 +10,29 @@
  * MIT License (MIT)
  */
 
-
 /* ==========================================================================
    Base settings
    ========================================================================== */
 
 /* base path */
-$folder-path: '/typo3conf/ext/bra_projectfiles_stc/Resources/Public/';
+$folder-path: "/typo3conf/ext/bra_projectfiles_stc/Resources/Public/";
 
 /* Base sizes */
 $base-em: 16;
 
 /* Body font size */
 $body-font-size-px: 22;
-$body-font-size: percentage(($body-font-size-px / $base-em) * 100 / 100); // in percent
+$body-font-size: percentage(
+  ($body-font-size-px / $base-em) * 100 / 100
+); // in percent
 
 /* Font Style */
 
-$ff-deco: 'TradeGothic', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif !default;
-$ff-regular: 'GillSans', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif !default;
+$ff-deco: "TradeGothic", "Helvetica Neue Light", "Helvetica Neue", Helvetica,
+  Arial, "Lucida Grande", sans-serif !default;
+$ff-regular: "GillSans", "Helvetica Neue Light", "Helvetica Neue", Helvetica,
+  Arial, "Lucida Grande", sans-serif !default;
 $ff-icon: iconfont !default;
-
 
 /* ==========================================================================
    Grid-System
@@ -49,10 +51,11 @@ $widescreen: 1500;
 
 /* breakpoints@> */
 
-
 // Quickly modify global grid styling
 $enable-flex: false !default;
 $enable-grid-classes: true !default;
+
+$donate-shop-content-width: 768px;
 
 // Grid Container max- and min-width dimensions
 $container-max-widths: $widescreen;
@@ -70,40 +73,39 @@ $softgrid-gutter-width: 8px;
 
 // map for getBreakpointList() function
 $js-breakpoints: (
-'xs': $featurephone,
-'sm': $smartphone,
-'md': $tablet,
-'lg': $desktop,
-'xl': $retina,
-'xxl': $widescreen
+  "xs": $featurephone,
+  "sm": $smartphone,
+  "md": $tablet,
+  "lg": $desktop,
+  "xl": $retina,
+  "xxl": $widescreen
 );
 
 // map for bootstrap mixins
 $grid-breakpoints: (
-'xs': $featurephone + px,
-'sm': $smartphone + px,
-'md': $tablet + px,
-'lg': $desktop + px,
-'xl': $retina + px,
-'xxl': $widescreen + px
+  "xs": $featurephone + px,
+  "sm": $smartphone + px,
+  "md": $tablet + px,
+  "lg": $desktop + px,
+  "xl": $retina + px,
+  "xxl": $widescreen + px
 ) !default;
 
 // map for respondMin/respondMax mixin
 $breakpoints: (
-'min-xs': pxToRem($featurephone),
-'min-sm': pxToRem($smartphone),
-'min-sm-md': pxToRem($smartphone-xl),
-'min-md': pxToRem($tablet),
-'min-lg': pxToRem($desktop),
-'min-xl': pxToRem($retina),
-'min-xxl': pxToRem($widescreen),
-'max-xs': pxToRem($smartphone - 1),
-'max-sm': pxToRem($tablet - 1),
-'max-md': pxToRem($desktop - 1),
-'max-lg': pxToRem($retina - 1),
-'max-xl': pxToRem($widescreen - 1)
+  "min-xs": pxToRem($featurephone),
+  "min-sm": pxToRem($smartphone),
+  "min-sm-md": pxToRem($smartphone-xl),
+  "min-md": pxToRem($tablet),
+  "min-lg": pxToRem($desktop),
+  "min-xl": pxToRem($retina),
+  "min-xxl": pxToRem($widescreen),
+  "max-xs": pxToRem($smartphone - 1),
+  "max-sm": pxToRem($tablet - 1),
+  "max-md": pxToRem($desktop - 1),
+  "max-lg": pxToRem($retina - 1),
+  "max-xl": pxToRem($widescreen - 1)
 );
-
 
 /* ==========================================================================
    Colors
@@ -111,34 +113,43 @@ $breakpoints: (
 
 /* <@colors */
 $colors: (
-'black': #333,
-'white': #fff,
-'grey': #737373,
-'grey-dark': #333,
-'grey-light': #979797,
-'grey-lightest': #b7b2a8,
-'placeholder': #adadad,
-'ci': #db2e1f,
-'ci-hover': #a00, //not-updated
-'ci-light': #ef523c,
-'ci-salmon': #EC948D,
-'teal': #009ca6,
-'teal-dark': #006d74,
-'bisquit': #F6F5F3,
-'red-dark': #a71b11,
-'twitter': #1c9cea,
-'facebook': #1d36b0,
-'error': #da291c, //not-updated
-'success': #10B044, //not-updated
-'warning': #f0ad4e, //not-updated
-'info': #2989D8, //not-updated
-'bg-grey-light': #F4F4F4,
-'bg-grey-dark': #C1C1C1,
-'bg-grey-gradient': linear-gradient(to bottom, rgba(251,251,251,1) 0%, rgba(235,235,235,1) 100%)
+  "black": #333,
+  "white": #fff,
+  "grey": #737373,
+  "grey-dark": #333,
+  "grey-light": #979797,
+  "grey-lightest": #b7b2a8,
+  "placeholder": #adadad,
+  "ci": #db2e1f,
+  "ci-hover": #a00,
+  //not-updated
+    "ci-light": #ef523c,
+  "ci-salmon": #ec948d,
+  "teal": #009ca6,
+  "teal-dark": #006d74,
+  "bisquit": #f6f5f3,
+  "red-dark": #a71b11,
+  "twitter": #1c9cea,
+  "facebook": #1d36b0,
+  "error": #da291c,
+  //not-updated
+    "success": #10b044,
+  //not-updated
+    "warning": #f0ad4e,
+  //not-updated
+    "info": #2989d8,
+  //not-updated
+    "bg-grey-light": #f4f4f4,
+  "bg-grey-dark": #c1c1c1,
+  "bg-grey-gradient":
+    linear-gradient(
+      to bottom,
+      rgba(251, 251, 251, 1) 0%,
+      rgba(235, 235, 235, 1) 100%
+    )
 );
 
 /* colors@> */
-
 
 /* ==========================================================================
    Icons
@@ -146,7 +157,7 @@ $colors: (
 
 /* <@icons */
 $icons: (
-	close: '\e900'
+  close: "\e900"
 );
 
 /* icons@> */

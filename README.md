@@ -1,5 +1,6 @@
 # fe_stc-donationshop-18
 
+<<<<<<< HEAD
 **Project lead:** Nino Dornemann
 
 **2nd:** Sebastian Steiner
@@ -40,21 +41,40 @@ PWD: `path/to/project`
 
 
 #### Project setup
+=======
+## Project setup
+
+>>>>>>> develop
 ```
 npm install
 ```
 
+<<<<<<< HEAD
 #### Compiles and hot-reloads for development
+=======
+### Compiles and hot-reloads for development
+
+>>>>>>> develop
 ```
 npm run serve
 ```
 
+<<<<<<< HEAD
 #### Compiles and minifies for production
+=======
+### Compiles and minifies for production
+
+>>>>>>> develop
 ```
 npm run build
 ```
 
+<<<<<<< HEAD
 #### Lints and fixes files
+=======
+### Lints and fixes files
+
+>>>>>>> develop
 ```
 npm run lint
 ```
