@@ -15,13 +15,20 @@
 </template>
 
 <script>
+import basket from '../../basket.js';
+
 export default {
   name: 'Occasion',
   props: {
   id: Number,
   image: String,
   title: String,
-},
+  },
+  methods: {
+    addToBasket() {
+
+    }
+  }
 };
 </script>
 
@@ -35,7 +42,7 @@ export default {
 .occasion {
   border-radius: 7px;
   margin: 0 16px 24px;
-  max-width: 300px;
+  max-width: 350px;
 }
 
 .occasion__head {

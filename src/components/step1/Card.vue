@@ -76,8 +76,8 @@ export default {
       return isInBasket;
     },
     accumulateValue() {
-      let value = 0,
-      itemCount = 0;
+      let value = 0;
+      let itemCount = 0;
       this.basket.cards.forEach(item => {
         value += (item.value * item.amount);
         itemCount += item.amount;
@@ -87,7 +87,7 @@ export default {
       this.basket.accumulatedValue = value;
     },
     setAmount(input) {
-      this.amount = parseInt(input.value);
+      this.amount = parseInt(input.value, 10);
     },
     changeAmount() {
       this.basket.cards.forEach((item, index) => {

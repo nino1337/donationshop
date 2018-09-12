@@ -18,14 +18,16 @@
     </div>
     </section>
     <section v-show="currentStep === 2">
+     <div class="donate-shop__content">
       <h2>Wählen sie einen Anlass</h2>
       <p>Für Jeden Geschenkanlass, haben wir liebevolle Grußkarten für Sie zur Auswahl. Sie können die Krußkarten dann herunterladen und für Ihre Liebsten ausdrucken und verschenken.</p>
+     </div>
       <div class="donate-shop__occasions">
       <Occasion v-for="occasion in donateShopData.occasions"
         :key="occasion.id"
         :image="occasion.image"
         :title="occasion.title"/>
-    </div>
+      </div>
     </section>
     <div class="donate-shop__content">
       <h2>Und so funktionierts</h2>
