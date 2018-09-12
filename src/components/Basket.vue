@@ -1,16 +1,25 @@
 <template>
-  <div class="basket util-bg-bisquit" v-if="cards.length > 0 || Object.keys(occasion).length">
-    <div class="donate-shop__content" v-if="basketVisible" >
+  <div class="basket util-bg-bisquit" :class="{ 'is-open': basketVisible}" v-if="cards.length > 0 || Object.keys(occasion).length">
+    <div class="donate-shop__content">
       <div class="basket__show-more" @click="basketVisible = !basketVisible">
-        <span>Warenkorb ausblenden</span> <span class="basket__icon" :data-count="itemCount"><img src="/icons/shopping-cart.svg" /></span><span class="basket__chevron"><img src="/icons/chevron.svg" /></span>
+        <span v-if="basketVisible">Warenkorb ausblenden</span> 
+        <span v-else>Warenkorb einblenden</span> 
+        <span class="basket__icon" :data-count="itemCount">
+          <img src="/icons/shopping-cart.svg" />
+        </span>
+        <span class="basket__chevron">
+          <img src="/icons/chevron.svg" />
+        </span>
       </div>
       <div class="basket__content">
-        <div ref="basketPackage" class="basket__package" v-for="(item, index) in cards" :key="index">
-          <div class="basket__package-title">
-            {{item.title}}<span class="basket__remove" @click="removeItem(index)"><img src="/icons/close.svg" /></span>
+        <transition-group name="packages" tag="div">
+          <div ref="basketPackage" class="basket__package" v-for="(item, index) in cards" :key="index">
+            <div class="basket__package-title">
+              {{item.title}}<span class="basket__remove" @click="removeItem(index)"><img src="/icons/close.svg" /></span>
+            </div>
+            <Input :value="item.value" @amountChanged="setAmount(item.id, ...arguments)" :amount="item.amount"/>
           </div>
-          <Input :value="item.value" @amountChanged="setAmount(item.id, ...arguments)" :amount="item.amount"/>
-        </div>
+        </transition-group>
         <div class="basket__download" v-if="Object.keys(occasion).length">
           <span>inkl. {{occasion.title}} als PDF zum Ausdrucken</span><img class="basket__remove" @click="removeOccasion()" src="/icons/close.svg" />
         </div>
@@ -21,19 +30,7 @@
       <div class="basket__cta">
         <Button :text="'Zum nächsten Schritt'" :isDisabled="cards.length === 0" @click.native.prevent="$emit('basket-btn-clicked')"/>
       </div>
-    </div>
-
-    <div class="donate-shop__content" v-else>
-      <div class="basket__show-more" @click="basketVisible = !basketVisible">
-        Warenkorb anzeigen
-        <span class="basket__icon" :data-count="itemCount">
-          <img src="/icons/shopping-cart.svg" />
-        </span>
-        <span class="basket__chevron is-open">
-          <img src="/icons/chevron.svg" />
-        </span>
-      </div>
-    </div>
+  </div>
   </div>
 </template>
 
@@ -71,7 +68,11 @@ export default {
   },
   methods: {
     changeAmount(id) {
-      this.basket.cards[id].amount = this.amount;
+      this.basket.cards.forEach((item, index) => {
+        if(item.id === id) {
+          this.basket.cards[index].amount = this.amount;
+        }
+      })
 
       this.accumulateValue();
     },
@@ -113,7 +114,21 @@ export default {
 @import "../assets/scss/partials/mixins";
 
 .basket {
+  max-height: 73px;
+  overflow: hidden;
   padding: 15px 0 1px;
+  transition: max-height 0.5s;
+
+  &.is-open {
+    max-height: 800px;
+
+    .basket__chevron {
+      img {
+        transition: transform 0.5s;
+        transform: rotate(0);
+      }
+    }
+  }
 
   @include respondMin(point('min-md')) {
     padding: 24px 0 1px;
@@ -127,6 +142,7 @@ export default {
 .basket__content {
   border-bottom: 1px solid color('grey');
   margin-bottom: 45px;
+  transition: max-height 0.5s;
 }
 
 .basket__show-more {
@@ -144,6 +160,8 @@ export default {
 
 .basket__package {
   margin-bottom: 22px;
+  transition: transform 0.5s;
+
   &:first-of-type {
     border-top: 1px solid color('grey');
     padding-top: 22px;
@@ -186,10 +204,9 @@ export default {
 .basket__chevron {
   margin-left: auto;
 
-  &.is-open {
-    img {
-      transform: rotate(180deg);
-    }
+  img {
+    transition: transform 0.5s ease;
+    transform: rotate(180deg);
   }
 }
 
@@ -228,6 +245,39 @@ export default {
 
 .basket__cta {
   margin-bottom: 50px;
+}
+
+//
+//
+// ANIMATIONS
+//
+//
+
+
+// open basket animation
+.open-leave-active {
+  transition: max-height .3s ease-out;
+}
+
+.open-enter-active {
+  transition: max-height .3s ease-out;
+}
+
+.open-enter, .open-leave-to {
+  max-height: 1000px;
+}
+
+// packages in basket
+.packages-leave-active {
+  position: absolute;
+}
+
+.packages-enter {
+  transform: translateY(30px);
+}
+
+.packages-leave-to {
+  transform: translateX(-5500px);
 }
 
 </style>

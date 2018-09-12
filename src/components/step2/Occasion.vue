@@ -72,7 +72,7 @@ export default {
 
 .occasion {
   border-radius: 7px;
-  margin: 0 16px 24px;
+  margin: 24px 16px 0;
   max-width: 350px;
 }
 
