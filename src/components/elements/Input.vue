@@ -49,7 +49,6 @@ export default {
 
 .input {
   display: flex;
-  margin-bottom: 24px;
 }
 
 .input__dropdown-wrapper {
@@ -81,7 +80,7 @@ export default {
 .input__value {
   margin-left: 16px;
   font-size: 24px;
-  font-family: 'TradeGothic';
+  font-family: $ff-deco;
 }
 
 .basket__package {

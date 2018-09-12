@@ -4,7 +4,9 @@
       <Step :step="'Spende'" :active="currentStep === 1" @click.native="prevStep"/>
       <Step :step="'Grusskarte'" :active="currentStep === 2" />
     </div>
-    <Basket @basket-btn-clicked="stepHandler"/>
+    <div class="donate-shop__basket">
+      <Basket @basket-btn-clicked="stepHandler"/>
+    </div>
     <section v-show="currentStep === 1">
       <div class="donate-shop__cards">
         <Card v-for="card in donateShopData.cards"
@@ -14,8 +16,9 @@
           :title="card.title"
           :isSpecial="card.isSpecial"
           :value="card.value"
-          :moreInfo="card.moreInfo" />
-    </div>
+          :moreInfo="card.moreInfo"
+          @addedTobasket="scrollToBasket" />
+      </div>
     </section>
     <section v-show="currentStep === 2">
      <div class="donate-shop__content">
@@ -25,8 +28,10 @@
       <div class="donate-shop__occasions">
       <Occasion v-for="occasion in donateShopData.occasions"
         :key="occasion.id"
+        :id="occasion.id"
         :image="occasion.image"
-        :title="occasion.title"/>
+        :title="occasion.title"
+        @addedTobasket="scrollToBasket"/>
       </div>
     </section>
     <div class="donate-shop__content">
@@ -83,7 +88,10 @@ export default {
       window.location.href = this.formHref();
     },
     formHref() {
-      return 'https://www.google.de';
+      return 'https://spenden.savethechildren.de/';
+    },
+    scrollToBasket() {
+      // TODO add scroll animation
     }
   }
 };
@@ -92,17 +100,28 @@ export default {
 <style lang="scss">
 @import './assets/scss/main.scss';
 
+body {
+  margin: 0;
+}
+
+.donate-shop__basket {
+  margin-bottom: 24px;
+}
+
 .donate-shop__content {
-  margin: 0 auto 25px;
+  margin: 0 auto 40px;
   max-width: $donate-shop-content-width;
+  padding: 0 16px;
 }
 
 .donate-shop__steps {
   display: flex;
   justify-content: center;
+  margin-bottom: 40px;
 
   @include respondMin(point('min-md')) {
     justify-content: space-between;
+    margin-bottom: 24px;
   }
 }
 
@@ -111,5 +130,16 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  margin: 0 auto;
+}
+
+.donate-shop__cards {
+  @include respondMin(point('min-md')) {
+    max-width: 768px;
+  }
+
+  @include respondMin(point('min-xxl')) {
+    max-width: none;
+  }
 }
 </style>
