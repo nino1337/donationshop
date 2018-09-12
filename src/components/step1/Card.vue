@@ -1,27 +1,29 @@
 <template>
-    <div class="card">
-      <div class="card__head">
-        <img :src="image" />
+  <div class="card">
+    <div class="card__head">
+      <img :src="image" />
+    </div>
+    <div class="card__body">
+      <div class="card__headline">
+        {{title}}
+        <span v-if="isSpecial" class="card__special">beliebt</span>
       </div>
-      <div class="card__body">
-        <div class="card__headline">
-          {{title}}
-          <span v-if="isSpecial" class="card__special">beliebt</span>
-        </div>
+      <div class="card__input">
         <Input :value="value" :amount="1" @amountChanged="setAmount" />
-        <div class="card__basket" @click="addToBasket">
-          in den Warenkorb
-        </div>
-        <div class="card__more-info-btn" @click="showMore = !showMore">
-          Mehr Informationen
-          <span v-if="showMore"><img src="/icons/minus.svg" /> </span>
-          <span v-else><img src="/icons/plus.svg" /> </span>
-        </div>
-        <div v-if="showMore" class="card__more-info">
-          {{moreInfo}}
-        </div>
+      </div>
+      <div class="card__basket" @click="addToBasket">
+        in den Warenkorb
+      </div>
+      <div class="card__more-info-btn" @click="showMore = !showMore">
+        Mehr Informationen
+        <span v-if="showMore"><img src="/icons/minus.svg" /> </span>
+        <span v-else><img src="/icons/plus.svg" /> </span>
+      </div>
+      <div v-if="showMore" class="card__more-info">
+        {{moreInfo}}
       </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -50,19 +52,24 @@ export default {
   },
   methods: {
     addToBasket() {
+      let cards = this.basket.cards.slice();
+
       if (this.isInBasket()) {
         this.changeAmount();
         return
       }
 
-      this.basket.cards.push({
+      cards.push({
         id: this.id,
         title: this.title,
         value: this.value,
         amount: this.amount,
     }) 
 
+    this.basket.cards = cards;
+
     this.accumulateValue();
+    this.$emit('addedToBasket');
     },
     isInBasket() {
       let isInBasket = false;
@@ -110,7 +117,8 @@ export default {
 
 .card {
   border-radius: 7px;
-  margin: 0 16px 24px;
+  display: block;
+  margin: 0 16px 16px;
   max-width: 300px;
 }
 
@@ -126,7 +134,7 @@ export default {
 
 .card__headline {
   display: flex;
-  font-family: 'TradeGothic';
+  font-family: $ff-deco;
   font-size: 24px;
   margin-bottom: 24px;
   text-transform: uppercase;
@@ -143,6 +151,10 @@ export default {
   height: 21px;
   margin-left: auto;
   padding: 0 5px;
+}
+
+.card__input {
+  margin-bottom: 24px;
 }
 
 .card__basket {

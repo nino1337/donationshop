@@ -1,5 +1,5 @@
 <template>
-  <div class="basket util-bg-bisquit" v-if="cards.length > 0">
+  <div class="basket util-bg-bisquit" v-if="cards.length > 0 || Object.keys(occasion).length">
     <div class="donate-shop__content" v-if="basketVisible" >
       <div class="basket__show-more" @click="basketVisible = !basketVisible">
         <span>Warenkorb ausblenden</span> <span class="basket__icon" :data-count="itemCount"><img src="/icons/shopping-cart.svg" /></span><span class="basket__chevron"><img src="/icons/chevron.svg" /></span>
@@ -12,13 +12,15 @@
           <Input :value="item.value" @amountChanged="setAmount(item.id, ...arguments)" :amount="item.amount"/>
         </div>
         <div class="basket__download" v-if="Object.keys(occasion).length">
-          <span>inkl. Weihnachtskarten als PDF zum Ausdrucken</span>
+          <span>inkl. {{occasion.title}} als PDF zum Ausdrucken</span><img class="basket__remove" @click="removeOccasion()" src="/icons/close.svg" />
         </div>
       </div>
       <div class="basket__sum">
         Gesamtsumme <span class="input__value">{{accumulatedValue}}€</span>
       </div>
-      <Button :text="'Zum nächsten Schritt'" :isDisabled="cards.length === 0" @click.native.prevent="$emit('basket-btn-clicked')"/>
+      <div class="basket__cta">
+        <Button :text="'Zum nächsten Schritt'" :isDisabled="cards.length === 0" @click.native.prevent="$emit('basket-btn-clicked')"/>
+      </div>
     </div>
 
     <div class="donate-shop__content" v-else>
@@ -97,6 +99,9 @@ export default {
       this.basket.cards = basketItems;
       this.accumulateValue()
     },
+    removeOccasion() {
+      this.basket.occasion = {};
+    },
   }
 };
 </script>
@@ -108,8 +113,11 @@ export default {
 @import "../assets/scss/partials/mixins";
 
 .basket {
-  margin-bottom: 24px;
-  padding: 24px 0;
+  padding: 15px 0 1px;
+
+  @include respondMin(point('min-md')) {
+    padding: 24px 0 1px;
+  }
 
   .donate-shop__content {
     margin-bottom: 0;
@@ -117,23 +125,34 @@ export default {
 }
 
 .basket__content {
-  border-top: 1px solid color('grey');
   border-bottom: 1px solid color('grey');
   margin-bottom: 45px;
-  margin-top: 24px;
-  padding: 16px 0;
 }
 
 .basket__show-more {
-  font-family: 'TradeGothic';
+  font-family: $ff-deco;
+  font-size: 18px;
   cursor: pointer;
   display: flex;
+  margin-bottom: 16px;
   text-transform: uppercase;
+
+  @include respondMin(point('min-md')) {
+    font-size: 24px;
+  }
+}
+
+.basket__package {
+  margin-bottom: 22px;
+  &:first-of-type {
+    border-top: 1px solid color('grey');
+    padding-top: 22px;
+  }
 }
 
 .basket__package-title {
   display: flex;
-  font-family: 'TradeGothic';
+  font-family: $ff-deco;
   font-size: 18px;
   margin-bottom: 16px;
   text-transform: uppercase;
@@ -176,10 +195,16 @@ export default {
 
 .basket__download {
   border-top: 1px solid color('grey');
+  display: flex;
   font-size: 16px;
-  padding-left: 32px;
-  padding-top: 16px;
+  padding: 16px 0 16px 32px;
   position: relative;
+
+  .basket__remove {
+    position: absolute;
+    top: 16px;
+    right: 0;
+  }
 
   span {
     display: inline-block;
@@ -196,9 +221,13 @@ export default {
 
 .basket__sum {
   font-size: 18px;
-  font-family: 'TradeGothic';
+  font-family: $ff-deco;
   margin-bottom: 48px;
   text-transform: uppercase;
+}
+
+.basket__cta {
+  margin-bottom: 50px;
 }
 
 </style>
