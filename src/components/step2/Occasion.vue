@@ -1,18 +1,23 @@
 <template>
   <div class="occasion">
-      <div class="occasion__head">
-        <img :src="image" />
-        <div v-if="isInBasket()" class="occasion__deactivated">
-          Um die Karte im Warenkorb zu ändern, einfach einen neuen Anlass auswählen
-        </div>
+      <div class="occasion__head" @click="toggleLightbox">
+        <img class="occasion__image" :src="image" />
+        <transition name="opacity">
+          <Lightbox :src="imageLightbox" v-show="showLightbox"/>
+        </transition>
+        <transition name="scale">
+          <div v-if="isInBasket()" class="occasion__deactivated">
+            Um die Karte im Warenkorb zu ändern, einfach einen neuen Anlass auswählen
+          </div>
+        </transition>
       </div>
       <div class="occasion__body">
         <div class="occasion__headline">
           {{title}}
         </div>
-        <div class="occasion__basket" @click="addToBasket">
+        <a href="#basket" class="occasion__basket" @click="addToBasket" v-smooth-scroll="{duration: 1000, offset: -100}">
           in den Warenkorb
-        </div>
+        </a>
       </div>
     </div>
 </template>
@@ -25,11 +30,13 @@ export default {
   props: {
   id: Number,
   image: String,
+  imageLightbox: String,
   title: String,
   },
   data() {
     return {
       basket: basket,
+      showLightbox: false
     }
   },
   computed: {
@@ -51,7 +58,6 @@ export default {
       }
 
       this.basket.occasion = occasion;
-
       this.$emit('addedToBasket');
     },
     clearOccasion() {
@@ -59,6 +65,10 @@ export default {
     },
     isInBasket() {
       return Object.keys(this.basket.occasion).length;
+    },
+    toggleLightbox() {
+      console.log('test')
+      this.showLightbox = !this.showLightbox
     }
   }
 };
@@ -72,22 +82,38 @@ export default {
 
 .occasion {
   border-radius: 7px;
-  margin: 0 16px 24px;
+  margin: 24px 16px 0;
   max-width: 350px;
+  box-shadow: 0 2px 15px -5px rgba(color('black'), 0.5);
 }
 
 .occasion__head {
   border-radius: 7px 7px 0 0;
+  height: 0;
   overflow: hidden;
+  padding-bottom: 56.25%;
   position: relative;
 }
+
+.occasion__image {
+  transition: transform 0.3s;
+
+  &:hover {
+      transform: scale(1.1);
+  }
+
+  @include respondMin(point('min-md')) {
+    cursor: pointer;
+  }
+}
+
 
 .occasion__deactivated {
   background-color: rgba(color('black'), 0.65);
   color: color('white');
   font-family: $ff-deco;
   font-size: 24px;
-  height: 95%;
+  height: 100%;
   left: 0;
   padding: 15% 24px 0;
   position: absolute;
@@ -111,11 +137,45 @@ export default {
 
 .occasion__basket {
   border-bottom: 4px solid color('ci');
-  cursor: pointer;
   color: color('ci');
   display: inline-block;
   font-size: 18px;
+  font-family: $ff-deco;
   margin-bottom: 24px;
   text-transform: uppercase;
+  text-decoration: none;
+}
+
+//
+//
+// ANIMATIONS
+//
+//
+.scale-leave-active,
+.scale-enter-active {
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+.scale-enter {
+  opacity: 0;
+  transform: scale(0);
+}
+
+.scale-leave-to {
+  opacity: 0;
+  transform: scale(0);
+}
+
+.opacity-leave-active,
+.opacity-enter-active {
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+.opacity-enter {
+  opacity: 0;
+}
+
+.opacity-leave-to {
+  opacity: 0;
 }
 </style>

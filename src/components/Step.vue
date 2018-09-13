@@ -18,7 +18,6 @@ export default {
 @import "../assets/scss/partials/mixins";
 
 .step {
-  border-bottom: 2px solid color('grey');
   color: color('grey');
   counter-increment: step;
   font-family: $ff-deco;
@@ -30,8 +29,12 @@ export default {
   text-transform: uppercase;
 
   &.is-active {
-    border-color: color('ci');
+    border-bottom: 2px solid color('ci');
     color: color('ci');
+
+    @include respondMin(point('min-md')) {
+      border-bottom: 4px solid color('ci');
+    }
   }
 
   &::before {
@@ -42,7 +45,6 @@ export default {
   }
 
   @include respondMin(point('min-md')) {
-    border-width: 4px;
     font-size: 24px;
     margin: 0;
     padding-left: 32px;

@@ -7,33 +7,40 @@
     <div class="donate-shop__basket">
       <Basket @basket-btn-clicked="stepHandler"/>
     </div>
-    <section v-show="currentStep === 1">
-      <div class="donate-shop__cards">
-        <Card v-for="card in donateShopData.cards"
-          :key="card.id"
-          :id="card.id"
-          :image="card.image"
-          :title="card.title"
-          :isSpecial="card.isSpecial"
-          :value="card.value"
-          :moreInfo="card.moreInfo"
-          @addedTobasket="scrollToBasket" />
-      </div>
-    </section>
-    <section v-show="currentStep === 2">
-     <div class="donate-shop__content">
-      <h2>Wählen sie einen Anlass</h2>
-      <p>Für Jeden Geschenkanlass, haben wir liebevolle Grußkarten für Sie zur Auswahl. Sie können die Krußkarten dann herunterladen und für Ihre Liebsten ausdrucken und verschenken.</p>
-     </div>
-      <div class="donate-shop__occasions">
-      <Occasion v-for="occasion in donateShopData.occasions"
-        :key="occasion.id"
-        :id="occasion.id"
-        :image="occasion.image"
-        :title="occasion.title"
-        @addedTobasket="scrollToBasket"/>
-      </div>
-    </section>
+    <div class="donate-shop__journey">
+      <transition name="step-1">
+      <section v-show="currentStep === 1">
+        <div class="donate-shop__cards">
+          <Card v-for="card in donateShopData.cards"
+            :key="card.id"
+            :id="card.id"
+            :image="card.image"
+            :title="card.title"
+            :isSpecial="card.isSpecial"
+            :value="card.value"
+            :moreInfo="card.moreInfo"
+            @addedTobasket="scrollToBasket" />
+        </div>
+      </section>
+    </transition>
+    <transition name="step-2">
+      <section  v-show="currentStep === 2">
+        <div class="donate-shop__content">
+          <h2>Wählen sie einen Anlass</h2>
+          <p>Für Jeden Geschenkanlass, haben wir liebevolle Grußkarten für Sie zur Auswahl. Sie können die Krußkarten dann herunterladen und für Ihre Liebsten ausdrucken und verschenken.</p>
+        </div>
+          <div class="donate-shop__occasions">
+          <Occasion v-for="occasion in donateShopData.occasions"
+            :key="occasion.id"
+            :id="occasion.id"
+            :image="occasion.image"
+            :imageLightbox="occasion.imageLightbox"
+            :title="occasion.title"
+            @addedTobasket="scrollToBasket" />
+        </div>
+      </section>
+    </transition>
+    </div>
     <div class="donate-shop__content">
       <h2>Und so funktionierts</h2>
     </div>
@@ -114,6 +121,10 @@ body {
   padding: 0 16px;
 }
 
+.donate-shop__journey {
+  position: relative;
+}
+
 .donate-shop__steps {
   display: flex;
   justify-content: center;
@@ -134,12 +145,42 @@ body {
 }
 
 .donate-shop__cards {
+  align-items: flex-start;
   @include respondMin(point('min-md')) {
     max-width: 768px;
   }
 
-  @include respondMin(point('min-xxl')) {
+  @include respondMin(point('min-xl')) {
     max-width: none;
   }
+}
+
+//
+//
+// ANIMATIONS
+//
+//
+
+.step-1-leave-active,
+.step-2-leave-active {
+  position: absolute;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  top: 0;
+  transition: transform .3s ease-out;
+}
+
+.step-1-enter-active,
+.step-2-enter-active {
+  transition: transform .3s ease-out;
+}
+
+.step-1-enter, .step-1-leave-to {
+  transform: translateX(-150%);
+}
+
+.step-2-enter, .step-2-leave-to {
+  transform: translateX(150%);
 }
 </style>
