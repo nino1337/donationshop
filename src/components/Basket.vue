@@ -1,8 +1,8 @@
 <template>
-  <div class="basket util-bg-bisquit" :class="{ 'is-open': basketVisible}" v-if="cards.length > 0 || isOccasionInBasket()">
+  <div id="basket" class="basket util-bg-bisquit" :class="{ 'is-open': basketOpen, 'is-visible': cards.length > 0 || isOccasionInBasket()}">
     <div class="donate-shop__content">
-      <div class="basket__show-more" @click="basketVisible = !basketVisible">
-        <span v-if="basketVisible">Warenkorb ausblenden</span> 
+      <div class="basket__show-more" @click="basketOpen = !basketOpen">
+        <span v-if="basketOpen">Warenkorb ausblenden</span> 
         <span v-else>Warenkorb einblenden</span> 
         <span class="basket__icon" :data-count="itemCount">
           <img src="/icons/shopping-cart.svg" />
@@ -47,10 +47,12 @@ export default {
   },
   data() {
     return {
-      basketVisible: false,
+      basketOpen: true,
       basket: basket,
       amount: 0,
-      packageHeight: 0
+      valueOld: 0, // necessary for animation
+      valueNew: 0,
+      packageHeight: 0,
     }
   },
   computed: {
@@ -67,12 +69,27 @@ export default {
       return this.basket.itemCount;
     }
   },
+  watch: {
+    valueNew() {
+      let animationInterval = setInterval(() => {
+        if (this.valueOld === this.valueNew) {
+          clearInterval(animationInterval)
+        }
+
+        if (this.valueOld > this.valueNew) {
+          this.basket.accumulatedValue = this.valueOld--;
+        } else {
+          this.basket.accumulatedValue = this.valueOld++;
+        } 
+      }, 1) 
+    }
+  },
   methods: {
     changeAmount(id) {
       const cards = this.basket.cards;
-      let currentPackage = cards.find(item => item.id === id);
+      let currentPackage = cards.filter(item => item.id === id);
 
-      currentPackage.amount = this.amount;
+      currentPackage[0].amount = this.amount;
 
       this.accumulateValue();
     },
@@ -88,9 +105,9 @@ export default {
         value += (item.value * item.amount);
         itemCount += item.amount;
       })
+      this.setAnimationValues(value)
 
       this.basket.itemCount = itemCount;
-      this.basket.accumulatedValue = value;
     },
     removeItem(index) {
       let basketItems = this.basket.cards.slice();
@@ -106,6 +123,10 @@ export default {
     isOccasionInBasket() {
       return Object.keys(this.basket.occasion).length;
     },
+    setAnimationValues(newValue) {
+      this.valueOld = this.basket.accumulatedValue;
+      this.valueNew = newValue;
+    }
   }
 };
 </script>
@@ -117,16 +138,23 @@ export default {
 @import "../assets/scss/partials/mixins";
 
 .basket {
-  max-height: 54px;
+  max-height: 0;
   overflow: hidden;
-  padding: 15px 0 1px;
-  transition: max-height 0.5s;
+  transition: max-height 0.5s, padding 0.5s;
+  padding: 0;
 
-  @include respondMin(point('min-md')) {
-    max-height: 73px;
+  &.is-visible {
+    max-height: 54px;
+    padding: 15px 0 1px;
+    transition: max-height 0.5s, padding 0.2s;
+
+    @include respondMin(point('min-md')) {
+      max-height: 73px;
+      padding: 24px 0 1px;
+    }
   }
 
-  &.is-open {
+  &.is-visible.is-open {
     max-height: 800px;
 
     .basket__chevron {
@@ -135,10 +163,6 @@ export default {
         transform: rotate(0);
       }
     }
-  }
-
-  @include respondMin(point('min-md')) {
-    padding: 24px 0 1px;
   }
 
   .donate-shop__content {

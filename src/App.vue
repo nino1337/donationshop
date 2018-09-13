@@ -34,8 +34,9 @@
             :key="occasion.id"
             :id="occasion.id"
             :image="occasion.image"
+            :imageLightbox="occasion.imageLightbox"
             :title="occasion.title"
-            @addedTobasket="scrollToBasket"/>
+            @addedTobasket="scrollToBasket" />
         </div>
       </section>
     </transition>
@@ -144,6 +145,7 @@ body {
 }
 
 .donate-shop__cards {
+  align-items: flex-start;
   @include respondMin(point('min-md')) {
     max-width: 768px;
   }
