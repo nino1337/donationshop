@@ -18,8 +18,7 @@
             :title="card.title"
             :isSpecial="card.isSpecial"
             :value="card.value"
-            :moreInfo="card.moreInfo"
-            @addedTobasket="scrollToBasket" />
+            :moreInfo="card.moreInfo" />
         </div>
       </section>
     </transition>
@@ -35,8 +34,7 @@
             :id="occasion.id"
             :image="occasion.image"
             :imageLightbox="occasion.imageLightbox"
-            :title="occasion.title"
-            @addedTobasket="scrollToBasket" />
+            :title="occasion.title" />
         </div>
       </section>
     </transition>
@@ -97,9 +95,6 @@ export default {
     formHref() {
       return 'https://spenden.savethechildren.de/';
     },
-    scrollToBasket() {
-      // TODO add scroll animation
-    }
   }
 };
 </script>

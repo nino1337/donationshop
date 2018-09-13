@@ -279,6 +279,8 @@ export default {
 
 .basket__cta {
   margin-bottom: 50px;
+  position: relative;
+  z-index: 1;
 }
 
 //
