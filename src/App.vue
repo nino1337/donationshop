@@ -1,46 +1,50 @@
 <template>
   <div class="donate-shop">
-    <div class="donate-shop__steps donate-shop__content">
-      <Step :step="'Spende'" :active="currentStep === 1" @click.native="prevStep"/>
-      <Step :step="'Grusskarte'" :active="currentStep === 2" />
-    </div>
-    <div class="donate-shop__basket">
-      <Basket @basket-btn-clicked="stepHandler"/>
-    </div>
-    <div class="donate-shop__journey">
-      <transition name="step-1">
-      <section v-show="currentStep === 1">
-        <div class="donate-shop__cards">
-          <Card v-for="card in donateShopData.cards"
-            :key="card.id"
-            :id="card.id"
-            :image="card.image"
-            :title="card.title"
-            :isSpecial="card.isSpecial"
-            :value="card.value"
-            :moreInfo="card.moreInfo" />
+    <div v-if="!isFinished">
+      <div class="donate-shop__steps donate-shop__content">
+        <Step :step="'Spende'" :active="currentStep === 1" @click.native="prevStep"/>
+        <Step :step="'Grusskarte'" :active="currentStep === 2" />
+      </div>
+        <div class="donate-shop__basket">
+          <Basket @basket-btn-clicked="stepHandler" :step="currentStep"/>
         </div>
-      </section>
-    </transition>
-    <transition name="step-2">
-      <section  v-show="currentStep === 2">
-        <div class="donate-shop__content">
-          <h2>Wählen sie einen Anlass</h2>
-          <p>Für Jeden Geschenkanlass, haben wir liebevolle Grußkarten für Sie zur Auswahl. Sie können die Krußkarten dann herunterladen und für Ihre Liebsten ausdrucken und verschenken.</p>
-        </div>
-          <div class="donate-shop__occasions">
-          <Occasion v-for="occasion in donateShopData.occasions"
-            :key="occasion.id"
-            :id="occasion.id"
-            :image="occasion.image"
-            :imageLightbox="occasion.imageLightbox"
-            :title="occasion.title" />
-        </div>
-      </section>
-    </transition>
+        <div class="donate-shop__journey">
+          <transition name="step-1">
+          <section v-show="currentStep === 1">
+            <div class="donate-shop__cards">
+              <Card v-for="card in donateShopData.cards"
+                :key="card.id"
+                :id="card.id"
+                :image="card.image"
+                :title="card.title"
+                :isSpecial="card.isSpecial"
+                :value="card.value"
+                :moreInfo="card.moreInfo" />
+            </div>
+          </section>
+        </transition>
+        <transition name="step-2">
+          <section  v-show="currentStep === 2">
+            <div class="donate-shop__content">
+              <h2>Wählen sie einen Anlass</h2>
+              <p>Für Jeden Geschenkanlass, haben wir liebevolle Grußkarten für Sie zur Auswahl. Sie können die Krußkarten dann herunterladen und für Ihre Liebsten ausdrucken und verschenken.</p>
+            </div>
+              <div class="donate-shop__occasions">
+              <Occasion v-for="occasion in donateShopData.occasions"
+                :key="occasion.id"
+                :id="occasion.id"
+                :image="occasion.image"
+                :imageLightbox="occasion.imageLightbox"
+                :title="occasion.title" />
+            </div>
+          </section>
+        </transition>
+      </div>
     </div>
-    <div class="donate-shop__content">
-      <h2>Und so funktionierts</h2>
+    <div v-else>
+      <div class="donate-shop__iframe" ref="donationIframe">
+        <Basket @basket-btn-clicked="stepHandler"/>
+      </div>
     </div>
   </div>
 </template>
@@ -50,6 +54,7 @@ import Step from './components/Step.vue';
 import Card from './components/step1/Card.vue';
 import Occasion from './components/step2/Occasion.vue';
 import Basket from './components/Basket.vue';
+import basket from './basket.js';
 
 export default {
   name: 'app',
@@ -63,6 +68,8 @@ export default {
     return {
       donateShopData: {},
       activeStep: 1,
+      basket: basket,
+      isFinished: false,
     }
   },
   created() {
@@ -77,8 +84,9 @@ export default {
     stepHandler() {
       if (this.activeStep === 1) {
         this.nextStep();
-      } else {
-        this.redirectToForm();
+      } else if (this.basketFilled()) {
+        this.isFinished = true;
+        this.showDonationForm();
       }
     },
     nextStep() {
@@ -89,12 +97,14 @@ export default {
         this.activeStep--;
       }
     },
-    redirectToForm() {
-      window.location.href = this.formHref();
+    showDonationForm() {
+      const donationForm = document.getElementById('shop-iframe');    
+
+      donationForm.style.display = 'block';
     },
-    formHref() {
-      return 'https://spenden.savethechildren.de/';
-    },
+    basketFilled() {
+      return this.basket.cards.length && Object.keys(this.basket.occasion).length
+    }
   }
 };
 </script>

@@ -28,6 +28,10 @@ export default {
   position: relative;
   text-transform: uppercase;
 
+  &:first-of-type {
+    cursor: pointer;
+  }
+
   &.is-active {
     border-bottom: 2px solid color('ci');
     color: color('ci');

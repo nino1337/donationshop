@@ -28,7 +28,8 @@
         Gesamtsumme <span class="input__value">{{accumulatedValue}}€</span>
       </div>
       <div class="basket__cta">
-        <Button :text="'Zum nächsten Schritt'" :isDisabled="cards.length === 0" @click.native.prevent="$emit('basket-btn-clicked')"/>
+        <Button v-if="step === 1" :text="'Grußkarte auswählen'" :isDisabled="cards.length === 0" @click.native.prevent="$emit('basket-btn-clicked')"/>
+        <Button v-else :text="'Zahlungsart & Adresse'" :isDisabled="cards.length === 0 || !isOccasionInBasket()" @click.native.prevent="$emit('basket-btn-clicked')"/>
       </div>
   </div>
   </div>
@@ -45,6 +46,7 @@ export default {
     Input,
     Button, 
   },
+  props: ['step'],
   data() {
     return {
       basketOpen: true,
