@@ -6,7 +6,7 @@
         <Step :step="'Grusskarte'" :active="currentStep === 2" />
       </div>
         <div class="donate-shop__basket">
-          <Basket @basket-btn-clicked="stepHandler" :step="currentStep"/>
+          <Basket @basket-btn-clicked="stepHandler" :step="currentStep" :is-plain="false"/>
         </div>
         <div class="donate-shop__journey">
           <transition name="step-1">
@@ -43,7 +43,7 @@
     </div>
     <div v-else>
       <div class="donate-shop__iframe" ref="donationIframe">
-        <Basket @basket-btn-clicked="stepHandler"/>
+        <Basket @basket-btn-clicked="stepHandler" :is-plain="true"/>
       </div>
     </div>
   </div>

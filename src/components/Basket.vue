@@ -1,6 +1,6 @@
 <template>
   <div id="basket" class="basket util-bg-bisquit" :class="{ 'is-open': basketOpen, 'is-visible': cards.length > 0 || isOccasionInBasket()}">
-    <div class="donate-shop__content">
+    <div class="donate-shop__content" v-if="!isPlain">
       <div class="basket__show-more" @click="basketOpen = !basketOpen">
         <span v-if="basketOpen">Warenkorb ausblenden</span> 
         <span v-else>Warenkorb einblenden</span> 
@@ -31,7 +31,34 @@
         <Button v-if="step === 1" :text="'Grußkarte auswählen'" :isDisabled="cards.length === 0" @click.native.prevent="$emit('basket-btn-clicked')"/>
         <Button v-else :text="'Zahlungsart & Adresse'" :isDisabled="cards.length === 0 || !isOccasionInBasket()" @click.native.prevent="$emit('basket-btn-clicked')"/>
       </div>
-  </div>
+    </div>
+
+     <div class="donate-shop__content" v-else>
+      <div class="basket__show-more">
+        Warenkorb
+        <span class="basket__icon" :data-count="itemCount">
+          <img src="/icons/shopping-cart.svg" />
+        </span>
+      </div>
+      <div class="basket__content">
+        <transition-group name="packages" tag="div" class="basket__package-wrapper">
+          <div class="basket__package" v-for="(item, index) in cards" :key="index">
+            <div class="basket__package-title">
+              {{item.title}}
+            </div>
+            <span class="basket__package-values">{{item.amount}}x</span>
+            <span class="basket__value-text">im Wert von </span>
+            <span class="basket__package-values">{{item.value}}€</span>
+          </div>
+        </transition-group>
+        <div class="basket__download"  ref="basketOccasion">
+          <span>inkl. {{occasion.title}} als PDF zum Ausdrucken</span>
+        </div>
+      </div>
+      <div class="basket__sum">
+        Gesamtsumme <span class="input__value">{{accumulatedValue}}€</span>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -46,7 +73,7 @@ export default {
     Input,
     Button, 
   },
-  props: ['step'],
+  props: ['step', 'is-plain'],
   data() {
     return {
       basketOpen: true,
@@ -179,6 +206,17 @@ export default {
 
 .basket__package-wrapper {
   position: relative;
+}
+
+.basket__package-values {
+  font-size: 24px;
+  font-family: $ff-deco;
+}
+
+.basket__value-text {
+  display: inline-block;
+  font-size: 16px;
+  margin: 0 12px;
 }
 
 .basket__show-more {
