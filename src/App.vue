@@ -6,7 +6,7 @@
         <Step :step="'Grusskarte'" :active="currentStep === 2" />
       </div>
         <div class="donate-shop__basket">
-          <Basket @basket-btn-clicked="stepHandler" :step="currentStep" :is-plain="false"/>
+          <Basket @basket-btn-clicked="stepHandler" @itemRemoved="prevStep" :step="currentStep" :is-plain="false"/>
         </div>
         <div class="donate-shop__journey">
           <transition name="step-1">
@@ -19,7 +19,8 @@
                 :title="card.title"
                 :isSpecial="card.isSpecial"
                 :value="card.value"
-                :moreInfo="card.moreInfo" />
+                :moreInfo="card.moreInfo"
+                :occasionImages="card.occasionImages" />
             </div>
           </section>
         </transition>
@@ -30,21 +31,20 @@
               <p>Für Jeden Geschenkanlass, haben wir liebevolle Grußkarten für Sie zur Auswahl. Sie können die Krußkarten dann herunterladen und für Ihre Liebsten ausdrucken und verschenken.</p>
             </div>
               <div class="donate-shop__occasions">
-              <Occasion v-for="occasion in donateShopData.occasions"
+              <Occasion v-for="(occasion, index) in donateShopData.occasions"
                 :key="occasion.id"
                 :id="occasion.id"
                 :image="occasion.image"
                 :imageLightbox="occasion.imageLightbox"
-                :title="occasion.title" />
+                :title="occasion.title"
+                :index="index" />
             </div>
           </section>
         </transition>
       </div>
     </div>
     <div v-else>
-      <div class="donate-shop__iframe" ref="donationIframe">
         <Basket @basket-btn-clicked="stepHandler" :is-plain="true"/>
-      </div>
     </div>
   </div>
 </template>
@@ -78,6 +78,13 @@ export default {
   computed: {
     currentStep() {
       return this.activeStep;
+    },
+  },
+  watch: {
+    basketCards() {
+      if (this.basketCards.length === 0) {
+        this.currentStep = 1;
+      }
     }
   },
   methods: {
@@ -92,15 +99,25 @@ export default {
     nextStep() {
       this.activeStep++;
     },
-    prevStep() {
-      if (this.activeStep === 2) {
+    prevStep(triggeredFromBasket) {
+      if (triggeredFromBasket) {
+        if (this.basket.cards.length === 0 && this.activeStep === 2) {
+          this.activeStep--;
+          return
+        }
+      } else if (this.activeStep === 2) {
         this.activeStep--;
       }
     },
     showDonationForm() {
-      const donationForm = document.getElementById('shop-iframe');    
+      const donationForm = document.getElementById('shop-iframe');
+      const event = new CustomEvent('donateShopFinished');
+      document.dispatchEvent(event);
 
-      donationForm.style.display = 'block';
+      setTimeout(function() {
+        donationForm.style.display = 'block';
+      }, 1700)
+      
     },
     basketFilled() {
       return this.basket.cards.length && Object.keys(this.basket.occasion).length
@@ -114,6 +131,10 @@ export default {
 
 body {
   margin: 0;
+}
+
+.donate-shop {
+  margin-bottom: 64px;
 }
 
 .donate-shop__basket {

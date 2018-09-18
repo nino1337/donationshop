@@ -1,9 +1,9 @@
 <template>
   <div class="occasion">
-      <div class="occasion__head" @click="toggleLightbox">
-        <img class="occasion__image" :src="image" />
+      <div v-if="basket.cards.length" class="occasion__head" @click="toggleLightbox">
+        <img class="occasion__image" :src="cardImages[index].image" />
         <transition name="opacity">
-          <Lightbox :src="imageLightbox" v-show="showLightbox"/>
+          <Lightbox :src="cardImages[index].imageLightbox" v-show="showLightbox"/>
         </transition>
         <transition name="scale">
           <div v-if="isInBasket()" class="occasion__deactivated">
@@ -32,6 +32,7 @@ export default {
   image: String,
   imageLightbox: String,
   title: String,
+  index: Number,
   },
   data() {
     return {
@@ -42,6 +43,9 @@ export default {
   computed: {
     occasion() {
       return this.basket.occasion;
+    },
+    cardImages() {
+      return this.basket.cards[0].occasionImages;
     }
   },
   methods: {
@@ -67,7 +71,6 @@ export default {
       return Object.keys(this.basket.occasion).length;
     },
     toggleLightbox() {
-      console.log('test')
       this.showLightbox = !this.showLightbox
     }
   }

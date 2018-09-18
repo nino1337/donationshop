@@ -144,7 +144,8 @@ export default {
       basketItems.splice(index, 1);
 
       this.basket.cards = basketItems;
-      this.accumulateValue()
+      this.accumulateValue();
+      this.$emit('itemRemoved', true);
     },
     removeOccasion() {
       this.basket.occasion = {};

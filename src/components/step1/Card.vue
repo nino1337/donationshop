@@ -41,7 +41,8 @@ export default {
     title: String,
     isSpecial: Boolean,
     value: Number,
-    moreInfo: String
+    moreInfo: String,
+    occasionImages: Array,
   },
   data() {
     return {
@@ -89,6 +90,7 @@ export default {
         title: this.title,
         value: this.value,
         amount: this.amount,
+        occasionImages: this.occasionImages,
       }) 
 
       this.basket.cards = cards;
