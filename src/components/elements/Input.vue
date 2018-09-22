@@ -27,7 +27,8 @@ export default {
   props: ['value','amount'],
   data() {
     return {
-      selected: ''
+      selected: '',
+      baseUrl: process.env.BASE_URL,
     }
   },
   created() {

@@ -28,7 +28,7 @@
           <section  v-show="currentStep === 2">
             <div class="donate-shop__content">
               <h2>Wählen sie einen Anlass</h2>
-              <p>Für Jeden Geschenkanlass, haben wir liebevolle Grußkarten für Sie zur Auswahl. Sie können die Krußkarten dann herunterladen und für Ihre Liebsten ausdrucken und verschenken.</p>
+              </p>
             </div>
               <div class="donate-shop__occasions">
               <Occasion v-for="(occasion, index) in donateShopData.occasions"
@@ -111,7 +111,7 @@ export default {
     },
     showDonationForm() {
       const donationForm = document.getElementById('shop-iframe');
-      const event = new CustomEvent('donateShopFinished');
+      const event = new Event('donateShopFinished');
       document.dispatchEvent(event);
 
       setTimeout(function() {

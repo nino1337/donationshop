@@ -5,23 +5,23 @@
         <span v-if="basketOpen">Warenkorb ausblenden</span> 
         <span v-else>Warenkorb einblenden</span> 
         <span class="basket__icon" :data-count="itemCount">
-          <img src="/icons/shopping-cart.svg" />
+          <img :src="`${baseUrl}icons/shopping-cart.svg`" />
         </span>
         <span class="basket__chevron">
-          <img src="/icons/chevron.svg" />
+          <img :src="`${baseUrl}icons/chevron.svg`" />
         </span>
       </div>
       <div class="basket__content">
         <transition-group name="packages" tag="div" class="basket__package-wrapper">
           <div class="basket__package" v-for="(item, index) in cards" :key="index">
             <div class="basket__package-title">
-              {{item.title}}<span class="basket__remove" @click="removeItem(index)"><img src="/icons/close.svg" /></span>
+              {{item.title}}<span class="basket__remove" @click="removeItem(index)"><img :src="`${baseUrl}icons/close.svg`" /></span>
             </div>
             <Input :value="item.value" @amountChanged="setAmount(item.id, ...arguments)" :amount="item.amount"/>
           </div>
         </transition-group>
         <div class="basket__download" v-if="isOccasionInBasket()" ref="basketOccasion">
-          <span>inkl. {{occasion.title}} als PDF zum Ausdrucken</span><img class="basket__remove" @click="removeOccasion()" src="/icons/close.svg" />
+          <span>inkl. {{occasion.title}} als PDF zum Ausdrucken</span><img class="basket__remove" @click="removeOccasion()" :src="`${baseUrl}icons/close.svg`" />
         </div>
       </div>
       <div class="basket__sum">
@@ -37,7 +37,7 @@
       <div class="basket__show-more">
         Warenkorb
         <span class="basket__icon" :data-count="itemCount">
-          <img src="/icons/shopping-cart.svg" />
+          <img :src="`${baseUrl}icons/shopping-cart.svg`" />
         </span>
       </div>
       <div class="basket__content">
@@ -76,6 +76,7 @@ export default {
   props: ['step', 'is-plain'],
   data() {
     return {
+      baseUrl: process.env.BASE_URL,
       basketOpen: true,
       basket: basket,
       amount: 0,

@@ -16,8 +16,8 @@
       </a>
       <div class="card__more-info-btn" @click="showMore = !showMore">
         Mehr Informationen
-        <span v-if="showMore"><img class="icon-minus" src="/icons/minus.svg" /> </span>
-        <span v-else><img class="icon-plus"  src="/icons/plus.svg" /> </span>
+        <span v-if="showMore"><img class="icon-minus" :src="`${baseUrl}icons/minus.svg`" /> </span>
+        <span v-else><img class="icon-plus"  :src="`${baseUrl}icons/plus.svg`" /> </span>
       </div>
       <div class="card__more-info" :class="{'is-active': showMore}">
         {{moreInfo}}
@@ -46,6 +46,7 @@ export default {
   },
   data() {
     return {
+      baseUrl: process.env.BASE_URL,
       showMore: false,
       basket: basket,
       amount: 1,

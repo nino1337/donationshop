@@ -2,7 +2,7 @@
   <button class="btn btn--primary" :disabled="isDisabled" >
     {{text}} 
     <span class="button__chevron">
-      <img src="/icons/button-chevron.svg" />
+      <img :src="`${baseUrl}icons/button-chevron.svg`" />
     </span>
   </button>
 </template>
@@ -10,7 +10,12 @@
 <script>
 export default {
   name: 'Button',
-  props: ['text', 'isDisabled'],
+	props: ['text', 'isDisabled'],
+	data() {
+		return {
+			baseUrl: process.env.BASE_URL
+		}
+	}
 };
 </script>
 
