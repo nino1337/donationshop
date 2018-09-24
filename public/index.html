@@ -27,14 +27,17 @@
         moreInfo: 'Lorem Ipus jajaja  Lorem Ipus jajaja  Lorem Ipus jajaja  Lorem Ipus jajaja  Lorem Ipus jajaja  Lorem Ipus jajaja  Lorem Ipus jajaja ',
         pdf: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
         occasionImages: [{
-          image: 'https://picsum.photos/350/200/?image=1049',
-          imageLightbox: 'https://picsum.photos/1600/900/?image=1049',
+          occationUid: 0,
+          image: 'https://picsum.photos/350/200/?image=1048',
+          imageLightbox: 'https://picsum.photos/1600/900/?image=1048',
         },
         {
-          image: 'https://picsum.photos/350/200/?image=1049',
-          imageLightbox: 'https://picsum.photos/1600/900/?image=1049',
+          occationUid: 1,
+          image: 'https://picsum.photos/350/200/?image=1047',
+          imageLightbox: 'https://picsum.photos/1600/900/?image=1047',
         },
         {
+          occationUid: 2,
           image: 'https://picsum.photos/350/200/?image=1049',
           imageLightbox: 'https://picsum.photos/1600/900/?image=1049',
         }]
@@ -48,16 +51,19 @@
         moreInfo: 'Lorem Ipus jajaja  Lorem Ipus jajaja  Lorem Ipus jajaja  Lorem I 2 Ipus jajaja  Lorem Ipus jajaja ',
         pdf: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
         occasionImages: [{
+          occationUid: 0,
+          image: 'https://picsum.photos/350/200/?image=1049',
+          imageLightbox: 'https://picsum.photos/1600/900/?image=1049',
+        },
+        {
+          occationUid: 1,
           image: 'https://picsum.photos/350/200/?image=1048',
           imageLightbox: 'https://picsum.photos/1600/900/?image=1048',
         },
         {
-          image: 'https://picsum.photos/350/200/?image=1048',
-          imageLightbox: 'https://picsum.photos/1600/900/?image=1048',
-        },
-        {
-          image: 'https://picsum.photos/350/200/?image=1048',
-          imageLightbox: 'https://picsum.photos/1600/900/?image=1048',
+          occationUid: 2,
+          image: 'https://picsum.photos/350/200/?image=1047',
+          imageLightbox: 'https://picsum.photos/1600/900/?image=1047',
         }]
       },
       {
@@ -69,14 +75,17 @@
         moreInfo: 'Lorem Ipus jajaja  Lorem Ipus jajaja  Lorem Ipus jajaja  Lorem Ipus jajaja  Lorem Ipus jajaja  Lorem Ipus jajaja  Lorem Ipus jajaja',
         pdf: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
         occasionImages: [{
+          occationUid: 0,
           image: 'https://picsum.photos/350/200/?image=1047',
           imageLightbox: 'https://picsum.photos/1600/900/?image=1047',
         },
         {
+          occationUid: 1,
           image: 'https://picsum.photos/350/200/?image=1047',
           imageLightbox: 'https://picsum.photos/1600/900/?image=1047',
         },
         {
+          occationUid: 2,
           image: 'https://picsum.photos/350/200/?image=1047',
           imageLightbox: 'https://picsum.photos/1600/900/?image=1047',
         }]
@@ -90,32 +99,32 @@
         moreInfo: 'Lorem Ipus jajaja  Lorem Ipus jajaja  Lorem Ipus jajaja  Lorem Ipus jajaja  Lorem Ipus jajaja  Lorem Ipus jajaja  Lorem Ipus jajaja ',
         pdf: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
         occasionImages: [{
+          occationUid: 0,
           image: 'https://picsum.photos/350/200/?image=1050',
           imageLightbox: 'https://picsum.photos/1600/900/?image=1050',
         },
         {
+          occationUid: 1,
           image: 'https://picsum.photos/350/200/?image=1050',
           imageLightbox: 'https://picsum.photos/1600/900/?image=1050',
         },
         {
+          occationUid: 2,
           image: 'https://picsum.photos/350/200/?image=1050',
           imageLightbox: 'https://picsum.photos/1600/900/?image=1050',
         }]
       }],
       occasions: [{
-        id: 0,
+        id: 2,
         title: 'Weihnachten',
-        pdf: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
       },
       {
         id: 1,
         title: 'Geburtstag',
-        pdf: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
       },
       {
-        id: 2,
+        id: 0,
         title: 'ohne Anlass',
-        pdf: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
       }],
       content: {
         title: '',
@@ -125,7 +134,7 @@
     document.addEventListener("DOMContentLoaded", function (event) {
       document.addEventListener("donateShopFinished", function () {
         var fundraisingIframe = document.createElement('script');
-        fundraisingIframe.setAttribute('src', 'https://secure.fundraisingbox.com/app/paymentJS?hash=da0wav97smbzekm2');
+        fundraisingIframe.setAttribute('src', 'https://secure.fundraisingbox.com/app/paymentJS?hash=4kg57rgasvhj4ilf&amount=' + donateShopData.amount);
         document.getElementById('shop-iframe').appendChild(fundraisingIframe);
       })
     });

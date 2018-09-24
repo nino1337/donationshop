@@ -27,15 +27,13 @@
         <transition name="step-2">
           <section  v-show="currentStep === 2">
             <div class="donate-shop__content">
-              <h2>Wählen sie einen Anlass</h2>
-              </p>
+              <h2>{{donateShopData.content.title}}</h2>
+              <p>{{donateShopData.content.text}}</p>
             </div>
               <div class="donate-shop__occasions">
               <Occasion v-for="(occasion, index) in donateShopData.occasions"
                 :key="occasion.id"
                 :id="occasion.id"
-                :image="occasion.image"
-                :imageLightbox="occasion.imageLightbox"
                 :title="occasion.title"
                 :index="index" />
             </div>
@@ -80,13 +78,6 @@ export default {
       return this.activeStep;
     },
   },
-  watch: {
-    basketCards() {
-      if (this.basketCards.length === 0) {
-        this.currentStep = 1;
-      }
-    }
-  },
   methods: {
     stepHandler() {
       if (this.activeStep === 1) {
@@ -110,6 +101,8 @@ export default {
       }
     },
     showDonationForm() {
+      this.provideAmount();
+
       const donationForm = document.getElementById('shop-iframe');
       const event = new Event('donateShopFinished');
       document.dispatchEvent(event);
@@ -119,11 +112,15 @@ export default {
       }, 1700)
       
     },
+    provideAmount() {
+      // global variable that contains donate shop data
+      donateShopData.amount = this.basket.accumulatedValue;
+    },
     basketFilled() {
       return this.basket.cards.length && Object.keys(this.basket.occasion).length
-    }
+    },
   }
-};
+} 
 </script>
 
 <style lang="scss">
