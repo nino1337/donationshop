@@ -3,7 +3,7 @@
       <div v-if="basket.cards.length" class="occasion__head" @click="toggleLightbox">
         <img class="occasion__image" :src="getOccasionImg()" />
         <transition name="opacity">
-          <Lightbox :src="getOccasionLightbox()" v-show="showLightbox"/>
+          <Lightbox :src="getOccasionImg()" v-show="showLightbox"/>
         </transition>
         <transition name="scale">
           <div v-if="isInBasket()" class="occasion__deactivated">
@@ -79,15 +79,6 @@ export default {
         return occasionImages[0].image;
       }
     },
-    getOccasionLightbox() {
-      if (this.basket.cards.length) {
-      const occasionImages = this.basket.cards[0].occasionImages.filter((item, index) => {
-        return item.occationUid === this.id
-      })
-
-      return occasionImages[0].imageLightbox;
-    }
-    }
   }
 };
 </script>
