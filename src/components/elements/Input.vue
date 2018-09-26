@@ -57,7 +57,7 @@ export default {
   position: relative;
 
   &::before {
-    content: url('/icons/quantity.svg');
+    content: url('/typo3conf/ext/bra_projectfiles_stc/Resources/Public/donation-shop/dist/icons/quantity.svg');
     position: absolute;
     pointer-events: none;
     right: 16px;
