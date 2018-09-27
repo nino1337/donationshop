@@ -1,27 +1,29 @@
 <template>
-    <div class="card">
-      <div class="card__head">
-        <img :src="image" />
+  <div class="card">
+    <div class="card__head">
+      <img :src="image" />
+    </div>
+    <div class="card__body">
+      <div class="card__headline">
+        {{title}}
+        <span v-if="isSpecial" class="card__special">beliebt</span>
       </div>
-      <div class="card__body">
-        <div class="card__headline">
-          {{title}}
-          <span v-if="isSpecial" class="card__special">beliebt</span>
-        </div>
+      <div class="card__input">
         <Input :value="value" :amount="1" @amountChanged="setAmount" />
-        <div class="card__basket" @click="addToBasket">
-          in den Warenkorb
-        </div>
-        <div class="card__more-info-btn" @click="showMore = !showMore">
-          Mehr Informationen
-          <span v-if="showMore"><img src="/icons/minus.svg" /> </span>
-          <span v-else><img src="/icons/plus.svg" /> </span>
-        </div>
-        <div v-if="showMore" class="card__more-info">
-          {{moreInfo}}
-        </div>
+      </div>
+      <a href="/#basket" class="card__basket" @click="addToBasket" v-smooth-scroll="{duration: 1000}">
+        in den Warenkorb
+      </a>
+      <div class="card__more-info-btn" @click="showMore = !showMore">
+        Mehr Informationen
+        <span v-if="showMore"><img class="icon-minus" :src="`${baseUrl}icons/minus.svg`" /> </span>
+        <span v-else><img class="icon-plus"  :src="`${baseUrl}icons/plus.svg`" /> </span>
+      </div>
+      <div class="card__more-info" :class="{'is-active': showMore}">
+        {{moreInfo}}
       </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -39,30 +41,62 @@ export default {
     title: String,
     isSpecial: Boolean,
     value: Number,
-    moreInfo: String
+    moreInfo: String,
+    occasionImages: Array,
   },
   data() {
     return {
+      baseUrl: process.env.BASE_URL,
       showMore: false,
       basket: basket,
       amount: 1,
+      valueOld: 0, 
+      valueNew: 0,
+      countUp: false,
+    }
+  },
+  watch: {
+    valueNew() {
+      let animationInterval = setInterval(() => {
+        if (this.countUp) {
+          if (this.valueOld === this.valueNew) {
+            this.basket.accumulatedValue = this.valueNew;
+            this.resetAnimationValues()
+            clearInterval(animationInterval)
+            return;
+          }
+          
+          if (this.valueOld > this.valueNew) {
+            this.basket.accumulatedValue = this.valueOld--;
+          } else {
+            this.basket.accumulatedValue = this.valueOld++;
+          } 
+        } else {
+          clearInterval(animationInterval)
+        }
+      }, 1);
     }
   },
   methods: {
     addToBasket() {
+      let cards = this.basket.cards.slice();
+
       if (this.isInBasket()) {
         this.changeAmount();
         return
       }
 
-      this.basket.cards.push({
+      cards.push({
         id: this.id,
         title: this.title,
         value: this.value,
         amount: this.amount,
-    }) 
+        occasionImages: this.occasionImages,
+      }) 
 
-    this.accumulateValue();
+      this.basket.cards = cards;
+
+      this.accumulateValue();
     },
     isInBasket() {
       let isInBasket = false;
@@ -83,20 +117,31 @@ export default {
         itemCount += item.amount;
       })
 
+      this.setAnimationValues(value);
       this.basket.itemCount = itemCount;
-      this.basket.accumulatedValue = value;
     },
     setAmount(input) {
       this.amount = parseInt(input.value, 10);
     },
     changeAmount() {
-      this.basket.cards.forEach((item, index) => {
-        if(item.id === this.id) {
-          this.basket.cards[index].amount = this.amount;
-        }
-      })
+      const cards = this.basket.cards;
+      let currentPackage = cards.filter(item => item.id === this.id);
+
+      currentPackage[0].amount = this.amount;
 
       this.accumulateValue();
+    },
+    // set animation data and allow counting
+    setAnimationValues(newValue) {
+      this.countUp = true;
+      this.valueOld = this.basket.accumulatedValue;
+      this.valueNew = newValue;
+    },
+    // reset animation data and stop counting
+    resetAnimationValues() {
+      this.countUp = false;
+      this.valueNew = 0;
+      this.valueOld = 0;
     }
   }
 };
@@ -109,25 +154,40 @@ export default {
 @import "../../assets/scss/partials/mixins";
 
 .card {
+  box-shadow: 0 2px 15px -5px rgba(color('black'), 0.5);
   border-radius: 7px;
-  margin: 0 16px 24px;
+  display: block;
+  margin: 0 16px 16px;
   max-width: 300px;
+  width: 100%;
+
+  @include respondMin(point('min-md')) {
+    width: 45%;
+  }
+
+  @include respondMin(point('min-xl')) {
+    max-width: 270px;
+  }
 }
 
 .card__head {
   border-radius: 7px 7px 0 0;
+  height: 0;
   overflow: hidden;
+  position: relative;
+  padding-bottom: 56.25%;
 }
 
 .card__body {
-  box-shadow: 0 2px 15px -9px rgba(color('black'), 0.5);
   padding: 16px;
+  position: relative;
 }
 
 .card__headline {
   display: flex;
-  font-family: 'TradeGothic';
+  font-family: $ff-deco;
   font-size: 24px;
+  flex-wrap: wrap;
   margin-bottom: 24px;
   text-transform: uppercase;
 }
@@ -145,14 +205,19 @@ export default {
   padding: 0 5px;
 }
 
+.card__input {
+  margin-bottom: 24px;
+}
+
 .card__basket {
   border-bottom: 4px solid color('ci');
-  cursor: pointer;
   color: color('ci');
   display: inline-block;
   font-size: 18px;
+  font-family: $ff-deco;
   margin-bottom: 24px;
   text-transform: uppercase;
+  text-decoration: none;
 }
 
 .card__more-info-btn {
@@ -160,9 +225,35 @@ export default {
   display: inline-block;
   font-size: 16px;
   margin-bottom: 26px;
+
+  .icon-minus {
+    left: -2px;
+    top: 2px;
+    position: relative;
+  }
 }
 
 .card__more-info {
   font-size: 16px;
+  max-height: 0;
+  transition: max-height 0.3s ease;
+  overflow: hidden;
+
+  &.is-active {
+    max-height: 400px;
+  }
+
+  @include respondMin(point('min-xl')) {
+    box-shadow: 0 5px 15px -5px rgba(color('black'), 0.5);
+    border-radius: 7px;
+    background-color: color('white');
+    left: 0;
+    top: calc(100% - 30px);
+    padding: 0 16px;
+    position: absolute;
+    width: 100%;
+  }
 }
+
+
 </style>

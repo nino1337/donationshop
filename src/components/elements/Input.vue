@@ -1,7 +1,7 @@
 <template>
   <div class="input">
     <div class="input__dropdown-wrapper">
-      <select class="input__dropdown" @change="$emit('amountChanged', $event.target)" v-model="selected">
+      <select class="input__dropdown" @change="$emit('amountChanged', $event.target)" v-model="selected" data-customforms="disabled">
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
@@ -27,7 +27,8 @@ export default {
   props: ['value','amount'],
   data() {
     return {
-      selected: ''
+      selected: '',
+      baseUrl: process.env.BASE_URL,
     }
   },
   created() {
@@ -49,7 +50,6 @@ export default {
 
 .input {
   display: flex;
-  margin-bottom: 24px;
 }
 
 .input__dropdown-wrapper {
@@ -57,7 +57,7 @@ export default {
   position: relative;
 
   &::before {
-    content: url('/icons/quantity.svg');
+    content: url('/typo3conf/ext/bra_projectfiles_stc/Resources/Public/donation-shop/dist/icons/quantity.svg');
     position: absolute;
     pointer-events: none;
     right: 16px;
@@ -81,7 +81,7 @@ export default {
 .input__value {
   margin-left: 16px;
   font-size: 24px;
-  font-family: 'TradeGothic';
+  font-family: $ff-deco;
 }
 
 .basket__package {

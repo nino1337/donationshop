@@ -1,5 +1,5 @@
 <template>
-    <div class="donate-shop__step" :class="{ 'is-active': active }">
+    <div class="step" :class="{ 'is-active': active }">
       {{step}}
     </div>
 </template>
@@ -17,19 +17,28 @@ export default {
 @import "../assets/scss/partials/variables";
 @import "../assets/scss/partials/mixins";
 
-.donate-shop__step {
-  border-bottom: 2px solid color('grey');
+.step {
   color: color('grey');
   counter-increment: step;
+  font-family: $ff-deco;
   font-size: 16px;
+  line-height: 1.25;
   margin: 0 24px;
   padding-left: 12px;
   position: relative;
   text-transform: uppercase;
 
+  &:first-of-type {
+    cursor: pointer;
+  }
+
   &.is-active {
-    border-color: color('ci');
+    border-bottom: 2px solid color('ci');
     color: color('ci');
+
+    @include respondMin(point('min-md')) {
+      border-bottom: 4px solid color('ci');
+    }
   }
 
   &::before {
@@ -40,7 +49,6 @@ export default {
   }
 
   @include respondMin(point('min-md')) {
-    border-width: 4px;
     font-size: 24px;
     margin: 0;
     padding-left: 32px;
