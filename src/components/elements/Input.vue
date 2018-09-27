@@ -1,7 +1,7 @@
 <template>
   <div class="input">
     <div class="input__dropdown-wrapper">
-      <select class="input__dropdown" @change="$emit('amountChanged', $event.target)" v-model="selected">
+      <select class="input__dropdown" @change="$emit('amountChanged', $event.target)" v-model="selected" data-customforms="disabled">
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>

@@ -15,7 +15,7 @@
         <div class="occasion__headline">
           {{title}}
         </div>
-        <a href="#basket" class="occasion__basket" @click="addToBasket" v-smooth-scroll="{duration: 1000, offset: -100}">
+        <a href="/#basket" class="occasion__basket" @click="addToBasket" v-smooth-scroll="{duration: 1000, offset: -100}">
           in den Warenkorb
         </a>
       </div>
@@ -74,7 +74,6 @@ export default {
         const occasionImages = this.basket.cards[0].occasionImages.filter((item, index) => {
           return item.occationUid === this.id
         })
-
 
         return occasionImages[0].image;
       }

@@ -21,7 +21,7 @@
           </div>
         </transition-group>
         <div class="basket__download" v-if="isOccasionInBasket()" ref="basketOccasion">
-          <span>inkl. {{occasion.title}} als PDF zum Ausdrucken</span><img class="basket__remove" @click="removeOccasion()" :src="`${baseUrl}icons/close.svg`" />
+          <span>inkl. Grußkarten als PDF zum Ausdrucken</span><img class="basket__remove" @click="removeOccasion()" :src="`${baseUrl}icons/close.svg`" />
         </div>
       </div>
       <div class="basket__sum">
@@ -169,6 +169,19 @@ export default {
 @import "../assets/scss/partials/mixins";
 
 .basket {
+  margin-left: -15px;
+	margin-right: -15px;
+	padding: 26px;
+
+	@include respondMin(point('min-sm')) {
+		margin-left: -32px;
+		margin-right: -32px;
+	}
+
+	@include respondMin(point('min-md')) {
+		margin: 0 calc(50% - 50vw) $softgrid-gutter-width * 2;
+  }
+  
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.5s, padding 0.5s;
@@ -258,8 +271,12 @@ export default {
 }
 
 .basket__icon {
-  margin-left: 24px;
+  margin-left: 10px;
   position: relative;
+
+  @include respondMin(point('min-md')) {
+    margin-left: 24px;
+  }
 
   &::after {
     background-color: color('ci');
@@ -305,7 +322,7 @@ export default {
   }
 
   &::before {
-    content: url('/icons/pdf-file.svg');
+    content: url($folder-path + 'icons/pdf-file.svg');
     position: absolute;
     left: 0;
     z-index: 1;

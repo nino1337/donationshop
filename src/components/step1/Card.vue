@@ -11,7 +11,7 @@
       <div class="card__input">
         <Input :value="value" :amount="1" @amountChanged="setAmount" />
       </div>
-      <a href="#basket" class="card__basket" @click="addToBasket" v-smooth-scroll="{duration: 1000}">
+      <a href="/#basket" class="card__basket" @click="addToBasket" v-smooth-scroll="{duration: 1000}">
         in den Warenkorb
       </a>
       <div class="card__more-info-btn" @click="showMore = !showMore">
@@ -180,12 +180,14 @@ export default {
 
 .card__body {
   padding: 16px;
+  position: relative;
 }
 
 .card__headline {
   display: flex;
   font-family: $ff-deco;
   font-size: 24px;
+  flex-wrap: wrap;
   margin-bottom: 24px;
   text-transform: uppercase;
 }
@@ -239,6 +241,17 @@ export default {
 
   &.is-active {
     max-height: 400px;
+  }
+
+  @include respondMin(point('min-xl')) {
+    box-shadow: 0 5px 15px -5px rgba(color('black'), 0.5);
+    border-radius: 7px;
+    background-color: color('white');
+    left: 0;
+    top: calc(100% - 30px);
+    padding: 0 16px;
+    position: absolute;
+    width: 100%;
   }
 }
 

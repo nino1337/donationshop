@@ -2,7 +2,7 @@
   <div class="donate-shop">
     <div v-if="!isFinished">
       <div class="donate-shop__steps donate-shop__content">
-        <Step :step="'Spende'" :active="currentStep === 1" @click.native="prevStep"/>
+        <Step :step="'Spende'" :active="currentStep === 1" @click.native="prevStep(false)"/>
         <Step :step="'Grusskarte'" :active="currentStep === 2" />
       </div>
         <div class="donate-shop__basket">
@@ -96,6 +96,7 @@ export default {
           this.activeStep--;
           return
         }
+        console.log('test')
       } else if (this.activeStep === 2) {
         this.activeStep--;
       }
@@ -169,11 +170,13 @@ body {
 
 .donate-shop__cards {
   align-items: flex-start;
+
   @include respondMin(point('min-md')) {
     max-width: 768px;
   }
 
   @include respondMin(point('min-xl')) {
+    margin: 0 -16px;
     max-width: none;
   }
 }

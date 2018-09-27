@@ -41,7 +41,7 @@ export default {
   box-shadow: 0px 0px 5px 0 rgba(0,0,0,0.45);
   border-radius: 4px;
   padding: 20px;
-  width: 70%;
+  width: 60%;
 }
 
 .lightbox__image {
