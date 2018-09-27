@@ -15,7 +15,7 @@
         <div class="occasion__headline">
           {{title}}
         </div>
-        <a href="#basket" class="occasion__basket" @click="addToBasket" v-smooth-scroll="{duration: 1000, offset: -100}">
+        <a :href="currUrl + '#basket'" class="occasion__basket" @click="addToBasket" v-smooth-scroll="{duration: 1000, offset: -100}">
           in den Warenkorb
         </a>
       </div>
@@ -32,6 +32,7 @@ export default {
   title: String,
   index: Number,
   occasions: Array,
+  currUrl: String,
   },
   data() {
     return {
@@ -58,7 +59,6 @@ export default {
       }
 
       this.basket.occasion = occasion;
-      this.$emit('addedToBasket');
     },
     clearOccasion() {
       this.basket.occasion = {};

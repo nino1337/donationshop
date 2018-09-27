@@ -20,7 +20,8 @@
                 :isSpecial="card.isSpecial"
                 :value="card.value"
                 :moreInfo="card.moreInfo"
-                :occasionImages="card.occasionImages" />
+                :occasionImages="card.occasionImages"
+                :currUrl="currUrl" />
             </div>
           </section>
         </transition>
@@ -35,7 +36,8 @@
                 :key="occasion.id"
                 :id="occasion.id"
                 :title="occasion.title"
-                :index="index" />
+                :index="index"
+                :currUrl="currUrl" />
             </div>
           </section>
         </transition>
@@ -68,10 +70,12 @@ export default {
       activeStep: 1,
       basket: basket,
       isFinished: false,
+      currUrl: '',
     }
   },
   created() {
     this.donateShopData = donateShopData;
+    this.currUrl = window.location.href;
   },
   computed: {
     currentStep() {

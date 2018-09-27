@@ -11,7 +11,7 @@
       <div class="card__input">
         <Input :value="value" :amount="1" @amountChanged="setAmount" />
       </div>
-      <a href="#basket" class="card__basket" @click="addToBasket" v-smooth-scroll="{duration: 1000}">
+      <a :href="currUrl + '#basket'" class="card__basket" @click="addToBasket" v-smooth-scroll="{duration: 1000}">
         in den Warenkorb
       </a>
       <div class="card__more-info-btn" @click="showMore = !showMore">
@@ -43,6 +43,7 @@ export default {
     value: Number,
     moreInfo: String,
     occasionImages: Array,
+    currUrl: String,
   },
   data() {
     return {
@@ -79,7 +80,6 @@ export default {
   },
   methods: {
     addToBasket() {
-      let currLocation = window.location.href;
       let cards = this.basket.cards.slice();
 
       if (this.isInBasket()) {
@@ -96,13 +96,7 @@ export default {
       }) 
 
       this.basket.cards = cards;
-
       this.accumulateValue();
-
-      // smooth scroll manipulates url wrongly
-      setTimeout(function() {
-        window.history.pushState(null, null,currLocation);
-      }, 50)
     },
     isInBasket() {
       let isInBasket = false;
