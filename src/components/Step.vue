@@ -23,10 +23,16 @@ export default {
   font-family: $ff-deco;
   font-size: 16px;
   line-height: 1.25;
-  margin: 0 24px;
+  margin: 0 24px 10px;
   padding-left: 12px;
   position: relative;
   text-transform: uppercase;
+  width: 100%;
+
+  @include respondMin(point('min-sm')) {
+    margin-bottom: 0;
+    width: auto;
+  }
 
   &:first-of-type {
     cursor: pointer;

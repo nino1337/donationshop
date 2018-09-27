@@ -155,7 +155,8 @@ body {
 .donate-shop__steps {
   display: flex;
   justify-content: center;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
 
   @include respondMin(point('min-md')) {
     justify-content: space-between;

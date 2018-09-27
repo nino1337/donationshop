@@ -32,7 +32,7 @@
       </div>
       <div class="basket__cta">
         <Button v-if="step === 1" :text="'Grußkarte auswählen'" :isDisabled="cards.length === 0" @click.native.prevent="$emit('basket-btn-clicked');closeBasket();"/>
-        <Button v-else :text="'Zahlungsart & Adresse'" :isDisabled="cards.length === 0 || !isOccasionInBasket()" @click.native.prevent="$emit('basket-btn-clicked')"/>
+        <Button v-else :text="'Zahlungsart & Adresse'" :isDisabled="cards.length === 0 || !isOccasionInBasket()" @click.native.prevent="$emit('basket-btn-clicked');cacheBasket();"/>
       </div>
     </div>
 
@@ -168,6 +168,13 @@ export default {
       setTimeout(function() {
         vm.basket.basketOpen = false;
       }, 500);  
+    },
+    cacheBasket() {
+      const vm = this;
+      if (sessionStorage.getItem('basket') !== null) {
+        sessionStorage.clear();
+      }
+      sessionStorage.setItem('basket', JSON.stringify(vm.basket));
     }
   }
 };
