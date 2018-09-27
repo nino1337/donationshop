@@ -236,7 +236,7 @@ export default {
 .card__more-info {
   font-size: 16px;
   max-height: 0;
-  transition: max-height 0.3s ease;
+  transition: max-height 0.3s ease, padding 0.3s ease;
   overflow: hidden;
 
   &.is-active {
@@ -252,6 +252,10 @@ export default {
     padding: 0 16px;
     position: absolute;
     width: 100%;
+
+    &.is-active {
+      padding-bottom: 32px
+    }
   }
 }
 
