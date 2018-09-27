@@ -322,7 +322,7 @@ export default {
   }
 
   &::before {
-    content: url($folder-path + 'icons/pdf-file.svg');
+    content: url('/typo3conf/ext/bra_projectfiles_stc/Resources/Public/donation-shop/dist/icons/pdf-file.svg');
     position: absolute;
     left: 0;
     z-index: 1;

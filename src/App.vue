@@ -96,7 +96,6 @@ export default {
           this.activeStep--;
           return
         }
-        console.log('test')
       } else if (this.activeStep === 2) {
         this.activeStep--;
       }
