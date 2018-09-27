@@ -59,6 +59,7 @@ export default {
       }
 
       this.basket.occasion = occasion;
+      this.openBasket();
     },
     clearOccasion() {
       this.basket.occasion = {};
@@ -78,6 +79,9 @@ export default {
         return occasionImages[0].image;
       }
     },
+    openBasket() {
+      this.basket.basketOpen = true;
+    }
   }
 };
 </script>

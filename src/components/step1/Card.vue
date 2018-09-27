@@ -11,7 +11,7 @@
       <div class="card__input">
         <Input :value="value" :amount="1" @amountChanged="setAmount" />
       </div>
-      <a :href="currUrl + '#basket'" class="card__basket" @click="addToBasket" v-smooth-scroll="{duration: 1000}">
+      <a :href="currUrl + '#basket'" class="card__basket" @click="addToBasket" v-smooth-scroll="{duration: 1000, offset: -250}">
         in den Warenkorb
       </a>
       <div class="card__more-info-btn" @click="showMore = !showMore">
@@ -97,6 +97,7 @@ export default {
 
       this.basket.cards = cards;
       this.accumulateValue();
+      this.openBasket();
     },
     isInBasket() {
       let isInBasket = false;
@@ -142,6 +143,9 @@ export default {
       this.countUp = false;
       this.valueNew = 0;
       this.valueOld = 0;
+    },
+    openBasket() {
+      this.basket.basketOpen = true;
     }
   }
 };
@@ -252,6 +256,7 @@ export default {
     padding: 0 16px;
     position: absolute;
     width: 100%;
+    z-index: 500;
 
     &.is-active {
       padding-bottom: 32px

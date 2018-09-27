@@ -1,8 +1,8 @@
 <template>
-  <div id="basket" class="basket util-bg-bisquit" :class="{ 'is-open': basketOpen, 'is-visible': cards.length > 0 || isOccasionInBasket()}">
+  <div id="basket" class="basket util-bg-bisquit" :class="{ 'is-open': basket.basketOpen, 'is-visible': cards.length > 0 || isOccasionInBasket()}">
     <div class="donate-shop__content" v-if="!isPlain">
-      <div class="basket__show-more" @click="basketOpen = !basketOpen">
-        <span v-if="basketOpen">Warenkorb ausblenden</span> 
+      <div class="basket__show-more" @click="basket.basketOpen = !basket.basketOpen">
+        <span v-if="basket.basketOpen">Warenkorb ausblenden</span> 
         <span v-else>Warenkorb einblenden</span> 
         <span class="basket__icon" :data-count="itemCount">
           <img :src="`${baseUrl}icons/shopping-cart.svg`" />
@@ -21,14 +21,17 @@
           </div>
         </transition-group>
         <div class="basket__download" v-if="isOccasionInBasket()" ref="basketOccasion">
-          <span>inkl. Grußkarten als PDF zum Ausdrucken</span><img class="basket__remove" @click="removeOccasion()" :src="`${baseUrl}icons/close.svg`" />
+          <div class="basket__occasion-title">
+            {{occasion.title}}
+          </div>
+          <span>inkl. PDF zum Ausdrucken</span><img class="basket__remove" @click="removeOccasion()" :src="`${baseUrl}icons/close.svg`" />
         </div>
       </div>
       <div class="basket__sum">
         Gesamtsumme <span class="input__value">{{accumulatedValue}}€</span>
       </div>
       <div class="basket__cta">
-        <Button v-if="step === 1" :text="'Grußkarte auswählen'" :isDisabled="cards.length === 0" @click.native.prevent="$emit('basket-btn-clicked')"/>
+        <Button v-if="step === 1" :text="'Grußkarte auswählen'" :isDisabled="cards.length === 0" @click.native.prevent="$emit('basket-btn-clicked');closeBasket();"/>
         <Button v-else :text="'Zahlungsart & Adresse'" :isDisabled="cards.length === 0 || !isOccasionInBasket()" @click.native.prevent="$emit('basket-btn-clicked')"/>
       </div>
     </div>
@@ -52,7 +55,10 @@
           </div>
         </transition-group>
         <div class="basket__download"  ref="basketOccasion">
-          <span>inkl. {{occasion.title}} als PDF zum Ausdrucken</span>
+          <div class="basket__occasion-title">
+            {{occasion.title}}
+          </div>
+          <span>inkl. PDF zum Ausdrucken</span>
         </div>
       </div>
       <div class="basket__sum">
@@ -77,7 +83,6 @@ export default {
   data() {
     return {
       baseUrl: process.env.BASE_URL,
-      basketOpen: true,
       basket: basket,
       amount: 0,
       valueOld: 0, // necessary for animation
@@ -157,6 +162,12 @@ export default {
     setAnimationValues(newValue) {
       this.valueOld = this.basket.accumulatedValue;
       this.valueNew = newValue;
+    },
+    closeBasket() {
+      const vm = this;
+      setTimeout(function() {
+        vm.basket.basketOpen = false;
+      }, 500);  
     }
   }
 };
@@ -257,12 +268,17 @@ export default {
   }
 }
 
-.basket__package-title {
+.basket__package-title,
+.basket__occasion-title {
   display: flex;
   font-family: $ff-deco;
   font-size: 18px;
   margin-bottom: 16px;
   text-transform: uppercase;
+}
+
+.basket__occasion-title {
+  width: 100%;
 }
 
 .basket__remove {
@@ -306,8 +322,9 @@ export default {
 .basket__download {
   border-top: 1px solid color('grey');
   display: flex;
+  flex-wrap: wrap;
   font-size: 16px;
-  padding: 16px 0 16px 32px;
+  padding: 16px 0 16px 0;
   position: relative;
 
   .basket__remove {
@@ -318,14 +335,15 @@ export default {
 
   span {
     display: inline-block;
+    padding-left: 32px;
     width: 200px;
-  }
 
-  &::before {
+    &::before {
     content: url('/typo3conf/ext/bra_projectfiles_stc/Resources/Public/donation-shop/dist/icons/pdf-file.svg');
     position: absolute;
     left: 0;
     z-index: 1;
+  }
   }
 }
 
