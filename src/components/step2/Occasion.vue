@@ -75,7 +75,7 @@ export default {
     getOccasionImg() {
       if (this.basket.cards.length) {
         const occasionImages = this.basket.cards[0].occasionImages.filter((item, index) => {
-          return item.occationUid === this.id
+          return item.occationUid === this.uid
         })
 
         return occasionImages[0].image;
