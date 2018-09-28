@@ -15,7 +15,7 @@
         <div class="occasion__headline">
           {{title}}
         </div>
-        <a href="/#basket" class="occasion__basket" @click="addToBasket" v-smooth-scroll="{duration: 1000, offset: -100}">
+        <a :href="currUrl + '#basket'" class="occasion__basket" @click="addToBasket" v-smooth-scroll="{duration: 1000, offset: -100}">
           in den Warenkorb
         </a>
       </div>
@@ -29,9 +29,11 @@ export default {
   name: 'Occasion',
   props: {
   id: Number,
+  uid: Number,
   title: String,
   index: Number,
   occasions: Array,
+  currUrl: String,
   },
   data() {
     return {
@@ -54,11 +56,12 @@ export default {
 
       occasion = {
         id: this.id,
+        uid: this.uid,
         title: this.title
       }
 
       this.basket.occasion = occasion;
-      this.$emit('addedToBasket');
+      this.openBasket();
     },
     clearOccasion() {
       this.basket.occasion = {};
@@ -72,12 +75,15 @@ export default {
     getOccasionImg() {
       if (this.basket.cards.length) {
         const occasionImages = this.basket.cards[0].occasionImages.filter((item, index) => {
-          return item.occationUid === this.id
+          return item.occationUid === this.uid
         })
 
         return occasionImages[0].image;
       }
     },
+    openBasket() {
+      this.basket.basketOpen = true;
+    }
   }
 };
 </script>

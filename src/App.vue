@@ -2,8 +2,8 @@
   <div class="donate-shop">
     <div v-if="!isFinished">
       <div class="donate-shop__steps donate-shop__content">
-        <Step :step="'Spende'" :active="currentStep === 1" @click.native="prevStep(false)"/>
-        <Step :step="'Grusskarte'" :active="currentStep === 2" />
+        <Step :step="'Spende auswählen'" :active="currentStep === 1" @click.native="prevStep(false)"/>
+        <Step :step="'Grusskarte auswählen'" :active="currentStep === 2" />
       </div>
         <div class="donate-shop__basket">
           <Basket @basket-btn-clicked="stepHandler" @itemRemoved="prevStep" :step="currentStep" :is-plain="false"/>
@@ -15,12 +15,14 @@
               <Card v-for="card in donateShopData.cards"
                 :key="card.id"
                 :id="card.id"
+                :uid="card.uid"
                 :image="card.image"
                 :title="card.title"
                 :isSpecial="card.isSpecial"
                 :value="card.value"
                 :moreInfo="card.moreInfo"
-                :occasionImages="card.occasionImages" />
+                :occasionImages="card.occasionImages"
+                :currUrl="currUrl" />
             </div>
           </section>
         </transition>
@@ -34,8 +36,10 @@
               <Occasion v-for="(occasion, index) in donateShopData.occasions"
                 :key="occasion.id"
                 :id="occasion.id"
+                :uid="occasion.uid"
                 :title="occasion.title"
-                :index="index" />
+                :index="index"
+                :currUrl="currUrl" />
             </div>
           </section>
         </transition>
@@ -68,10 +72,12 @@ export default {
       activeStep: 1,
       basket: basket,
       isFinished: false,
+      currUrl: '',
     }
   },
   created() {
     this.donateShopData = donateShopData;
+    this.currUrl = window.location.href;
   },
   computed: {
     currentStep() {
@@ -96,13 +102,13 @@ export default {
           this.activeStep--;
           return
         }
-        console.log('test')
       } else if (this.activeStep === 2) {
         this.activeStep--;
       }
     },
     showDonationForm() {
       this.provideAmount();
+      this.provideBasketInfo();
 
       const donationForm = document.getElementById('shop-iframe');
       const event = new Event('donateShopFinished');
@@ -116,6 +122,16 @@ export default {
     provideAmount() {
       // global variable that contains donate shop data
       donateShopData.amount = this.basket.accumulatedValue;
+    },
+    provideBasketInfo() {
+      const occasionId = 'o-' + this.basket.occasion.uid;
+      let productId = '';
+
+      this.basket.cards.forEach(item => {
+        productId += '_p-' + item.uid;
+      });
+      // global variable that contains donate shop data
+      donateShopData.basket = occasionId + productId;
     },
     basketFilled() {
       return this.basket.cards.length && Object.keys(this.basket.occasion).length
@@ -152,7 +168,8 @@ body {
 .donate-shop__steps {
   display: flex;
   justify-content: center;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
 
   @include respondMin(point('min-md')) {
     justify-content: space-between;
