@@ -29,6 +29,7 @@ export default {
   name: 'Occasion',
   props: {
   id: Number,
+  uid: Number,
   title: String,
   index: Number,
   occasions: Array,
@@ -55,6 +56,7 @@ export default {
 
       occasion = {
         id: this.id,
+        uid: this.uid,
         title: this.title
       }
 

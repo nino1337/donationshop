@@ -37,6 +37,7 @@ export default {
   },
   props: {
     id: Number,
+    uid: Number,
     image: String,
     title: String,
     isSpecial: Boolean,
@@ -89,6 +90,7 @@ export default {
 
       cards.push({
         id: this.id,
+        uid: this.uid,
         title: this.title,
         value: this.value,
         amount: this.amount,

@@ -21,6 +21,7 @@
       var donateShopData = {
         cards: [{
           id: 0,
+          uid: 0,
           image: 'https://picsum.photos/350/200/?random',
           title: 'Geburtstagspaket',
           isSpecial: true,
@@ -42,6 +43,7 @@
         },
         {
           id: 1,
+          uid: 1,
           image: 'https://picsum.photos/350/200/?random',
           title: 'Weihnachtspaket',
           isSpecial: false,
@@ -63,6 +65,7 @@
         },
         {
           id: 2,
+          uid: 2,
           image: 'https://picsum.photos/350/200/?random',
           title: 'Osterpaket',
           isSpecial: false,
@@ -84,6 +87,7 @@
         },
         {
           id: 3,
+          uid: 3,
           image: 'https://picsum.photos/350/200/?random',
           title: 'Neujahrespaket',
           isSpecial: false,
@@ -105,14 +109,17 @@
         }],
         occasions: [{
           id: 2,
+          uid: 2,
           title: 'Weihnachten',
         },
         {
           id: 1,
+          uid: 1,
           title: 'Geburtstag',
         },
         {
           id: 0,
+          uid: 0,
           title: 'ohne Anlass',
         }],
         content: {
@@ -123,7 +130,7 @@
       document.addEventListener("DOMContentLoaded", function (event) {
         document.addEventListener("donateShopFinished", function () {
           var fundraisingIframe = document.createElement('script');
-          fundraisingIframe.setAttribute('src', 'https://secure.fundraisingbox.com/app/paymentJS?hash=hb1x147cd9324ozy&amount_fix=' + donateShopData.amount);
+          fundraisingIframe.setAttribute('src', 'https://secure.fundraisingbox.com/app/paymentJS?hash=hb1x147cd9324ozy&amount_fix=' + donateShopData.amount + '&donation_custom_field_3809=' + donateShopData.basket);
           document.getElementById('shop-iframe').appendChild(fundraisingIframe);
         })
       });

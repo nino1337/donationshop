@@ -15,6 +15,7 @@
               <Card v-for="card in donateShopData.cards"
                 :key="card.id"
                 :id="card.id"
+                :uid="card.uid"
                 :image="card.image"
                 :title="card.title"
                 :isSpecial="card.isSpecial"
@@ -35,6 +36,7 @@
               <Occasion v-for="(occasion, index) in donateShopData.occasions"
                 :key="occasion.id"
                 :id="occasion.id"
+                :uid="occasion.uid"
                 :title="occasion.title"
                 :index="index"
                 :currUrl="currUrl" />
@@ -106,6 +108,7 @@ export default {
     },
     showDonationForm() {
       this.provideAmount();
+      this.provideBasketInfo();
 
       const donationForm = document.getElementById('shop-iframe');
       const event = new Event('donateShopFinished');
@@ -119,6 +122,16 @@ export default {
     provideAmount() {
       // global variable that contains donate shop data
       donateShopData.amount = this.basket.accumulatedValue;
+    },
+    provideBasketInfo() {
+      const occasionId = 'o-' + this.basket.occasion.uid;
+      let productId = '';
+
+      this.basket.cards.forEach(item => {
+        productId += '_p-' + item.uid;
+      });
+      // global variable that contains donate shop data
+      donateShopData.basket = occasionId + productId;
     },
     basketFilled() {
       return this.basket.cards.length && Object.keys(this.basket.occasion).length
