@@ -20,7 +20,7 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
+<style scoped lang="scss">
 @import "../../assets/scss/partials/functions";
 @import "../../assets/scss/partials/variables";
 @import "../../assets/scss/partials/mixins";
