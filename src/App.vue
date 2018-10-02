@@ -111,7 +111,7 @@ export default {
       this.provideBasketInfo();
 
       const donationForm = document.getElementById('shop-iframe');
-      const event = new Event('donateShopFinished');
+      const event = new CustomEvent('donateShopFinished');
       document.dispatchEvent(event);
 
       setTimeout(function() {
