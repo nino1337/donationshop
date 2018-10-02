@@ -71,6 +71,10 @@ export default {
   border-radius: 0;
   font-size: 16px;
   padding: 8px 32px 8px 16px;
+
+  &::-ms-expand {
+    display: none;
+  }
 }
 
 .input__text {
