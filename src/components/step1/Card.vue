@@ -247,21 +247,32 @@ export default {
 
   &.is-active {
     max-height: 400px;
+    overflow: visible;
   }
 
   @include respondMin(point('min-xl')) {
-    box-shadow: 0 5px 15px -5px rgba(color('black'), 0.5);
+    box-shadow: 0 7px 28px -13px color('grey');
     border-radius: 7px;
     background-color: color('white');
     left: 0;
-    top: calc(100% - 30px);
+    top: calc(100% - 20px);
     padding: 0 16px;
     position: absolute;
     width: 100%;
     z-index: 500;
 
+    &::before {
+        background-color: color('white');
+        content: '';
+        position: absolute;
+        height: 15px;
+        left: 0;
+        width: 100%;
+        top: -12px;
+      }
+
     &.is-active {
-      padding-bottom: 32px
+      padding-bottom: 32px;
     }
   }
 }

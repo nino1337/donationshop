@@ -114,10 +114,7 @@ export default {
       const event = new CustomEvent('donateShopFinished');
       document.dispatchEvent(event);
 
-      setTimeout(function() {
-        donationForm.style.display = 'block';
-      }, 1700)
-      
+      donationForm.style.display = 'block';
     },
     provideAmount() {
       // global variable that contains donate shop data
@@ -143,16 +140,16 @@ export default {
 <style lang="scss">
 @import './assets/scss/main.scss';
 
+#shop-iframe {
+  min-height: 100vh;
+}
+
 body {
   margin: 0;
 }
 
 .donate-shop {
   margin-bottom: 64px;
-}
-
-.donate-shop__basket {
-  margin-bottom: 24px;
 }
 
 .donate-shop__content {

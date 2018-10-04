@@ -187,8 +187,7 @@ export default {
 @import "../assets/scss/partials/mixins";
 
 .basket {
-  margin-left: -15px;
-	margin-right: -15px;
+  margin: 0 -15px;
 	padding: 26px;
 
 	@include respondMin(point('min-sm')) {
@@ -197,7 +196,7 @@ export default {
 	}
 
 	@include respondMin(point('min-md')) {
-		margin: 0 calc(50% - 50vw) $softgrid-gutter-width * 2;
+		margin: 0 calc(50% - 50vw)
   }
   
   max-height: 0;
@@ -207,6 +206,7 @@ export default {
 
   &.is-visible {
     max-height: 54px;
+    margin-bottom: 24px;
     padding: 15px 0 1px;
     transition: max-height 0.5s, padding 0.2s;
 
@@ -217,7 +217,7 @@ export default {
   }
 
   &.is-visible.is-open {
-    max-height: 800px;
+    max-height: 850px;
 
     .basket__chevron {
       img {
@@ -313,7 +313,6 @@ export default {
     position: absolute;
     text-align: center;
     width: 20px;
-    z-index: 1;
   }
 }
 
@@ -343,14 +342,16 @@ export default {
   span {
     display: inline-block;
     padding-left: 32px;
+    position: relative;
     width: 200px;
 
     &::before {
     content: url('/typo3conf/ext/bra_projectfiles_stc/Resources/Public/donation-shop/dist/icons/pdf-file.svg');
     position: absolute;
     left: 0;
-    z-index: 1;
-  }
+    top: 0;
+    width: 20px;
+    }
   }
 }
 

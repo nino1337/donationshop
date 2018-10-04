@@ -67,6 +67,7 @@ export default {
 
 .input__dropdown {
   appearance: none;
+  border: 1px solid color('grey-light');
   background-color: color('white');
   border-radius: 0;
   font-size: 16px;

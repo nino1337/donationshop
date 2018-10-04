@@ -1,6 +1,6 @@
 <template>
   <div class="occasion">
-      <div v-if="basket.cards.length" class="occasion__head" @click="toggleLightbox">
+      <div v-if="basket.cards.length" class="occasion__head" :class="{'lightbox-open': showLightbox}"@click="toggleLightbox">
         <img class="occasion__image" :src="getOccasionImg()" />
         <transition name="opacity">
           <Lightbox :src="getOccasionImg()" v-show="showLightbox"/>
@@ -99,15 +99,23 @@ export default {
   margin: 24px 16px 0;
   max-width: 350px;
   box-shadow: 0 2px 15px -5px rgba(color('black'), 0.5);
-  width: 33.33%;
+
+  @include respondMin(point('min-md')) {
+    width: 33.33%;
+  }
 }
 
 .occasion__head {
   border-radius: 7px 7px 0 0;
   height: 0;
+  max-width: 100%;
   overflow: hidden;
   padding-bottom: 56.25%;
   position: relative;
+
+  &.lightbox-open {
+    overflow: visible; // fix ie11 position-fixed bug, when parent element has overflow hidden
+  }
 }
 
 .occasion__image {
