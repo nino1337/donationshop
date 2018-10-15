@@ -157,7 +157,7 @@ export default {
     },
     changeUrl() {
       setTimeout(function() {
-        window.history.pushState('','', this.currUrl);
+        window.history.replaceState('','', this.currUrl);
       }.bind(this), 1000)
     }
   }
