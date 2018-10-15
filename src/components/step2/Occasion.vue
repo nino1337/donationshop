@@ -15,7 +15,7 @@
         <div class="occasion__headline">
           {{title}}
         </div>
-        <a :href="currUrl + '#basket'" class="occasion__basket" @click="addToBasket" v-smooth-scroll="{duration: 1000, offset: -100}">
+        <a :href="currUrl + '#basket'" class="occasion__basket" @click="addToBasket(); changeUrl()" v-smooth-scroll="{duration: 1000, offset: -100}">
           in den Warenkorb
         </a>
       </div>
@@ -83,6 +83,11 @@ export default {
     },
     openBasket() {
       this.basket.basketOpen = true;
+    },
+    changeUrl() {
+      setTimeout(function() {
+        window.history.pushState('','', this.currUrl);
+      }.bind(this), 1000)
     }
   }
 };

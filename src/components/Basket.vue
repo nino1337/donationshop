@@ -37,7 +37,7 @@
     </div>
 
      <div class="donate-shop__content" v-else>
-      <div class="basket__show-more">
+      <div class="basket__show-more" @click="refreshPage">
         Warenkorb
         <span class="basket__icon" :data-count="itemCount">
           <img :src="`${baseUrl}icons/shopping-cart.svg`" />
@@ -175,6 +175,9 @@ export default {
         sessionStorage.clear();
       }
       sessionStorage.setItem('basket', JSON.stringify(vm.basket));
+    },
+    refreshPage() {
+      window.location.reload();
     }
   }
 };
