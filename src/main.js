@@ -7,7 +7,7 @@ import './polyfills/customEvents';
 import 'core-js/fn/array/includes';
 
 // smooth scolling
-import vueSmoothScroll from 'vue2-smooth-scroll';
+import vueSmoothScroll from 'vue-smooth-scroll';
 
 Vue.use(vueSmoothScroll);
 

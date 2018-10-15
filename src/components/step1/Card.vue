@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div class="card" :class="{'is-first': isSpecial}">
     <div class="card__head">
       <img :src="image" />
     </div>
@@ -56,6 +56,9 @@ export default {
       valueNew: 0,
       countUp: false,
     }
+  },
+  created() {
+    this.$parent.$on('next-step', this.hideMoreInfo); // submit on event: next-step - to hide more info
   },
   watch: {
     valueNew() {
@@ -134,6 +137,9 @@ export default {
 
       this.accumulateValue();
     },
+    hideMoreInfo() {
+      this.showMore = false;
+    },
     // set animation data and allow counting
     setAnimationValues(newValue) {
       this.countUp = true;
@@ -173,6 +179,14 @@ export default {
 
   @include respondMin(point('min-xl')) {
     max-width: 270px;
+  }
+
+  &.is-first {
+    order: -1;
+
+    @include respondMin(point('min-md')) {
+      order: 0;
+    }
   }
 }
 
@@ -234,7 +248,7 @@ export default {
 
   .icon-minus {
     left: -2px;
-    top: 2px;
+    top: 0;
     position: relative;
   }
 }

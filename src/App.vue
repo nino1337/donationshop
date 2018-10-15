@@ -95,6 +95,8 @@ export default {
     },
     nextStep() {
       this.activeStep++;
+
+      this.$emit('next-step'); // emit event 'next-step' to hide more info in card component
     },
     prevStep(triggeredFromBasket) {
       if (triggeredFromBasket) {
