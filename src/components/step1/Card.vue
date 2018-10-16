@@ -11,7 +11,7 @@
       <div class="card__input">
         <Input :value="value" :amount="1" @amountChanged="setAmount" />
       </div>
-      <a :href="currUrl + '#basket'" class="card__basket" @click="addToBasket(); changeUrl()" v-smooth-scroll="{duration: 1000, offset: -250}">
+      <a :href="currUrl + '#basket'" class="card__basket" @click="addToBasket">
         in den Warenkorb
       </a>
       <div class="card__more-info-btn" @click="showMore = !showMore">
@@ -155,11 +155,6 @@ export default {
     openBasket() {
       this.basket.basketOpen = true;
     },
-    changeUrl() {
-      setTimeout(function() {
-        window.history.replaceState('','', this.currUrl);
-      }.bind(this), 1000)
-    }
   }
 };
 </script>
