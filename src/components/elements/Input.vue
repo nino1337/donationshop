@@ -15,7 +15,7 @@
       </select>
     </div>
     <div class="input__text">
-      im Wert von
+      für je
     </div>
     <div class="input__value">{{value}}€</div>
   </div>

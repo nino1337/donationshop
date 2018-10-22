@@ -12,10 +12,10 @@
         <Input :value="value" :amount="1" @amountChanged="setAmount" />
       </div>
       <a :href="currUrl + '#basket'" class="card__basket" @click="addToBasket">
-        in den Warenkorb
+        in den Geschenkkorb
       </a>
       <div class="card__more-info-btn" @click="showMore = !showMore">
-        Mehr Informationen
+        So hilft ihr Geschenk
         <span v-if="showMore"><img class="icon-minus" :src="`${baseUrl}icons/minus.svg`" /> </span>
         <span v-else><img class="icon-plus"  :src="`${baseUrl}icons/plus.svg`" /> </span>
       </div>

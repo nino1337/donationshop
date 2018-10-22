@@ -2,8 +2,7 @@
   <div id="basket" class="basket util-bg-bisquit" :class="{ 'is-open': basket.basketOpen, 'is-visible': cards.length > 0 || isOccasionInBasket()}">
     <div class="donate-shop__content" v-if="!isPlain">
       <div class="basket__show-more" @click="basket.basketOpen = !basket.basketOpen">
-        <span v-if="basket.basketOpen">Warenkorb ausblenden</span> 
-        <span v-else>Warenkorb einblenden</span> 
+        <span>Geschenkkorb</span> 
         <span class="basket__icon" :data-count="itemCount">
           <img :src="`${baseUrl}icons/shopping-cart.svg`" />
         </span>
@@ -24,21 +23,21 @@
           <div class="basket__occasion-title">
             {{occasion.title}}
           </div>
-          <span>inkl. PDF zum Ausdrucken</span><img class="basket__remove" @click="removeOccasion()" :src="`${baseUrl}icons/close.svg`" />
+          <span>PDFs zum Herunterladen</span><img class="basket__remove" @click="removeOccasion()" :src="`${baseUrl}icons/close.svg`" />
         </div>
       </div>
       <div class="basket__sum">
         Gesamtsumme <span class="input__value">{{accumulatedValue}}€</span>
       </div>
       <div class="basket__cta">
-        <Button v-if="step === 1" :text="'Grußkarte auswählen'" :isDisabled="cards.length === 0" @click.native.prevent="$emit('basket-btn-clicked');closeBasket();"/>
-        <Button v-else :text="'Zahlungsart & Adresse'" :isDisabled="cards.length === 0 || !isOccasionInBasket()" @click.native.prevent="$emit('basket-btn-clicked');cacheBasket();"/>
+        <Button v-if="step === 1" :text="'Weiter'" :isDisabled="cards.length === 0" @click.native.prevent="$emit('basket-btn-clicked');closeBasket();"/>
+        <Button v-else :text="'Bezahlen'" :isDisabled="cards.length === 0 || !isOccasionInBasket()" @click.native.prevent="$emit('basket-btn-clicked');cacheBasket();"/>
       </div>
     </div>
 
      <div class="donate-shop__content" v-else>
       <div class="basket__show-more" @click="refreshPage">
-        Warenkorb
+        Geschenkkorb
         <span class="basket__icon" :data-count="itemCount">
           <img :src="`${baseUrl}icons/shopping-cart.svg`" />
         </span>

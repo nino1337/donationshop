@@ -2,8 +2,8 @@
   <div class="donate-shop">
     <div v-if="!isFinished">
       <div class="donate-shop__steps donate-shop__content">
-        <Step :step="'Spende auswählen'" :active="currentStep === 1" @click.native="prevStep(false)"/>
-        <Step :step="'Grusskarte auswählen'" :active="currentStep === 2" />
+        <Step :step="'Geschenk wählen'" :active="currentStep === 1" @click.native="prevStep(false)"/>
+        <Step :step="'Grußkarte wählen'" :active="currentStep === 2" />
       </div>
         <div class="donate-shop__basket">
           <Basket @basket-btn-clicked="stepHandler" @itemRemoved="prevStep" :step="currentStep" :is-plain="false"/>

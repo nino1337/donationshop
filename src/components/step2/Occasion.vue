@@ -7,7 +7,7 @@
         </transition>
         <transition name="scale">
           <div v-if="isInBasket()" class="occasion__deactivated">
-            Um die Karte im Warenkorb zu ändern, einfach einen neuen Anlass auswählen
+            Um die Karte im Geschenkkorb zu ändern, einfach eine andere Grußkarte auswählen
           </div>
         </transition>
       </div>
@@ -16,7 +16,7 @@
           {{title}}
         </div>
         <a :href="currUrl + '#basket'" class="occasion__basket" @click="addToBasket">
-          in den Warenkorb
+          Auswählen
         </a>
       </div>
     </div>
