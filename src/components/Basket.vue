@@ -57,7 +57,7 @@
           <div class="basket__occasion-title">
             {{occasion.title}}
           </div>
-          <span>inkl. PDF zum Ausdrucken</span>
+          <span>PDFs zum Herunterladen</span>
         </div>
       </div>
       <div class="basket__sum">
