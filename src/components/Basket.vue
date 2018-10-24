@@ -21,7 +21,7 @@
         </transition-group>
         <div class="basket__download" v-if="isOccasionInBasket()" ref="basketOccasion">
           <div class="basket__occasion-title">
-            {{occasion.title}}
+            Grußkarte "{{occasion.title}}"
           </div>
           <span>PDFs zum Herunterladen</span><img class="basket__remove" @click="removeOccasion()" :src="`${baseUrl}icons/close.svg`" />
         </div>

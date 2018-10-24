@@ -130,20 +130,25 @@ export default {
   }
 }
 
-
 .occasion__deactivated {
   background-color: rgba(color('black'), 0.65);
   color: color('white');
+  display: flex;
+  align-items: center;
   font-family: $ff-deco;
-  font-size: 24px;
+  font-size: 18px;
   height: 100%;
   left: 0;
-  padding: 15% 24px 0;
+  padding: 0 24px;
   position: absolute;
   top: 0;
   text-align: center;
   width: 100%;
   z-index: 1;
+
+  @include respondMin(point('min-md')) {
+    font-size: 24px;
+  }
 }
 
 .occasion__body {
