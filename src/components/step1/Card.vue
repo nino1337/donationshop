@@ -195,7 +195,7 @@ export default {
   height: 0;
   overflow: hidden;
   position: relative;
-  padding-bottom: 56.25%;
+  padding-bottom: 75%;
 }
 
 .card__body {
