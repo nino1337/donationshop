@@ -146,7 +146,7 @@ export default {
   width: 100%;
   z-index: 1;
 
-  @include respondMin(point('min-md')) {
+  @include respondMin(point('min-lg')) {
     font-size: 24px;
   }
 }
