@@ -1,9 +1,11 @@
 <template>
   <div class="occasion">
-      <div v-if="basket.cards.length" class="occasion__head" :class="{'lightbox-open': showLightbox}"@click="toggleLightbox">
-        <img class="occasion__image" :src="getOccasionImg()" />
+      <div v-if="basket.cards.length" class="occasion__head" 
+      :class="{'lightbox-open': showLightbox}" >
+        <img class="occasion__image" :src="getOccasionImg()" @click="toggleLightbox"/>
+        <img class="occasion__zoom" :src="`${baseUrl}icons/zoom.svg`" />
         <transition name="opacity">
-          <Lightbox :src="getOccasionImg()" v-show="showLightbox"/>
+          <Lightbox :src="getOccasionImg()" v-show="showLightbox" @closeClicked="toggleLightbox"/>
         </transition>
         <transition name="scale">
           <div v-if="isInBasket()" class="occasion__deactivated">
@@ -37,6 +39,7 @@ export default {
   },
   data() {
     return {
+      baseUrl: process.env.BASE_URL,
       basket: basket,
       showLightbox: false,
     }
@@ -127,6 +130,20 @@ export default {
 
   @include respondMin(point('min-md')) {
     cursor: pointer;
+  }
+}
+
+.occasion__zoom {
+  bottom: 12px;
+  display: none;
+  right: 16px;
+  pointer-events: none;
+  position: absolute;
+  width: 20px;
+  z-index: 1;
+
+  @include respondMin(point('min-md')) {
+    display: block;
   }
 }
 

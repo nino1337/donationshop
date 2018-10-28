@@ -215,9 +215,9 @@ export default {
 .card__special {
   align-self: center;
   display: inline-block;
-  border: 1px solid color('ci');
+  border: 1px solid color('ci-bisquit');
   border-radius: 3px;
-  color: color('ci');
+  color: color('ci-bisquit');
   font-size: 14px;
   line-height: 21px;
   height: 21px;
