@@ -117,7 +117,9 @@ export default {
   position: relative;
 
   &.lightbox-open {
-    overflow: visible; // fix ie11 position-fixed bug, when parent element has overflow hidden
+    @include respondMin(point('min-md')) {
+      overflow: visible; // fix ie11 position-fixed bug, when parent element has overflow hidden
+    }
   }
 }
 
