@@ -28,8 +28,8 @@ $body-font-size: percentage(
 
 /* Font Style */
 
-$ff-deco: "Trade Gothic LT W05 Bd 5222705", "Helvetica Neue Light",
-  "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif !default;
+$ff-deco: "TradeGothic", "Helvetica Neue Light", "Helvetica Neue", Helvetica,
+  Arial, "Lucida Grande", sans-serif !default;
 $ff-regular: "GillSans", "Helvetica Neue Light", "Helvetica Neue", Helvetica,
   Arial, "Lucida Grande", sans-serif !default;
 $ff-icon: iconfont !default;
@@ -37,7 +37,6 @@ $ff-icon: iconfont !default;
 /* ==========================================================================
    Grid-System
    ========================================================================== */
-
 // Grid breakpoints
 
 /* <@breakpoints */
