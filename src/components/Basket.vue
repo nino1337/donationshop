@@ -36,7 +36,7 @@
     </div>
 
      <div class="donate-shop__content" v-else>
-      <div class="basket__show-more" @click="refreshPage">
+      <div class="basket__show-more" @click="$emit('basketHeaderClicked')">
         Geschenkkorb
         <span class="basket__icon" :data-count="itemCount">
           <img :src="`${baseUrl}icons/shopping-cart.svg`" />

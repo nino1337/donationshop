@@ -1,11 +1,11 @@
 <template>
   <div class="occasion">
       <div v-if="basket.cards.length" class="occasion__head" 
-      :class="{'lightbox-open': showLightbox}" >
-        <img class="occasion__image" :src="getOccasionImg()" @click="toggleLightbox"/>
+      :class="{'lightbox-open': showLightbox}" @click="toggleLightbox" >
+        <img class="occasion__image" :src="getOccasionImg()"/>
         <img class="occasion__zoom" :src="`${baseUrl}icons/zoom.svg`" />
         <transition name="opacity">
-          <Lightbox :src="getOccasionImg()" v-show="showLightbox" @closeClicked="toggleLightbox"/>
+          <Lightbox :src="getOccasionImg()" v-show="showLightbox" @closeClicked="$event.stopPropagation();toggleLightbox"/>
         </transition>
         <transition name="scale">
           <div v-if="isInBasket()" class="occasion__deactivated">

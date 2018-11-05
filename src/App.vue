@@ -1,6 +1,6 @@
 <template>
   <div class="donate-shop">
-    <div v-if="!isFinished">
+    <div v-show="!isFinished">
       <div class="donate-shop__steps donate-shop__content">
         <Step :step="'Geschenk wählen'" :active="currentStep === 1" @click.native="prevStep(false)"/>
         <Step :step="'Grußkarte wählen'" :active="currentStep === 2" />
@@ -45,8 +45,9 @@
         </transition>
       </div>
     </div>
-    <div v-else>
-        <Basket @basket-btn-clicked="stepHandler" :is-plain="true"/>
+    <div v-show="isFinished">
+        <Basket @basket-btn-clicked="stepHandler" @basketHeaderClicked="navBack" :is-plain="true"/>
+        <div class="donate-shop__content"><span class="donate-shop__nav-back" @click="navBack">Zurück zum Spendenshop</span></div>
     </div>
   </div>
 </template>
@@ -72,6 +73,7 @@ export default {
       activeStep: 1,
       basket: basket,
       isFinished: false,
+      firstFinish: true,
       currUrl: '',
     }
   },
@@ -109,14 +111,25 @@ export default {
       }
     },
     showDonationForm() {
+      const vm = this;
       this.provideAmount();
       this.provideBasketInfo();
 
       const donationForm = document.getElementById('shop-iframe');
-      const event = new CustomEvent('donateShopFinished');
+      const event = new CustomEvent('donateShopFinished', {
+        detail: {firstFinish: vm.firstFinish}
+      });
       document.dispatchEvent(event);
 
+      this.firstFinish = false;
+
       donationForm.style.display = 'block';
+    },
+    navBack() {
+      const donationForm = document.getElementById('shop-iframe');
+      donationForm.style.display = 'none';
+
+      this.isFinished = false;
     },
     provideAmount() {
       // global variable that contains donate shop data
@@ -194,6 +207,17 @@ body {
   @include respondMin(point('min-xl')) {
     margin: 0 -16px;
     max-width: none;
+  }
+}
+
+.donate-shop__nav-back {
+  cursor: pointer;
+  font-family: $ff-deco;
+  font-size: 18px;
+  text-transform: uppercase;
+
+  @include respondMin(point('min-md')) {
+    font-size: 24px;
   }
 }
 

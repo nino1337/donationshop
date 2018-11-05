@@ -132,9 +132,18 @@
         }
       };
       document.addEventListener("DOMContentLoaded", function (event) {
-        document.addEventListener("donateShopFinished", function () {
+        document.addEventListener("donateShopFinished", function (data) {
+        
+          if(!data.detail.firstFinish) {
+            donateShopData.script.parentNode.removeChild(donateShopData.script)
+          }
+
           var fundraisingIframe = document.createElement('script');
           fundraisingIframe.setAttribute('src', 'https://secure.fundraisingbox.com/app/paymentJS?hash=hb1x147cd9324ozy&amount_fix=' + donateShopData.amount + '&donation_custom_field_3809=' + donateShopData.basket);
+
+          // create reference
+          donateShopData.script = fundraisingIframe;
+
           document.getElementById('shop-iframe').appendChild(fundraisingIframe);
 
           $('#shop-iframe').closest('[id^="c"]').nextAll().css('display', 'none');
