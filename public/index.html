@@ -7,6 +7,10 @@
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <link rel="icon" href="<%= BASE_URL %>favicon.ico">
   <title>fe_stc-donationshop-18</title>
+  <script
+  src="https://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -24,7 +28,7 @@
           uid: 0,
           image: 'https://picsum.photos/350/200/?random',
           title: 'Geburtstagspaket',
-          isSpecial: true,
+          isSpecial: false,
           value: 30,
           moreInfo: 'Lorem Ipus jajaja  Lorem Ipus jajaja  Lorem Ipus jajaja  Lorem Ipus jajaja  Lorem Ipus jajaja  Lorem Ipus jajaja  Lorem Ipus jajaja ',
           occasionImages: [{
@@ -46,7 +50,7 @@
           uid: 1,
           image: 'https://picsum.photos/350/200/?random',
           title: 'Weihnachtspaket',
-          isSpecial: false,
+          isSpecial: true,
           value: 40,
           moreInfo: 'Lorem Ipus jajaja  Lorem Ipus jajaja  Lorem Ipus jajaja  Lorem I 2 Ipus jajaja  Lorem Ipus jajaja ',
           pdf: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
@@ -128,22 +132,42 @@
         }
       };
       document.addEventListener("DOMContentLoaded", function (event) {
-        document.addEventListener("donateShopFinished", function () {
+        document.addEventListener("donateShopFinished", function (data) {
+        
+          if(!data.detail.firstFinish) {
+            donateShopData.script.parentNode.removeChild(donateShopData.script)
+          }
+
           var fundraisingIframe = document.createElement('script');
           fundraisingIframe.setAttribute('src', 'https://secure.fundraisingbox.com/app/paymentJS?hash=hb1x147cd9324ozy&amount_fix=' + donateShopData.amount + '&donation_custom_field_3809=' + donateShopData.basket);
+
+          // create reference
+          donateShopData.script = fundraisingIframe;
+
           document.getElementById('shop-iframe').appendChild(fundraisingIframe);
+
+          $('#shop-iframe').closest('[id^="c"]').nextAll().css('display', 'none');
+          $('.newsletter-registration').css('display', 'none');
         })
       });
     </script>
 
-    <div id="app"></div>
-    <div id="shop-iframe" style="display: none;">
-      <div id="fbIframeDiv"></div>
-      <a target="_blank" href="https://www.fundraisingbox.com">
-        <img border="0" style="border: 0 !important" src="https://secure.fundraisingbox.com/images/FundraisingBox-Logo-Widget.png"
-          alt="FundraisingBox Logo" />
-      </a>
+    <div id="c3240">
+      <div id="app"></div>
+        <div id="shop-iframe" style="display: none;">
+          <div id="fbIframeDiv"></div>
+          <a target="_blank" href="https://www.fundraisingbox.com">
+            <img border="0" style="border: 0 !important" src="https://secure.fundraisingbox.com/images/FundraisingBox-Logo-Widget.png"
+              alt="FundraisingBox Logo" />
+          </a>
+      </div>
     </div>
+    <div id="c3240"><div class="container--text"><h2 class="">
+				Und so funktioniert‘s:
+      </h2></div><div class="container--text"><ol><li><strong>Spendengeschenk einfach online bestellen:</strong> Wählen Sie ein Geschenk aus und bestellen Sie es online.</li><li><strong>Grußkarte ausdrucken oder per E-Mail versenden: </strong>Nach Ihrer Bestellung können Sie Ihre Grußkarte oder Urkunde direkt herunterladen. Die Grußkarte eignet sich besonders gut zum Ausdrucken, die Urkunde können Sie per E-Mail direkt an Ihre Lieben verschicken.</li><li><strong>Kindern helfen:</strong> Mit dem gespendeten Geld helfen Sie, das Leben von Kindern in Not weltweit zu verbessern.</li></ol><p></p></div></div>
+      <div id="c3241"><div class="container--text"><h2 class="">
+				Und so funktioniert‘s:
+			</h2></div><div class="container--text"><ol><li><strong>Spendengeschenk einfach online bestellen:</strong> Wählen Sie ein Geschenk aus und bestellen Sie es online.</li><li><strong>Grußkarte ausdrucken oder per E-Mail versenden: </strong>Nach Ihrer Bestellung können Sie Ihre Grußkarte oder Urkunde direkt herunterladen. Die Grußkarte eignet sich besonders gut zum Ausdrucken, die Urkunde können Sie per E-Mail direkt an Ihre Lieben verschicken.</li><li><strong>Kindern helfen:</strong> Mit dem gespendeten Geld helfen Sie, das Leben von Kindern in Not weltweit zu verbessern.</li></ol><p></p></div></div>
   </main>
   <!-- built files will be auto injected -->
 </body>

@@ -5,11 +5,8 @@ import Lightbox from './components/Lightbox.vue';
 // polyfills mainly for ie11
 import './polyfills/customEvents';
 import 'core-js/fn/array/includes';
-
 // smooth scolling
-import vueSmoothScroll from 'vue2-smooth-scroll';
-
-Vue.use(vueSmoothScroll);
+import './smoothScroll/index';
 
 Vue.component('Lightbox', Lightbox);
 

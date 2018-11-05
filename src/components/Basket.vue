@@ -2,8 +2,7 @@
   <div id="basket" class="basket util-bg-bisquit" :class="{ 'is-open': basket.basketOpen, 'is-visible': cards.length > 0 || isOccasionInBasket()}">
     <div class="donate-shop__content" v-if="!isPlain">
       <div class="basket__show-more" @click="basket.basketOpen = !basket.basketOpen">
-        <span v-if="basket.basketOpen">Warenkorb ausblenden</span> 
-        <span v-else>Warenkorb einblenden</span> 
+        <span>Geschenkkorb</span> 
         <span class="basket__icon" :data-count="itemCount">
           <img :src="`${baseUrl}icons/shopping-cart.svg`" />
         </span>
@@ -22,23 +21,23 @@
         </transition-group>
         <div class="basket__download" v-if="isOccasionInBasket()" ref="basketOccasion">
           <div class="basket__occasion-title">
-            {{occasion.title}}
+            Grußkarte "{{occasion.title}}"
           </div>
-          <span>inkl. PDF zum Ausdrucken</span><img class="basket__remove" @click="removeOccasion()" :src="`${baseUrl}icons/close.svg`" />
+          <span>PDFs zum Herunterladen</span><img class="basket__remove" @click="removeOccasion()" :src="`${baseUrl}icons/close.svg`" />
         </div>
       </div>
       <div class="basket__sum">
         Gesamtsumme <span class="input__value">{{accumulatedValue}}€</span>
       </div>
       <div class="basket__cta">
-        <Button v-if="step === 1" :text="'Grußkarte auswählen'" :isDisabled="cards.length === 0" @click.native.prevent="$emit('basket-btn-clicked');closeBasket();"/>
-        <Button v-else :text="'Zahlungsart & Adresse'" :isDisabled="cards.length === 0 || !isOccasionInBasket()" @click.native.prevent="$emit('basket-btn-clicked');cacheBasket();"/>
+        <Button v-if="step === 1" :text="'Weiter'" :isDisabled="cards.length === 0" @click.native.prevent="$emit('basket-btn-clicked');closeBasket();"/>
+        <Button v-else :text="'Bezahlen'" :isDisabled="cards.length === 0 || !isOccasionInBasket()" @click.native.prevent="$emit('basket-btn-clicked');cacheBasket();"/>
       </div>
     </div>
 
      <div class="donate-shop__content" v-else>
-      <div class="basket__show-more">
-        Warenkorb
+      <div class="basket__show-more" @click="$emit('basketHeaderClicked')">
+        Geschenkkorb
         <span class="basket__icon" :data-count="itemCount">
           <img :src="`${baseUrl}icons/shopping-cart.svg`" />
         </span>
@@ -56,9 +55,9 @@
         </transition-group>
         <div class="basket__download"  ref="basketOccasion">
           <div class="basket__occasion-title">
-            {{occasion.title}}
+            Grußkarte "{{occasion.title}}"
           </div>
-          <span>inkl. PDF zum Ausdrucken</span>
+          <span>PDFs zum Herunterladen</span>
         </div>
       </div>
       <div class="basket__sum">
@@ -175,6 +174,9 @@ export default {
         sessionStorage.clear();
       }
       sessionStorage.setItem('basket', JSON.stringify(vm.basket));
+    },
+    refreshPage() {
+      window.location.reload();
     }
   }
 };
@@ -187,8 +189,7 @@ export default {
 @import "../assets/scss/partials/mixins";
 
 .basket {
-  margin-left: -15px;
-	margin-right: -15px;
+  margin: 0 -15px;
 	padding: 26px;
 
 	@include respondMin(point('min-sm')) {
@@ -197,7 +198,7 @@ export default {
 	}
 
 	@include respondMin(point('min-md')) {
-		margin: 0 calc(50% - 50vw) $softgrid-gutter-width * 2;
+		margin: 0 calc(50% - 50vw)
   }
   
   max-height: 0;
@@ -207,6 +208,7 @@ export default {
 
   &.is-visible {
     max-height: 54px;
+    margin-bottom: 24px;
     padding: 15px 0 1px;
     transition: max-height 0.5s, padding 0.2s;
 
@@ -217,7 +219,7 @@ export default {
   }
 
   &.is-visible.is-open {
-    max-height: 800px;
+    max-height: 850px;
 
     .basket__chevron {
       img {
@@ -294,8 +296,10 @@ export default {
 }
 
 .basket__icon {
+  height:15px;
   margin-left: 10px;
   position: relative;
+  width: 15px;
 
   @include respondMin(point('min-md')) {
     margin-left: 24px;
@@ -313,7 +317,6 @@ export default {
     position: absolute;
     text-align: center;
     width: 20px;
-    z-index: 1;
   }
 }
 
@@ -343,14 +346,16 @@ export default {
   span {
     display: inline-block;
     padding-left: 32px;
+    position: relative;
     width: 200px;
 
     &::before {
     content: url('/typo3conf/ext/bra_projectfiles_stc/Resources/Public/donation-shop/dist/icons/pdf-file.svg');
     position: absolute;
     left: 0;
-    z-index: 1;
-  }
+    top: 0;
+    width: 20px;
+    }
   }
 }
 
