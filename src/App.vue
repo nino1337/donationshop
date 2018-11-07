@@ -114,16 +114,13 @@ export default {
       const vm = this;
       this.provideAmount();
       this.provideBasketInfo();
-
-      const donationForm = document.getElementById('shop-iframe');
+      
       const event = new CustomEvent('donateShopFinished', {
         detail: {firstFinish: vm.firstFinish}
       });
       document.dispatchEvent(event);
 
       this.firstFinish = false;
-
-      donationForm.style.display = 'block';
     },
     navBack() {
       const donationForm = document.getElementById('shop-iframe');

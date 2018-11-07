@@ -132,8 +132,9 @@
         }
       };
       document.addEventListener("DOMContentLoaded", function (event) {
-        document.addEventListener("donateShopFinished", function (data) {
-        
+        document.addEventListener("donateShopFinished", function (data) {   
+          var donateForm = document.getElementById('shop-iframe')
+
           if(!data.detail.firstFinish) {
             donateShopData.script.parentNode.removeChild(donateShopData.script)
           }
@@ -144,7 +145,8 @@
           // create reference
           donateShopData.script = fundraisingIframe;
 
-          document.getElementById('shop-iframe').appendChild(fundraisingIframe);
+          donateForm.appendChild(fundraisingIframe);
+          donateForm.style.display = 'block';
 
           $('#shop-iframe').closest('[id^="c"]').nextAll().css('display', 'none');
           $('.newsletter-registration').css('display', 'none');
