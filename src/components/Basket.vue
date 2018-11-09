@@ -2,7 +2,7 @@
   <div id="basket" class="basket util-bg-bisquit" :class="{ 'is-open': basket.basketOpen, 'is-visible': cards.length > 0 || isOccasionInBasket()}">
     <div class="donate-shop__content" v-if="!isPlain">
       <div class="basket__show-more" @click="basket.basketOpen = !basket.basketOpen">
-        <span>Geschenkkorb</span> 
+        <span>Geschenkkorb</span>
         <span class="basket__icon" :data-count="itemCount">
           <img :src="`${baseUrl}icons/shopping-cart.svg`" />
         </span>
@@ -21,7 +21,7 @@
         </transition-group>
         <div class="basket__download" v-if="isOccasionInBasket()" ref="basketOccasion">
           <div class="basket__occasion-title">
-            Grußkarte "{{occasion.title}}"
+            Grusskarte "{{occasion.title}}"
           </div>
           <span>PDFs zum Herunterladen</span><img class="basket__remove" @click="removeOccasion()" :src="`${baseUrl}icons/close.svg`" />
         </div>
@@ -55,7 +55,7 @@
         </transition-group>
         <div class="basket__download"  ref="basketOccasion">
           <div class="basket__occasion-title">
-            Grußkarte "{{occasion.title}}"
+            Grusskarte "{{occasion.title}}"
           </div>
           <span>PDFs zum Herunterladen</span>
         </div>
@@ -76,7 +76,7 @@ export default {
   name: 'Basket',
   components: {
     Input,
-    Button, 
+    Button,
   },
   props: ['step', 'is-plain'],
   data() {
@@ -114,8 +114,8 @@ export default {
           this.basket.accumulatedValue = this.valueOld--;
         } else {
           this.basket.accumulatedValue = this.valueOld++;
-        } 
-      }, 1) 
+        }
+      }, 1)
     }
   },
   methods: {
@@ -166,7 +166,7 @@ export default {
       const vm = this;
       setTimeout(function() {
         vm.basket.basketOpen = false;
-      }, 500);  
+      }, 500);
     },
     cacheBasket() {
       const vm = this;
@@ -184,23 +184,23 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
-@import "../assets/scss/partials/functions";
-@import "../assets/scss/partials/variables";
-@import "../assets/scss/partials/mixins";
+@import '../assets/scss/partials/functions';
+@import '../assets/scss/partials/variables';
+@import '../assets/scss/partials/mixins';
 
 .basket {
   margin: 0 -15px;
-	padding: 26px;
+  padding: 26px;
 
-	@include respondMin(point('min-sm')) {
-		margin-left: -32px;
-		margin-right: -32px;
-	}
-
-	@include respondMin(point('min-md')) {
-		margin: 0 calc(50% - 50vw)
+  @include respondMin(point('min-sm')) {
+    margin-left: -32px;
+    margin-right: -32px;
   }
-  
+
+  @include respondMin(point('min-md')) {
+    margin: 0 calc(50% - 50vw);
+  }
+
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.5s, padding 0.5s;
@@ -269,7 +269,7 @@ export default {
 
 .basket__package {
   margin-bottom: 22px;
-  transition: transform .2s, opacity .2s;
+  transition: transform 0.2s, opacity 0.2s;
 
   &:first-of-type {
     border-top: 1px solid color('grey');
@@ -296,7 +296,7 @@ export default {
 }
 
 .basket__icon {
-  height:15px;
+  height: 15px;
   margin-left: 10px;
   position: relative;
   width: 15px;
@@ -350,11 +350,11 @@ export default {
     width: 200px;
 
     &::before {
-    content: url('/typo3conf/ext/bra_projectfiles_stc/Resources/Public/donation-shop/dist/icons/pdf-file.svg');
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 20px;
+      content: url('/typo3conf/ext/bra_projectfiles_stc/Resources/Public/donation-shop/dist/icons/pdf-file.svg');
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 20px;
     }
   }
 }
@@ -386,5 +386,4 @@ export default {
   opacity: 0;
   transform: translateY(30px);
 }
-
 </style>
