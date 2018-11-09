@@ -1,6 +1,6 @@
 <template>
   <div class="occasion">
-      <div v-if="basket.cards.length" class="occasion__head" 
+      <div v-if="basket.cards.length" class="occasion__head"
       :class="{'lightbox-open': showLightbox}" @click="toggleLightbox" >
         <img class="occasion__image" :src="getOccasionImg()"/>
         <img class="occasion__zoom" :src="`${baseUrl}icons/zoom.svg`" />
@@ -9,7 +9,7 @@
         </transition>
         <transition name="scale">
           <div v-if="isInBasket()" class="occasion__deactivated">
-            Um die Karte im Geschenkkorb zu ändern, einfach eine andere Grußkarte auswählen
+            Um die Karte im Geschenkkorb zu ändern, einfach eine andere Grusskarte auswählen
           </div>
         </transition>
       </div>
@@ -93,9 +93,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
-@import "../../assets/scss/partials/functions";
-@import "../../assets/scss/partials/variables";
-@import "../../assets/scss/partials/mixins";
+@import '../../assets/scss/partials/functions';
+@import '../../assets/scss/partials/variables';
+@import '../../assets/scss/partials/mixins';
 
 .occasion {
   border-radius: 7px;
@@ -127,7 +127,7 @@ export default {
   transition: transform 0.3s;
 
   &:hover {
-      transform: scale(1.1);
+    transform: scale(1.1);
   }
 
   @include respondMin(point('min-md')) {
