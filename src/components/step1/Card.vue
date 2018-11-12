@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div class="card" :class="{'is-first': isSpecial}">
     <div class="card__head">
       <img :src="image" />
     </div>
@@ -11,11 +11,11 @@
       <div class="card__input">
         <Input :value="value" :amount="1" @amountChanged="setAmount" />
       </div>
-      <a :href="currUrl + '#basket'" class="card__basket" @click="addToBasket" v-smooth-scroll="{duration: 1000, offset: -250}">
-        in den Warenkorb
+      <a :href="currUrl + '#basket'" class="card__basket" @click="addToBasket">
+        in den Geschenkkorb
       </a>
       <div class="card__more-info-btn" @click="showMore = !showMore">
-        Mehr Informationen
+        So hilft Ihr Geschenk
         <span v-if="showMore"><img class="icon-minus" :src="`${baseUrl}icons/minus.svg`" /> </span>
         <span v-else><img class="icon-plus"  :src="`${baseUrl}icons/plus.svg`" /> </span>
       </div>
@@ -56,6 +56,9 @@ export default {
       valueNew: 0,
       countUp: false,
     }
+  },
+  created() {
+    this.$parent.$on('next-step', this.hideMoreInfo); // submit on event: next-step - to hide more info
   },
   watch: {
     valueNew() {
@@ -134,6 +137,9 @@ export default {
 
       this.accumulateValue();
     },
+    hideMoreInfo() {
+      this.showMore = false;
+    },
     // set animation data and allow counting
     setAnimationValues(newValue) {
       this.countUp = true;
@@ -148,7 +154,7 @@ export default {
     },
     openBasket() {
       this.basket.basketOpen = true;
-    }
+    },
   }
 };
 </script>
@@ -174,6 +180,14 @@ export default {
   @include respondMin(point('min-xl')) {
     max-width: 270px;
   }
+
+  &.is-first {
+    order: -1;
+
+    @include respondMin(point('min-md')) {
+      order: 0;
+    }
+  }
 }
 
 .card__head {
@@ -181,7 +195,7 @@ export default {
   height: 0;
   overflow: hidden;
   position: relative;
-  padding-bottom: 56.25%;
+  padding-bottom: 75%;
 }
 
 .card__body {
@@ -201,9 +215,9 @@ export default {
 .card__special {
   align-self: center;
   display: inline-block;
-  border: 1px solid color('ci');
+  border: 1px solid color('ci-bisquit');
   border-radius: 3px;
-  color: color('ci');
+  color: color('ci-bisquit');
   font-size: 14px;
   line-height: 21px;
   height: 21px;
@@ -234,7 +248,7 @@ export default {
 
   .icon-minus {
     left: -2px;
-    top: 2px;
+    top: 0;
     position: relative;
   }
 }
@@ -247,21 +261,32 @@ export default {
 
   &.is-active {
     max-height: 400px;
+    overflow: visible;
   }
 
   @include respondMin(point('min-xl')) {
-    box-shadow: 0 5px 15px -5px rgba(color('black'), 0.5);
+    box-shadow: 0 7px 28px -13px color('grey');
     border-radius: 7px;
     background-color: color('white');
     left: 0;
-    top: calc(100% - 30px);
+    top: calc(100% - 20px);
     padding: 0 16px;
     position: absolute;
     width: 100%;
     z-index: 500;
 
+    &::before {
+        background-color: color('white');
+        content: '';
+        position: absolute;
+        height: 15px;
+        left: 0;
+        width: 100%;
+        top: -12px;
+      }
+
     &.is-active {
-      padding-bottom: 32px
+      padding-bottom: 32px;
     }
   }
 }

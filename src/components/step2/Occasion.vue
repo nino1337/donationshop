@@ -1,13 +1,15 @@
 <template>
   <div class="occasion">
-      <div v-if="basket.cards.length" class="occasion__head" @click="toggleLightbox">
-        <img class="occasion__image" :src="getOccasionImg()" />
+      <div v-if="basket.cards.length" class="occasion__head"
+      :class="{'lightbox-open': showLightbox}" @click="toggleLightbox" >
+        <img class="occasion__image" :src="getOccasionImg()"/>
+        <img class="occasion__zoom" :src="`${baseUrl}icons/zoom.svg`" />
         <transition name="opacity">
-          <Lightbox :src="getOccasionImg()" v-show="showLightbox"/>
+          <Lightbox :src="getOccasionImg()" v-show="showLightbox" @closeClicked="$event.stopPropagation();toggleLightbox"/>
         </transition>
         <transition name="scale">
           <div v-if="isInBasket()" class="occasion__deactivated">
-            Um die Karte im Warenkorb zu ändern, einfach einen neuen Anlass auswählen
+            Um die Karte im Geschenkkorb zu ändern, einfach eine andere Grusskarte auswählen
           </div>
         </transition>
       </div>
@@ -15,8 +17,8 @@
         <div class="occasion__headline">
           {{title}}
         </div>
-        <a :href="currUrl + '#basket'" class="occasion__basket" @click="addToBasket" v-smooth-scroll="{duration: 1000, offset: -100}">
-          in den Warenkorb
+        <a :href="currUrl + '#basket'" class="occasion__basket" @click="addToBasket">
+          Auswählen
         </a>
       </div>
     </div>
@@ -37,6 +39,7 @@ export default {
   },
   data() {
     return {
+      baseUrl: process.env.BASE_URL,
       basket: basket,
       showLightbox: false,
     }
@@ -83,38 +86,48 @@ export default {
     },
     openBasket() {
       this.basket.basketOpen = true;
-    }
+    },
   }
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
-@import "../../assets/scss/partials/functions";
-@import "../../assets/scss/partials/variables";
-@import "../../assets/scss/partials/mixins";
+@import '../../assets/scss/partials/functions';
+@import '../../assets/scss/partials/variables';
+@import '../../assets/scss/partials/mixins';
 
 .occasion {
   border-radius: 7px;
   margin: 24px 16px 0;
   max-width: 350px;
   box-shadow: 0 2px 15px -5px rgba(color('black'), 0.5);
-  width: 33.33%;
+
+  @include respondMin(point('min-md')) {
+    width: 33.33%;
+  }
 }
 
 .occasion__head {
   border-radius: 7px 7px 0 0;
   height: 0;
+  max-width: 100%;
   overflow: hidden;
   padding-bottom: 56.25%;
   position: relative;
+
+  &.lightbox-open {
+    @include respondMin(point('min-md')) {
+      overflow: visible; // fix ie11 position-fixed bug, when parent element has overflow hidden
+    }
+  }
 }
 
 .occasion__image {
   transition: transform 0.3s;
 
   &:hover {
-      transform: scale(1.1);
+    transform: scale(1.1);
   }
 
   @include respondMin(point('min-md')) {
@@ -122,20 +135,39 @@ export default {
   }
 }
 
+.occasion__zoom {
+  bottom: 12px;
+  display: none;
+  right: 16px;
+  pointer-events: none;
+  position: absolute;
+  width: 20px;
+  z-index: 1;
+
+  @include respondMin(point('min-md')) {
+    display: block;
+  }
+}
 
 .occasion__deactivated {
   background-color: rgba(color('black'), 0.65);
   color: color('white');
+  display: flex;
+  align-items: center;
   font-family: $ff-deco;
-  font-size: 24px;
+  font-size: 18px;
   height: 100%;
   left: 0;
-  padding: 15% 24px 0;
+  padding: 0 24px;
   position: absolute;
   top: 0;
   text-align: center;
   width: 100%;
   z-index: 1;
+
+  @include respondMin(point('min-lg')) {
+    font-size: 24px;
+  }
 }
 
 .occasion__body {

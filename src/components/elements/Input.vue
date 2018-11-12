@@ -15,7 +15,7 @@
       </select>
     </div>
     <div class="input__text">
-      im Wert von
+      für je
     </div>
     <div class="input__value">{{value}}€</div>
   </div>
@@ -57,6 +57,7 @@ export default {
   position: relative;
 
   &::before {
+    bottom: 8px;
     content: url('/typo3conf/ext/bra_projectfiles_stc/Resources/Public/donation-shop/dist/icons/quantity.svg');
     position: absolute;
     pointer-events: none;
@@ -67,10 +68,11 @@ export default {
 
 .input__dropdown {
   appearance: none;
+  border: 1px solid color('grey-light');
   background-color: color('white');
   border-radius: 0;
   font-size: 16px;
-  padding: 8px 32px 8px 16px;
+  padding: 5px 32px 3px 16px;
 
   &::-ms-expand {
     display: none;

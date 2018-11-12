@@ -27,7 +27,6 @@ export default {
   padding-left: 12px;
   position: relative;
   text-transform: uppercase;
-  width: 100%;
 
   @include respondMin(point('min-sm')) {
     margin-bottom: 0;
