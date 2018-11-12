@@ -296,10 +296,13 @@ export default {
 }
 
 .basket__icon {
-  height: 15px;
   margin-left: 10px;
   position: relative;
-  width: 15px;
+
+  img {
+    height: 15px;
+    width: 15px;
+  }
 
   @include respondMin(point('min-md')) {
     margin-left: 24px;
