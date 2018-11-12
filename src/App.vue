@@ -171,6 +171,14 @@ body {
   margin: 0 auto 40px;
   max-width: $donate-shop-content-width;
   padding: 0 16px;
+
+  h2 {
+    @include fontSizeREM(24);
+
+    @include respondMin(point('min-sm')) {
+      @include fontSizeREM(40);
+    }
+  }
 }
 
 .donate-shop__journey {
@@ -234,19 +242,21 @@ body {
   left: 0;
   right: 0;
   top: 0;
-  transition: transform .3s ease-out;
+  transition: transform 0.3s ease-out;
 }
 
 .step-1-enter-active,
 .step-2-enter-active {
-  transition: transform .3s ease-out;
+  transition: transform 0.3s ease-out;
 }
 
-.step-1-enter, .step-1-leave-to {
+.step-1-enter,
+.step-1-leave-to {
   transform: translateX(-150%);
 }
 
-.step-2-enter, .step-2-leave-to {
+.step-2-enter,
+.step-2-leave-to {
   transform: translateX(150%);
 }
 </style>
