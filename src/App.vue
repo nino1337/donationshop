@@ -146,7 +146,7 @@ export default {
       return this.basket.cards.length && Object.keys(this.basket.occasion).length
     },
   }
-} 
+}
 </script>
 
 <style lang="scss">
