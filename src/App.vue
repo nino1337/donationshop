@@ -80,6 +80,19 @@ export default {
   created() {
     this.donateShopData = donateShopData;
     this.currUrl = window.location.href;
+
+    window.onpopstate = (evt) => {
+      const newStep = evt.state;
+
+      if (newStep) {
+        // when user navigates back from the donation form -> hide it
+        if (this.activeStep === 2) {
+          this.navBack();
+        }
+      } else {
+        this.activeStep = 1;
+      }
+    }
   },
   computed: {
     currentStep() {
@@ -88,6 +101,9 @@ export default {
   },
   methods: {
     stepHandler() {
+      // add state information to history to enable navigation with browser arrows
+      history.pushState({step: this.activeStep}, '', '');
+
       if (this.activeStep === 1) {
         this.nextStep();
       } else if (this.basketFilled()) {
@@ -125,9 +141,15 @@ export default {
 
       donationForm.style.display = 'block';
     },
-    navBack() {
+    navBack(evt) {
       const donationForm = document.getElementById('shop-iframe');
       donationForm.style.display = 'none';
+    
+      // only trigger history back when user actually 
+      // clicked the button; otherwise called from another method
+      if (evt) {
+        history.back();
+      }
 
       this.isFinished = false;
     },

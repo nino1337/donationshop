@@ -11,9 +11,9 @@
       <div class="card__input">
         <Input :value="value" :amount="1" @amountChanged="setAmount" />
       </div>
-      <a :href="currUrl + '#basket'" class="card__basket" @click="addToBasket">
+      <button class="card__basket" @click="addToBasket">
         in den Geschenkkorb
-      </a>
+      </button>
       <div class="card__more-info-btn" @click="showMore = !showMore">
         So hilft Ihr Geschenk
         <span v-if="showMore"><img class="icon-minus" :src="`${baseUrl}icons/minus.svg`" /> </span>
@@ -230,8 +230,12 @@ export default {
 }
 
 .card__basket {
+  appearance: none;
+  background: none;
+  border: 0;
   border-bottom: 4px solid color('ci');
   color: color('ci');
+  cursor: pointer;
   display: inline-block;
   font-size: 18px;
   font-family: $ff-deco;

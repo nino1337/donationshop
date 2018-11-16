@@ -17,9 +17,9 @@
         <div class="occasion__headline">
           {{title}}
         </div>
-        <a :href="currUrl + '#basket'" class="occasion__basket" @click="addToBasket">
+        <button class="occasion__basket" @click="addToBasket">
           Auswählen
-        </a>
+        </button>
       </div>
     </div>
 </template>
@@ -183,7 +183,11 @@ export default {
 }
 
 .occasion__basket {
+  appearance: none;
+  background: none;
+  border: 0;
   border-bottom: 4px solid color('ci');
+  cursor: pointer;
   color: color('ci');
   display: inline-block;
   font-size: 18px;
