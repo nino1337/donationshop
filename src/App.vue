@@ -102,7 +102,7 @@ export default {
   methods: {
     stepHandler() {
       // add state information to history to enable navigation with browser arrows
-      history.pushState({step: this.activeStep}, '', '');
+      history.pushState({step: this.activeStep}, '', window.location.pathname);
 
       if (this.activeStep === 1) {
         this.nextStep();
