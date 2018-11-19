@@ -11,9 +11,9 @@
       <div class="card__input">
         <Input :value="value" :amount="1" @amountChanged="setAmount" />
       </div>
-      <button class="card__basket" @click="addToBasket">
+      <a href="#basket" class="card__basket" @click="addToBasket">
         in den Geschenkkorb
-      </button>
+      </a>
       <div class="card__more-info-btn" @click="showMore = !showMore">
         So hilft Ihr Geschenk
         <span v-if="showMore"><img class="icon-minus" :src="`${baseUrl}icons/minus.svg`" /> </span>

@@ -17,9 +17,9 @@
         <div class="occasion__headline">
           {{title}}
         </div>
-        <button class="occasion__basket" @click="addToBasket">
+        <a href="#basket" class="occasion__basket" @click="addToBasket">
           Auswählen
-        </button>
+        </a>
       </div>
     </div>
 </template>
