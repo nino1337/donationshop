@@ -83,7 +83,6 @@ export default {
 
     window.onpopstate = (evt) => {
       const newStep = evt.state;
-
       if (newStep) {
         // when user navigates back from the donation form -> hide it
         if (this.activeStep === 2) {

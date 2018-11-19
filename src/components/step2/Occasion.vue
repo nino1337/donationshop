@@ -17,7 +17,7 @@
         <div class="occasion__headline">
           {{title}}
         </div>
-        <a href="#basket" class="occasion__basket" @click="addToBasket">
+        <a :href="currUrl + '#basket'" class="occasion__basket" @click="addToBasket">
           Auswählen
         </a>
       </div>

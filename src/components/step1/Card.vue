@@ -11,7 +11,7 @@
       <div class="card__input">
         <Input :value="value" :amount="1" @amountChanged="setAmount" />
       </div>
-      <a href="#basket" class="card__basket" @click="addToBasket">
+      <a :href="currUrl + '#basket'" class="card__basket" @click="addToBasket">
         in den Geschenkkorb
       </a>
       <div class="card__more-info-btn" @click="showMore = !showMore">
