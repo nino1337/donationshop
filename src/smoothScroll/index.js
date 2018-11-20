@@ -5,4 +5,5 @@ export const scroll = new SmoothScroll('a[href*="#"]', {
   speed: 1000,
   offset: 80,
   updateURL: false,
+  popstate: false,
 });

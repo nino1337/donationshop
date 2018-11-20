@@ -230,8 +230,12 @@ export default {
 }
 
 .card__basket {
+  appearance: none;
+  background: none;
+  border: 0;
   border-bottom: 4px solid color('ci');
   color: color('ci');
+  cursor: pointer;
   display: inline-block;
   font-size: 18px;
   font-family: $ff-deco;
