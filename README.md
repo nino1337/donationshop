@@ -21,7 +21,6 @@ npm run build
 ```
 ## Lints and fixes files
 
->>>>>>> develop
 ```
 npm run lint
 ```
