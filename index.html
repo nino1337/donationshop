@@ -1,0 +1,130 @@
+<!DOCTYPE html><html lang=de><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><link rel=icon href=/donationshop/favicon.ico><title>fe_stc-donationshop-18</title><script src=https://code.jquery.com/jquery-3.3.1.js integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin=anonymous></script><link href=/donationshop/css/app.3a3491b1.css rel=preload as=style><link href=/donationshop/js/app.ad6e6ffa.js rel=preload as=script><link href=/donationshop/js/chunk-vendors.791e9d34.js rel=preload as=script><link href=/donationshop/css/app.3a3491b1.css rel=stylesheet></head><body><main><noscript><strong>We're sorry but fe_stc-donationshop-18 doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript><script>var donateShopData = {
+        cards: [{
+          id: 0,
+          uid: 0,
+          image: 'https://picsum.photos/350/200/?random',
+          title: 'Geburtstagspaket',
+          isSpecial: false,
+          value: 30,
+          moreInfo: 'Lorem Ipus jajaja  Lorem Ipus jajaja  Lorem Ipus jajaja  Lorem Ipus jajaja  Lorem Ipus jajaja  Lorem Ipus jajaja  Lorem Ipus jajaja ',
+          occasionImages: [{
+            occationUid: 0,
+            image: 'https://picsum.photos/1600/900/?image=1048',
+          },
+          {
+            occationUid: 1,
+            image: 'https://picsum.photos/1600/900/?image=1047',
+          },
+          {
+            occationUid: 2,
+            image: 'https://picsum.photos/1600/900/?image=1049',
+
+          }]
+        },
+        {
+          id: 1,
+          uid: 1,
+          image: 'https://picsum.photos/350/200/?random',
+          title: 'Weihnachtspaket',
+          isSpecial: true,
+          value: 40,
+          moreInfo: 'Lorem Ipus jajaja  Lorem Ipus jajaja  Lorem Ipus jajaja  Lorem I 2 Ipus jajaja  Lorem Ipus jajaja ',
+          pdf: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+          occasionImages: [{
+            occationUid: 0,
+            image: 'https://picsum.photos/1600/900/?image=1049',
+          },
+          {
+            occationUid: 1,
+            image: 'https://picsum.photos/1600/900/?image=1048',
+          },
+          {
+            occationUid: 2,
+            image: 'https://picsum.photos/1600/900/?image=1047',
+          }]
+        },
+        {
+          id: 2,
+          uid: 2,
+          image: 'https://picsum.photos/350/200/?random',
+          title: 'Osterpaket',
+          isSpecial: false,
+          value: 50,
+          moreInfo: 'Lorem Ipus jajaja  Lorem Ipus jajaja  Lorem Ipus jajaja  Lorem Ipus jajaja  Lorem Ipus jajaja  Lorem Ipus jajaja  Lorem Ipus jajaja',
+          pdf: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+          occasionImages: [{
+            occationUid: 0,
+            image: 'https://picsum.photos/1600/900/?image=1047',
+          },
+          {
+            occationUid: 1,
+            image: 'https://picsum.photos/1600/900/?image=1047',
+          },
+          {
+            occationUid: 2,
+            image: 'https://picsum.photos/1600/900/?image=1047',
+          }]
+        },
+        {
+          id: 3,
+          uid: 3,
+          image: 'https://picsum.photos/350/200/?random',
+          title: 'Neujahrespaket',
+          isSpecial: false,
+          value: 20,
+          moreInfo: 'Lorem Ipus jajaja  Lorem Ipus jajaja  Lorem Ipus jajaja  Lorem Ipus jajaja  Lorem Ipus jajaja  Lorem Ipus jajaja  Lorem Ipus jajaja ',
+          pdf: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+          occasionImages: [{
+            occationUid: 0,
+            image: 'https://picsum.photos/1600/900/?image=1050',
+          },
+          {
+            occationUid: 1,
+            image: 'https://picsum.photos/1600/900/?image=1050',
+          },
+          {
+            occationUid: 2,
+            image: 'https://picsum.photos/1600/900/?image=1050',
+          }]
+        }],
+        occasions: [{
+          id: 2,
+          uid: 2,
+          title: 'Weihnachten',
+        },
+        {
+          id: 1,
+          uid: 1,
+          title: 'Geburtstag',
+        },
+        {
+          id: 0,
+          uid: 0,
+          title: 'ohne Anlass',
+        }],
+        content: {
+          title: '',
+          text: '',
+        }
+      };
+      document.addEventListener("DOMContentLoaded", function (event) {
+        document.addEventListener("donateShopFinished", function (data) {   
+          var donateForm = document.getElementById('shop-iframe')
+
+          if(!data.detail.firstFinish) {
+            donateShopData.script.parentNode.removeChild(donateShopData.script)
+          }
+
+          var fundraisingIframe = document.createElement('script');
+          fundraisingIframe.setAttribute('src', 'https://secure.fundraisingbox.com/app/paymentJS?hash=hb1x147cd9324ozy&amount_fix=' + donateShopData.amount + '&donation_custom_field_3809=' + donateShopData.basket);
+
+          // create reference
+          donateShopData.script = fundraisingIframe;
+
+          donateForm.appendChild(fundraisingIframe);
+          donateForm.style.display = 'block';
+
+          $('#shop-iframe').closest('[id^="c"]').nextAll().css('display', 'none');
+          $('.newsletter-registration').css('display', 'none');
+        })
+      });</script><div id=c3240><div id=app></div><div id=shop-iframe style="display: none;"><div id=fbIframeDiv></div><a target=_blank href=https://www.fundraisingbox.com><img border=0 style="border: 0 !important" src=https://secure.fundraisingbox.com/images/FundraisingBox-Logo-Widget.png alt="FundraisingBox Logo"></a></div></div></main><script src=/donationshop/js/chunk-vendors.791e9d34.js></script><script src=/donationshop/js/app.ad6e6ffa.js></script></body></html>
