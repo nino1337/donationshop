@@ -1,53 +1,54 @@
 <template>
   <div class="occasion">
-      <div v-if="basket.cards.length" class="occasion__head"
-      :class="{'lightbox-open': showLightbox}" @click="toggleLightbox" >
-        <img class="occasion__image" :src="getOccasionImg()"/>
-        <img class="occasion__zoom" :src="`${baseUrl}icons/zoom.svg`" />
-        <transition name="opacity">
-          <Lightbox :src="getOccasionImg()" v-show="showLightbox" @closeClicked="$event.stopPropagation();toggleLightbox"/>
-        </transition>
-        <transition name="scale">
-          <div v-if="isInBasket()" class="occasion__deactivated">
-            Um die Karte im Geschenkkorb zu ändern, einfach eine andere Grusskarte auswählen
-          </div>
-        </transition>
-      </div>
-      <div class="occasion__body">
-        <div class="occasion__headline">
-          {{title}}
-        </div>
-        <a :href="currUrl + '#basket'" class="occasion__basket" @click="addToBasket">
-          Auswählen
-        </a>
-      </div>
+    <div
+      v-if="basket.cards.length"
+      class="occasion__head"
+      :class="{'lightbox-open': showLightbox}"
+      @click="toggleLightbox"
+    >
+      <img class="occasion__image" :src="getOccasionImg()" />
+      <img class="occasion__zoom" :src="`${baseUrl}icons/zoom.svg`" />
+      <transition name="opacity">
+        <Lightbox :src="getOccasionImg()" v-show="showLightbox" />
+      </transition>
+      <transition name="scale">
+        <div
+          v-if="isInBasket()"
+          class="occasion__deactivated"
+        >Um die Karte im Geschenkkorb zu ändern, einfach eine andere Grusskarte auswählen</div>
+      </transition>
     </div>
+    <div class="occasion__body">
+      <div class="occasion__headline">{{title}}</div>
+      <a :href="currUrl + '#basket'" class="occasion__basket" @click="addToBasket">Auswählen</a>
+    </div>
+  </div>
 </template>
 
 <script>
-import basket from '../../basket';
+import basket from "../../basket";
 
 export default {
-  name: 'Occasion',
+  name: "Occasion",
   props: {
-  id: Number,
-  uid: Number,
-  title: String,
-  index: Number,
-  occasions: Array,
-  currUrl: String,
+    id: Number,
+    uid: Number,
+    title: String,
+    index: Number,
+    occasions: Array,
+    currUrl: String
   },
   data() {
     return {
       baseUrl: process.env.BASE_URL,
       basket: basket,
-      showLightbox: false,
-    }
+      showLightbox: false
+    };
   },
   computed: {
     occasion() {
       return this.basket.occasion;
-    },
+    }
   },
   methods: {
     addToBasket() {
@@ -61,7 +62,7 @@ export default {
         id: this.id,
         uid: this.uid,
         title: this.title
-      }
+      };
 
       this.basket.occasion = occasion;
       this.openBasket();
@@ -73,37 +74,39 @@ export default {
       return Object.keys(this.basket.occasion).length;
     },
     toggleLightbox() {
-      this.showLightbox = !this.showLightbox
+      this.showLightbox = !this.showLightbox;
     },
     getOccasionImg() {
       if (this.basket.cards.length) {
-        const occasionImages = this.basket.cards[0].occasionImages.filter((item, index) => {
-          return item.occationUid === this.uid
-        })
+        const occasionImages = this.basket.cards[0].occasionImages.filter(
+          (item, index) => {
+            return item.occationUid === this.uid;
+          }
+        );
 
         return occasionImages[0].image;
       }
     },
     openBasket() {
       this.basket.basketOpen = true;
-    },
+    }
   }
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
-@import '../../assets/scss/partials/functions';
-@import '../../assets/scss/partials/variables';
-@import '../../assets/scss/partials/mixins';
+@import "../../assets/scss/partials/functions";
+@import "../../assets/scss/partials/variables";
+@import "../../assets/scss/partials/mixins";
 
 .occasion {
   border-radius: 7px;
   margin: 24px 16px 0;
   max-width: 350px;
-  box-shadow: 0 2px 15px -5px rgba(color('black'), 0.5);
+  box-shadow: 0 2px 15px -5px rgba(color("black"), 0.5);
 
-  @include respondMin(point('min-md')) {
+  @include respondMin(point("min-md")) {
     width: 33.33%;
   }
 }
@@ -117,7 +120,7 @@ export default {
   position: relative;
 
   &.lightbox-open {
-    @include respondMin(point('min-md')) {
+    @include respondMin(point("min-md")) {
       overflow: visible; // fix ie11 position-fixed bug, when parent element has overflow hidden
     }
   }
@@ -130,7 +133,7 @@ export default {
     transform: scale(1.1);
   }
 
-  @include respondMin(point('min-md')) {
+  @include respondMin(point("min-md")) {
     cursor: pointer;
   }
 }
@@ -144,14 +147,14 @@ export default {
   width: 20px;
   z-index: 1;
 
-  @include respondMin(point('min-md')) {
+  @include respondMin(point("min-md")) {
     display: block;
   }
 }
 
 .occasion__deactivated {
-  background-color: rgba(color('black'), 0.65);
-  color: color('white');
+  background-color: rgba(color("black"), 0.65);
+  color: color("white");
   display: flex;
   align-items: center;
   font-family: $ff-deco;
@@ -165,13 +168,13 @@ export default {
   width: 100%;
   z-index: 1;
 
-  @include respondMin(point('min-lg')) {
+  @include respondMin(point("min-lg")) {
     font-size: 24px;
   }
 }
 
 .occasion__body {
-  box-shadow: 0 2px 15px -9px rgba(color('black'), 0.5);
+  box-shadow: 0 2px 15px -9px rgba(color("black"), 0.5);
   padding: 16px;
 }
 
@@ -186,9 +189,9 @@ export default {
   appearance: none;
   background: none;
   border: 0;
-  border-bottom: 4px solid color('ci');
+  border-bottom: 4px solid color("ci");
   cursor: pointer;
-  color: color('ci');
+  color: color("ci");
   display: inline-block;
   font-size: 18px;
   font-family: $ff-deco;

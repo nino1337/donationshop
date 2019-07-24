@@ -1,7 +1,11 @@
 <template>
   <div class="input">
     <div class="input__dropdown-wrapper">
-      <select class="input__dropdown" @change="$emit('amountChanged', $event.target)" v-model="selected">
+      <select
+        class="input__dropdown"
+        @change="$emit('amountChanged', $event.target)"
+        v-model="selected"
+      >
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
@@ -14,22 +18,20 @@
         <option value="10">10</option>
       </select>
     </div>
-    <div class="input__text">
-      für je
-    </div>
+    <div class="input__text">für je</div>
     <div class="input__value">{{value}}€</div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Input',
-  props: ['value','amount'],
+  name: "Input",
+  props: ["value", "amount"],
   data() {
     return {
-      selected: '',
-      baseUrl: process.env.BASE_URL,
-    }
+      selected: "",
+      baseUrl: process.env.BASE_URL
+    };
   },
   created() {
     this.selected = this.amount;
@@ -58,7 +60,7 @@ export default {
 
   &::before {
     bottom: 8px;
-    content: url('/typo3conf/ext/bra_projectfiles_stc/Resources/Public/donation-shop/dist/icons/quantity.svg');
+    content: url($folder-path+"icons/quantity.svg");
     position: absolute;
     pointer-events: none;
     right: 16px;
@@ -68,8 +70,8 @@ export default {
 
 .input__dropdown {
   appearance: none;
-  border: 1px solid color('grey-light');
-  background-color: color('white');
+  border: 1px solid color("grey-light");
+  background-color: color("white");
   border-radius: 0;
   font-size: 16px;
   padding: 5px 32px 3px 16px;
@@ -92,7 +94,7 @@ export default {
 
 .basket__package {
   .input__dropdown {
-    background-color: color('bisquit');
+    background-color: color("bisquit");
   }
 }
 </style>

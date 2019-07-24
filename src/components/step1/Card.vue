@@ -11,29 +11,29 @@
       <div class="card__input">
         <Input :value="value" :amount="1" @amountChanged="setAmount" />
       </div>
-      <a :href="currUrl + '#basket'" class="card__basket" @click="addToBasket">
-        in den Geschenkkorb
-      </a>
+      <a :href="currUrl + '#basket'" class="card__basket" @click="addToBasket">in den Geschenkkorb</a>
       <div class="card__more-info-btn" @click="showMore = !showMore">
         So hilft Ihr Geschenk
-        <span v-if="showMore"><img class="icon-minus" :src="`${baseUrl}icons/minus.svg`" /> </span>
-        <span v-else><img class="icon-plus"  :src="`${baseUrl}icons/plus.svg`" /> </span>
+        <span v-if="showMore">
+          <img class="icon-minus" :src="`${baseUrl}icons/minus.svg`" />
+        </span>
+        <span v-else>
+          <img class="icon-plus" :src="`${baseUrl}icons/plus.svg`" />
+        </span>
       </div>
-      <div class="card__more-info" :class="{'is-active': showMore}">
-        {{moreInfo}}
-      </div>
+      <div class="card__more-info" :class="{'is-active': showMore}">{{moreInfo}}</div>
     </div>
   </div>
 </template>
 
 <script>
-import Input from '../elements/Input';
-import basket from '../../basket';
+import Input from "../elements/Input";
+import basket from "../../basket";
 
 export default {
-  name: 'Card',
+  name: "Card",
   components: {
-    Input,
+    Input
   },
   props: {
     id: Number,
@@ -44,7 +44,7 @@ export default {
     value: Number,
     moreInfo: String,
     occasionImages: Array,
-    currUrl: String,
+    currUrl: String
   },
   data() {
     return {
@@ -52,13 +52,13 @@ export default {
       showMore: false,
       basket: basket,
       amount: 1,
-      valueOld: 0, 
+      valueOld: 0,
       valueNew: 0,
-      countUp: false,
-    }
+      countUp: false
+    };
   },
   created() {
-    this.$parent.$on('next-step', this.hideMoreInfo); // submit on event: next-step - to hide more info
+    this.$parent.$on("next-step", this.hideMoreInfo); // submit on event: next-step - to hide more info
   },
   watch: {
     valueNew() {
@@ -66,18 +66,18 @@ export default {
         if (this.countUp) {
           if (this.valueOld === this.valueNew) {
             this.basket.accumulatedValue = this.valueNew;
-            this.resetAnimationValues()
-            clearInterval(animationInterval)
+            this.resetAnimationValues();
+            clearInterval(animationInterval);
             return;
           }
-          
+
           if (this.valueOld > this.valueNew) {
             this.basket.accumulatedValue = this.valueOld--;
           } else {
             this.basket.accumulatedValue = this.valueOld++;
-          } 
+          }
         } else {
-          clearInterval(animationInterval)
+          clearInterval(animationInterval);
         }
       }, 1);
     }
@@ -88,7 +88,7 @@ export default {
 
       if (this.isInBasket()) {
         this.changeAmount();
-        return
+        return;
       }
 
       cards.push({
@@ -97,8 +97,8 @@ export default {
         title: this.title,
         value: this.value,
         amount: this.amount,
-        occasionImages: this.occasionImages,
-      }) 
+        occasionImages: this.occasionImages
+      });
 
       this.basket.cards = cards;
       this.accumulateValue();
@@ -108,10 +108,10 @@ export default {
       let isInBasket = false;
 
       this.basket.cards.forEach(item => {
-        if(item.id === this.id) {
+        if (item.id === this.id) {
           isInBasket = true;
         }
-      })
+      });
 
       return isInBasket;
     },
@@ -119,9 +119,9 @@ export default {
       let value = 0;
       let itemCount = 0;
       this.basket.cards.forEach(item => {
-        value += (item.value * item.amount);
+        value += item.value * item.amount;
         itemCount += item.amount;
-      })
+      });
 
       this.setAnimationValues(value);
       this.basket.itemCount = itemCount;
@@ -154,7 +154,7 @@ export default {
     },
     openBasket() {
       this.basket.basketOpen = true;
-    },
+    }
   }
 };
 </script>
@@ -166,25 +166,25 @@ export default {
 @import "../../assets/scss/partials/mixins";
 
 .card {
-  box-shadow: 0 2px 15px -5px rgba(color('black'), 0.5);
+  box-shadow: 0 2px 15px -5px rgba(color("black"), 0.5);
   border-radius: 7px;
   display: block;
   margin: 0 16px 16px;
   max-width: 300px;
   width: 100%;
 
-  @include respondMin(point('min-md')) {
+  @include respondMin(point("min-md")) {
     width: 45%;
   }
 
-  @include respondMin(point('min-xl')) {
+  @include respondMin(point("min-xl")) {
     max-width: 270px;
   }
 
   &.is-first {
     order: -1;
 
-    @include respondMin(point('min-md')) {
+    @include respondMin(point("min-md")) {
       order: 0;
     }
   }
@@ -195,7 +195,7 @@ export default {
   height: 0;
   overflow: hidden;
   position: relative;
-  padding-bottom: 75%;
+  padding-bottom: 56%;
 }
 
 .card__body {
@@ -215,9 +215,9 @@ export default {
 .card__special {
   align-self: center;
   display: inline-block;
-  border: 1px solid color('ci-bisquit');
+  border: 1px solid color("ci-bisquit");
   border-radius: 3px;
-  color: color('ci-bisquit');
+  color: color("ci-bisquit");
   font-size: 14px;
   line-height: 21px;
   height: 21px;
@@ -233,8 +233,8 @@ export default {
   appearance: none;
   background: none;
   border: 0;
-  border-bottom: 4px solid color('ci');
-  color: color('ci');
+  border-bottom: 4px solid color("ci");
+  color: color("ci");
   cursor: pointer;
   display: inline-block;
   font-size: 18px;
@@ -268,10 +268,10 @@ export default {
     overflow: visible;
   }
 
-  @include respondMin(point('min-xl')) {
-    box-shadow: 0 7px 28px -13px color('grey');
+  @include respondMin(point("min-xl")) {
+    box-shadow: 0 7px 28px -13px color("grey");
     border-radius: 7px;
-    background-color: color('white');
+    background-color: color("white");
     left: 0;
     top: calc(100% - 20px);
     padding: 0 16px;
@@ -280,20 +280,18 @@ export default {
     z-index: 500;
 
     &::before {
-        background-color: color('white');
-        content: '';
-        position: absolute;
-        height: 15px;
-        left: 0;
-        width: 100%;
-        top: -12px;
-      }
+      background-color: color("white");
+      content: "";
+      position: absolute;
+      height: 15px;
+      left: 0;
+      width: 100%;
+      top: -12px;
+    }
 
     &.is-active {
       padding-bottom: 32px;
     }
   }
 }
-
-
 </style>

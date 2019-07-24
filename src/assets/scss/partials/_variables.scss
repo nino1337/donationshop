@@ -15,23 +15,23 @@
    ========================================================================== */
 
 /* base path */
-$folder-path: "/typo3conf/ext/bra_projectfiles_stc/Resources/Public/";
+$folder-path: "/";
+
+@if $env == "pages" {
+  $folder-path: "/donationshop/";
+}
 
 /* Base sizes */
 $base-em: 16;
 
 /* Body font size */
 $body-font-size-px: 22;
-$body-font-size: percentage(
-  ($body-font-size-px / $base-em) * 100 / 100
-); // in percent
+$body-font-size: percentage(($body-font-size-px / $base-em) * 100 / 100); // in percent
 
 /* Font Style */
 
-$ff-deco: "TradeGothic", "Helvetica Neue Light", "Helvetica Neue", Helvetica,
-  Arial, "Lucida Grande", sans-serif !default;
-$ff-regular: "GillSans", "Helvetica Neue Light", "Helvetica Neue", Helvetica,
-  Arial, "Lucida Grande", sans-serif !default;
+$ff-deco: "TradeGothic", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif !default;
+$ff-regular: "GillSans", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif !default;
 $ff-icon: iconfont !default;
 
 /* ==========================================================================
@@ -141,12 +141,7 @@ $colors: (
   //not-updated
     "bg-grey-light": #f4f4f4,
   "bg-grey-dark": #c1c1c1,
-  "bg-grey-gradient":
-    linear-gradient(
-      to bottom,
-      rgba(251, 251, 251, 1) 0%,
-      rgba(235, 235, 235, 1) 100%
-    )
+  "bg-grey-gradient": linear-gradient(to bottom, rgba(251, 251, 251, 1) 0%, rgba(235, 235, 235, 1) 100%)
 );
 
 /* colors@> */
